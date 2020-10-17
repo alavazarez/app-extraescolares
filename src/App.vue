@@ -1,39 +1,22 @@
 <template>
   <v-app>
-    <v-app-bar
-      color="blue" 
-      dark
-    >
-       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title>Dashboard</v-toolbar-title>
-    </v-app-bar>
-    
-      <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      temporary
-      >
-      
-      </v-navigation-drawer>
     <v-main>
-      <HelloWorld />
+      <Navbar />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import Navbar from "./components/Narbar2";
 
 export default {
   name: "App",
 
   components: {
-    HelloWorld
+    Navbar
   },
 
   data: () => ({
-    drawer: true,
-    mini: true,
-  })
+   })
 };
 </script>
