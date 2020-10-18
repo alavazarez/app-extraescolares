@@ -1,96 +1,70 @@
 <template>
   <nav>
-      <v-app-bar
-			color="primary"
-			dark
-			>
-				<v-app-bar-nav-icon
-				></v-app-bar-nav-icon>
-				<v-spacer></v-spacer>
-				<v-menu
-				bottom
-				left
-				offset-y
-				>
-					<template v-slot:activator="{ on, attrs }">
-						<v-btn
-							dark
-							icon
-							v-bind="attrs"
-							v-on="on"
-						>
-							<v-icon >mdi-dots-vertical</v-icon>
-						</v-btn>
-					</template>
+    <v-app-bar color="primary" dark>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-spacer></v-spacer>
+      <v-menu bottom left offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn dark icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
 
-					<v-list>
-              <v-list-item
-              >
-                <v-list-item-title>Cerrar sesión</v-list-item-title>
-              </v-list-item>
-            </v-list>
-				</v-menu>
-      </v-app-bar>
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>Cerrar sesión</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-app-bar>
 
-			<v-navigation-drawer
-			app
-			>
-				<v-list>
-					<v-list-item>
-						<v-list-item-avatar>
-							 <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-						</v-list-item-avatar>
-					</v-list-item>
-				</v-list>
+    <v-navigation-drawer app>
+      <v-list>
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+          </v-list-item-avatar>
+        </v-list-item>
+      </v-list>
 
-				<v-list>
-					<v-list-item link>
-						<v-list-item-content>
-							<v-list-item-title class="title">
-								Eduardo
-							</v-list-item-title>
-							<v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
-						</v-list-item-content>
+      <v-list>
+        <v-list-item link>
+          <v-list-item-content>
+            <v-list-item-title class="title">
+              Diana
+            </v-list-item-title>
+            <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+          </v-list-item-content>
 
-					<v-list-item-action>
+          <v-list-item-action>
             <v-icon>mdi-menu-down</v-icon>
-					</v-list-item-action>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
+      <v-divider></v-divider>
 
-					</v-list-item>
-				</v-list>
-				<v-divider></v-divider>
+      <v-list nav dense>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
 
-				<v-list
-				nav
-				dense
-				>
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon>mdi-home</v-icon>
-						</v-list-item-icon>
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
 
-						<v-list-item-title>Home</v-list-item-title>
-					</v-list-item>
+        <v-list-group no-action sub-group v-for="(item, i) in items" :key="i">
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+            </v-list-item-content>
+          </template>
 
-					<v-list-group
-          :value="true"
-          no-action
-          sub-group
-					prepend-icon="mdi-account-circle"
-					v-for="(item, i) in items"
-					:key="i"
-        	>
-						<template v-slot:activator>
-							<v-list-item-content>
-								<v-list-item-title>{{item.text}}</v-list-item-title>
-							</v-list-item-content>
-						</template>
-
-						<v-list-item
-							v-for="(child,i) in item.children"
-							:key="i"
-							link
-						>
+          <v-list-item
+            v-for="(child, i) in item.children"
+            :key="i"
+            link
+            :to="child.route"
+          >
             <v-list-item-title v-text="child.text"></v-list-item-title>
 
             <v-list-item-icon>
@@ -98,41 +72,46 @@
             </v-list-item-icon>
           </v-list-item>
         </v-list-group>
-				</v-list>
-			</v-navigation-drawer>
+      </v-list>
+    </v-navigation-drawer>
   </nav>
 </template>
 
 <script>
 export default {
-		name: "Navbar",
-		data: () => ({
-			item: 0,
-			items: [
-				{ 
-					text: 'User', 
-					icon: 'mdi-account', 
-					children: [
-						{ text: 'Añadir', icon: 'mdi-account-plus', route:'' },
-						{ text: 'Modificar', icon: 'mdi-account-edit', route:'' },
-						{ text: 'Eliminar', icon: 'mdi-soccer', route:'' }
-					]
-				},
-				{ 
-					text: 'Eventos', 
-					icon: 'mdi-soccer', 
-					children: [
-						{ text: 'Ver', icon: 'mdi-eye', route:'' },
-						{ text: 'Asignar', icon: 'mdi-soccer', route:'' },
-						{ text: 'Crear', icon: 'mdi-soccer', route:'' },
-						{ text: 'Editar', icon: 'mdi-soccer', route:'' },
-					]
-				},
-      ],
-		})
-}
+  name: "Navbar",
+  data: () => ({
+    item: 0,
+    items: [
+      {
+        text: "User",
+        icon: "mdi-account",
+        children: [
+          { text: "Ver usuarios", icon: "mdi-account-plus", route: "" }
+        ]
+      },
+      {
+        text: "Eventos",
+        icon: "mdi-soccer",
+        children: [
+          {
+            text: "Ver",
+            icon: "mdi-format-list-bulleted",
+            route: "/event/list"
+          },
+          { text: "Asignar", icon: "mdi-account-check-outline", route: "" }
+        ]
+      },
+      {
+        text: "ACOM",
+        icon: "mdi-soccer",
+        children: [
+          { text: "Ver", icon: "mdi-eye", route: "" },
+          { text: "Asignar", icon: "mdi-check", route: "" },
+          { text: "Crear", icon: "mdi-note_add", route: "" }
+        ]
+      }
+    ]
+  })
+};
 </script>
-
-<style>
-
-</style>

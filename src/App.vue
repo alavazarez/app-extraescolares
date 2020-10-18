@@ -1,14 +1,16 @@
 <template>
   <v-app>
+    <Navbar />
     <v-main>
-      <Navbar />
+      <v-container class="mt-4">
+        <router-view></router-view>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import Navbar from "./components/Narbar2";
-
 export default {
   name: "App",
 
@@ -16,7 +18,6 @@ export default {
     Navbar
   },
 
-  data: () => ({
-   })
+  data: () => ({})
 };
 </script>
