@@ -3,9 +3,7 @@
     <v-card-title class="heading-2">
       Eventos
       <v-spacer></v-spacer>
-      <v-btn class="mx-3" fab color="primary" dark v-bind="attrs" v-on="on">
-        <v-icon dark>mdi-plus</v-icon>
-      </v-btn>
+      <RegisterForm />
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -13,21 +11,22 @@
       sort-by="calories"
       class="elevation-1"
     >
-      <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">
-          mdi-pencil
-        </v-icon>
-        <v-icon small @click="deleteItem(item)">
-          mdi-delete
-        </v-icon>
+      <template v-slot:[`item.actions`]>
+        <EditForm />
+        <v-btn x-small fab color="error" dark>
+          <v-icon dark>mdi-trash-can</v-icon></v-btn
+        >
       </template>
     </v-data-table>
   </v-card>
 </template>
 
 <script>
+import RegisterForm from "@/components/Eventos/RegisterForm";
+import EditForm from "@/components/Eventos/EditForm";
 export default {
-  name: "RegisterForm",
+  name: "List",
+  components: { RegisterForm, EditForm },
   data: () => ({
     headers: [
       { text: "Id", value: "id" },

@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-app-bar color="primary" dark>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-menu bottom left offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -82,6 +82,7 @@ export default {
   name: "Navbar",
   data: () => ({
     item: 0,
+    drawer: null,
     items: [
       {
         text: "User",
@@ -99,7 +100,7 @@ export default {
             icon: "mdi-format-list-bulleted",
             route: "/event/list"
           },
-          { text: "Asignar", icon: "mdi-account-check-outline", route: "" }
+          { text: "Asignar", icon: "mdi-account-check-outline", route: "/event/asignar" }
         ]
       },
       {

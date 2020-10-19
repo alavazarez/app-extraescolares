@@ -3,12 +3,14 @@ import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import ListEvent from "../views/admin/eventos/List.vue";
 import Login from "../views/admin/user/Login.vue";
+import Asignar from "../views/admin/eventos/Asignar.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Dashboard',
+    path: "/",
+    name: "Dashboard",
     component: Dashboard
   },
   {
@@ -20,6 +22,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/event/asignar",
+    name: "Asignar",
+    component: Asignar
   }
 ];
 

@@ -1,8 +1,16 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn class="mx-3" fab color="primary" dark v-bind="attrs" v-on="on">
-        <v-icon dark>mdi-plus</v-icon>
+      <v-btn
+        x-small
+        class="mx-3"
+        fab
+        color="primary"
+        dark
+        v-bind="attrs"
+        v-on="on"
+      >
+        <v-icon dark>mdi-pencil</v-icon>
       </v-btn>
     </template>
     <v-card>
@@ -26,7 +34,7 @@
                 <v-date-picker></v-date-picker>
               </v-menu>
             </v-col>
-            <v-col cols="12" sm="4"> 
+            <v-col cols="12" sm="4">
               <v-text-field label="hora*" required></v-text-field>
             </v-col>
           </v-row>
@@ -58,7 +66,7 @@
 
 <script>
 export default {
-  name: "RegisterForm",
-  data: () => ({dialog:false})
+  name: "EditForm",
+  data: () => ({ dialog: false })
 };
 </script>
