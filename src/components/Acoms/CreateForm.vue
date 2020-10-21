@@ -1,41 +1,22 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn
-        x-small
-        class="mx-3"
-        fab
-        color="primary"
-        dark
-        v-bind="attrs"
-        v-on="on"
-      >
-        <v-icon dark>mdi-pencil</v-icon>
-      </v-btn>
+      <v-btn x-small fab color="primary" dark v-bind="attrs" v-on="on">
+          <v-icon dark>mdi-pencil</v-icon></v-btn
+        >
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Nuevo eventooooo</span>
+        <span class="headline">Crear ACOM 4</span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row>
-            <v-col cols="12">
-              <v-text-field label="Nombre*" required></v-text-field>
+            <v-col cols="6">
+              <v-text-field type="date" value="as" label="Fecha"></v-text-field>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" sm="4">
-              <v-text-field label="Lugar*" required></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-menu>
-                <v-text-field slot="activator" label="Fecha"></v-text-field>
-                <v-date-picker></v-date-picker>
-              </v-menu>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-text-field label="hora*" required></v-text-field>
+            <v-col cols="6"> 
+              <v-text-field label="Usuario" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -49,7 +30,6 @@
             </v-col>
           </v-row>
         </v-container>
-        <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -66,7 +46,7 @@
 
 <script>
 export default {
-  name: "EditForm",
-  data: () => ({ dialog: false })
+  name: "RegisterForm",
+  data: () => ({dialog:false})
 };
 </script>
