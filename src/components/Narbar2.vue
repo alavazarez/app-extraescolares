@@ -109,7 +109,8 @@ export default {
         children: [
           { text: "Ver", icon: "mdi-eye", route: "/acom/list" },
           { text: "Entregar", icon: "mdi-check", route: "/acom/delivers" },
-          { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" }
+          { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
+          { text: "Configuracion ", icon: "mdi-settings", route: "/acom/configuration" }
         ]
       }
     ]

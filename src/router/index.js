@@ -7,6 +7,7 @@ import Asignar from "../views/admin/eventos/Asignar.vue";
 import ListAcom from "../views/admin/Acoms/List.vue";
 import DeliversAcom from "../views/admin/Acoms/Delivers.vue";
 import CreateAcom from "../views/admin/Acoms/Create.vue";
+import ConfigurationAcom from "../views/admin/Acoms/Configuration.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/acom/create",
     name: "Crear",
     component: CreateAcom
+  },
+  {
+    path: "/acom/configuration",
+    name: "Configurar",
+    component: ConfigurationAcom
   }
 ];
 
