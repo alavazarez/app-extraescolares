@@ -15,7 +15,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Nuevo evento</span>
+        <span class="headline">Nuevo eventooooo</span>
       </v-card-title>
       <v-card-text>
         <v-container>
