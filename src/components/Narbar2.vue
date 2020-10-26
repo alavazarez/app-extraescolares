@@ -100,7 +100,11 @@ export default {
             icon: "mdi-format-list-bulleted",
             route: "/event/list"
           },
-          { text: "Asignar", icon: "mdi-account-check-outline", route: "/event/asignar" }
+          {
+            text: "Asignar",
+            icon: "mdi-account-check-outline",
+            route: "/event/asignar"
+          }
         ]
       },
       {
