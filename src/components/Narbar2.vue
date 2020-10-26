@@ -111,9 +111,10 @@ export default {
         text: "ACOM",
         icon: "mdi-soccer",
         children: [
-          { text: "Ver", icon: "mdi-eye", route: "" },
-          { text: "Asignar", icon: "mdi-check", route: "" },
-          { text: "Crear", icon: "mdi-note_add", route: "" }
+          { text: "Ver", icon: "mdi-eye", route: "/acom/list" },
+          { text: "Entregar", icon: "mdi-check", route: "/acom/delivers" },
+          { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
+          { text: "Configuracion ", icon: "mdi-settings", route: "/acom/configuration" }
         ]
       }
     ]
