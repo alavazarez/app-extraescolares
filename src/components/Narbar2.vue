@@ -95,16 +95,9 @@ export default {
         text: "Eventos",
         icon: "mdi-soccer",
         children: [
-          {
-            text: "Ver",
-            icon: "mdi-format-list-bulleted",
-            route: "/event/list"
-          },
-          {
-            text: "Asignar",
-            icon: "mdi-account-check-outline",
-            route: "/event/asignar"
-          }
+          { text: "Ver", icon: "mdi-format-list-bulleted", route: "/event/list" },
+          { text: "Asignar", icon: "mdi-account-check-outline", route: "/event/asignar" },
+          { text: "Reportes", icon: "mdi-file-document", route: "/event/reports" }
         ]
       },
       {
@@ -114,7 +107,8 @@ export default {
           { text: "Ver", icon: "mdi-eye", route: "/acom/list" },
           { text: "Entregar", icon: "mdi-check", route: "/acom/delivers" },
           { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
-          { text: "Configuracion ", icon: "mdi-message-processing", route: "/acom/configuration" }
+          { text: "Configuracion ", icon: "mdi-message-processing", route: "/acom/configuration" },
+          { text: "Reportes", icon: "mdi-file-document", route: "/acom/reports" }
         ]
       }
     ]

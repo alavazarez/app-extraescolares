@@ -4,10 +4,12 @@ import Dashboard from "../views/admin/user/Dashboard.vue";
 import ListEvent from "../views/admin/eventos/List.vue";
 import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
+import Reports from "../views/admin/eventos/Reports.vue";
 import ListAcom from "../views/admin/Acoms/List.vue";
 import DeliversAcom from "../views/admin/Acoms/Delivers.vue";
 import CreateAcom from "../views/admin/Acoms/Create.vue";
 import ConfigurationAcom from "../views/admin/Acoms/Configuration.vue";
+import ReportsAcom from "../views/admin/Acoms/Reports.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +35,11 @@ const routes = [
     component: Asignar
   },
   {
+    path: "/event/reports",
+    name: "Reportes",
+    component: Reports
+  },
+  {
     path: "/acom/list",
     name: "listAcom",
     component: ListAcom
@@ -51,6 +58,11 @@ const routes = [
     path: "/acom/configuration",
     name: "Configurar",
     component: ConfigurationAcom
+  },
+  {
+    path: "/acom/reports",
+    name: "Reportes",
+    component: ReportsAcom
   }
 ];
 
