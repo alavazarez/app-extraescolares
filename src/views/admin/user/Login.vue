@@ -2,17 +2,17 @@
   <v-row align="center" justify="center">
     <v-col col="12" md="4" sm="6">
       <v-card>
-        <v-card-title>Login</v-card-title>
+        <v-card-title v-if="user.name">Login {{ user.name }}</v-card-title>
         <v-card-text>
           <v-text-field
             prepend-icon="mdi-account"
-            v-model="credentials.email"
+            v-model="form.email"
             label="Correo Electrónico"
           >
           </v-text-field>
           <v-text-field
-            label="Contraseña"
-            v-model="credentials.password"
+            label="form"
+            v-model="form.password"
             prepend-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
@@ -22,7 +22,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text>Ingresar</v-btn>
+          <v-btn @click="login" color="primary" text>Ingresar</v-btn>
         </v-card-actions>
       </v-card>
       <v-snackbar v-model="snackbar" :top="true" :right="true" :color="'error'">
@@ -38,16 +38,19 @@ export default {
   name: "login",
   data: () => ({
     showPassword: false,
-    credentials: {
-      email: "admin@app.com",
-      password: "password2"
+    form: {
+      email: "admin@admin.com",
+      password: "password"
     },
+    user: {},
     snackbar: false,
     message: ""
   }),
   methods: {
-    login() {
-      User.login(this.form);
+    async login() {
+      await User.login(this.form);
+      await this.getUser();
+      localStorage.setItem("auth", true);
     },
     async logout() {
       await User.logout();

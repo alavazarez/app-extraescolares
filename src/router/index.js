@@ -9,6 +9,7 @@ import DeliversAcom from "../views/admin/Acoms/Delivers.vue";
 import CreateAcom from "../views/admin/Acoms/Create.vue";
 import ConfigurationAcom from "../views/admin/Acoms/Configuration.vue";
 
+
 Vue.use(VueRouter);
 
 const routes = [
