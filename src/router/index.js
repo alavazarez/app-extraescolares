@@ -11,6 +11,7 @@ import CreateAcom from "../views/admin/Acoms/Create.vue";
 import ConfigurationAcom from "../views/admin/Acoms/Configuration.vue";
 import ReportsAcom from "../views/admin/Acoms/Reports.vue";
 
+
 Vue.use(VueRouter);
 
 const routes = [
