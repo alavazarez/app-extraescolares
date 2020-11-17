@@ -47,7 +47,13 @@ export default {
         name: "Partido de futbol",
         type: "deportivo",
         date: "24/02/2020"
-      }
+      },
+      {
+        id: 3,
+        name: "Honores a la bandera",
+        type: "civico",
+        date: "01/12/2020"
+      },
     ]
   })
 };
