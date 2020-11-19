@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import ListEvent from "../views/admin/eventos/List.vue";
+import PreviousEvent from "../views/admin/eventos/PreviousEvents.vue";
 import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
 import Reports from "../views/admin/eventos/Reports.vue";
@@ -24,6 +25,11 @@ const routes = [
     path: "/event/list",
     name: "ListEvent",
     component: ListEvent
+  },
+  {
+    path: "/event/previouslist",
+    name: "PreviousEvent",
+    component: PreviousEvent
   },
   {
     path: "/login",

@@ -96,6 +96,7 @@ export default {
         icon: "mdi-soccer",
         children: [
           { text: "Ver", icon: "mdi-format-list-bulleted", route: "/event/list" },
+          { text: "Realizados", icon: "mdi-checkbox-marked", route: "/event/previouslist" },
           { text: "Asignar", icon: "mdi-account-check-outline", route: "/event/asignar" },
           { text: "Reportes", icon: "mdi-file-document", route: "/event/reports" }
         ]
