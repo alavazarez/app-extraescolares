@@ -25,6 +25,36 @@
             </v-col>
           </v-row>
           <v-row>
+            <v-col cols="6">
+              <v-card-title class="heading-3">Logo Izquierdo</v-card-title>
+              <v-file-input
+                label="seleccionar archivo"
+                filled
+                prepend-icon="mdi-camera"
+              ></v-file-input>
+              <v-img
+              lazy-src="https://picsum.photos/id/11/10/6"
+              max-height="150"
+              max-width="250"
+              src="https://picsum.photos/id/11/500/300"
+            ></v-img>
+            </v-col>
+            <v-col cols="6">
+              <v-card-title class="heading-3">Logo Derecho</v-card-title>
+              <v-file-input
+                label="seleccionar archivo"
+                filled
+                prepend-icon="mdi-camera"
+              ></v-file-input>
+              <v-img
+              lazy-src="https://picsum.photos/id/11/10/6"
+              max-height="150"
+              max-width="250"
+              src="https://picsum.photos/id/11/500/300"
+            ></v-img>
+            </v-col>
+          </v-row>
+          <v-row>
           <v-btn
             depressed
             color="primary"

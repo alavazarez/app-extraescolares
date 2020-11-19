@@ -15,13 +15,16 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Nuevo eventooooo</span>
+        <span class="headline">Editar Evento</span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="8">
               <v-text-field label="Nombre*" required></v-text-field>
+            </v-col>
+            <v-col cols="4">
+              <v-text-field label="Tipo*" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>

@@ -44,9 +44,9 @@ export default {
       },
       {
         id: 2,
-        name: "Partido de futbol",
+        name: "Partido de voleibol",
         type: "deportivo",
-        date: "24/02/2020"
+        date: "01/12/2020"
       },
       {
         id: 3,
