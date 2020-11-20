@@ -88,7 +88,7 @@ export default {
         text: "User",
         icon: "mdi-account",
         children: [
-          { text: "Ver usuarios", icon: "mdi-account-plus", route: "" }
+          { text: "Ver usuarios", icon: "mdi-account-plus", route: "/User/showUsers" }
         ]
       },
       {

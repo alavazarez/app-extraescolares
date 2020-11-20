@@ -16,6 +16,11 @@
           </v-row>
           <v-row>
             <v-col cols="12">
+              <v-text-field label="Muletilla o frase" required></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
               <v-textarea
                 outlined
                 label="Cuerpo de la constancia"

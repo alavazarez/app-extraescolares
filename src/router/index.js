@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
+import showUsers from "../views/admin/user/ShowUsers.vue";
 import ListEvent from "../views/admin/eventos/List.vue";
 import PreviousEvent from "../views/admin/eventos/PreviousEvents.vue";
 import Login from "../views/admin/user/Login.vue";
@@ -20,6 +21,11 @@ const routes = [
     path: "/",
     name: "Dashboard",
     component: Dashboard
+  },
+  {
+    path: "/User/showUsers",
+    name: "showUsers",
+    component: showUsers
   },
   {
     path: "/event/list",
