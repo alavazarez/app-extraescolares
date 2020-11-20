@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Estudiantes que asistieron a un evento extraescolar
+        <span class="headline">ACOM´s por entregar a los estudiantes
         </span>
       </v-card-title>
       <v-card-text>
@@ -16,7 +16,7 @@
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
                 :items="items"
-                label="Evento"
+                label="Carrera"
                 solo
               ></v-select>
             </v-col>
@@ -26,15 +26,6 @@
               <v-select
                 :items="items"
                 label="Sexo"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Carrera"
                 solo
               ></v-select>
             </v-col>
@@ -76,7 +67,7 @@
 
 <script>
 export default {
-  name: "ReportStudentsForm",
+  name: "ReportToDeliverForm",
   data: () => ({dialog:false})
 };
 </script>

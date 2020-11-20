@@ -7,16 +7,21 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Estudiantes que asistieron a un evento extraescolar
+        <span class="headline">Evento extraescolar realizado en un dia especifico
         </span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row align="center" justify="space-around">
+            <v-col cols="8">
+              <v-text-field type="date" value="as"></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
                 :items="items"
-                label="Evento"
+                label="Tipo"
                 solo
               ></v-select>
             </v-col>
@@ -25,25 +30,7 @@
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
                 :items="items"
-                label="Sexo"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Carrera"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Semestre"
+                label="Lugar"
                 solo
               ></v-select>
             </v-col>
@@ -76,7 +63,7 @@
 
 <script>
 export default {
-  name: "ReportStudentsForm",
+  name: "ReportEventDayForm",
   data: () => ({dialog:false})
 };
 </script>

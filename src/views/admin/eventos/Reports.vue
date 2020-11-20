@@ -23,9 +23,7 @@
         </v-list-item-title>
       </v-list-item-content>
       <v-card-actions>
-        <v-btn depressed color="primary" rounded>
-        <v-icon dark>mdi-arrow-right-bold-circle</v-icon>
-        </v-btn>
+        <ReportEventDayForm />
       </v-card-actions>
       </v-list-item>
 
@@ -47,8 +45,9 @@
 
 <script>
 import ReportStudentsForm from "@/components/Eventos/ReportStudentsForm";
+import ReportEventDayForm from "@/components/Eventos/ReportEventDayForm";
 export default {
-  components: { ReportStudentsForm },
+  components: { ReportStudentsForm, ReportEventDayForm },
 }
 </script>
 

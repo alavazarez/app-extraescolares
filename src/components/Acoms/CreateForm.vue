@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  name: "RegisterForm",
+  name: "CreateForm",
   data: () => ({dialog:false})
 };
 </script>
