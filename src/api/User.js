@@ -13,8 +13,9 @@ export default {
 
   async register(form) {
     try {
-      await Csrf.getCookie();
-      return Api.post("/register", form);
+      axios.get('/sanctum/csrf-cookie').then(response => {
+        return Api.post("/register", form);
+      });
     } catch (error) {
       return error;
     }

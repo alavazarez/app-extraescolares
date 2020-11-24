@@ -49,17 +49,13 @@ export default {
   methods: {
     async login() {
       await User.login(this.form);
-      await this.getUser();
+      this.user = await User.getUser();
       localStorage.setItem("auth", true);
     },
     async logout() {
       await User.logout();
       localStorage.removeItem("auth");
     },
-    async getUser() {
-      this.user = await User.getUser();
-      console.log(this.user.name);
-    }
   }
 };
 </script>
