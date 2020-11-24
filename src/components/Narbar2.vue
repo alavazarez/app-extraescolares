@@ -111,6 +111,14 @@ export default {
           { text: "Configuracion ", icon: "mdi-message-processing", route: "/acom/configuration" },
           { text: "Reportes", icon: "mdi-file-document", route: "/acom/reports" }
         ]
+      },
+      {
+        text: "Estudiantes",
+        icon: "mdi-soccer",
+        children: [
+          { text: "Eventos proximos", icon: "mdi-eye", route: "/students/upcoming" },
+          { text: "Avance extraescolar", icon: "mdi-check", route: "/students/progress" }
+        ]
       }
     ]
   })

@@ -12,6 +12,8 @@ import DeliversAcom from "../views/admin/Acoms/Delivers.vue";
 import CreateAcom from "../views/admin/Acoms/Create.vue";
 import ConfigurationAcom from "../views/admin/Acoms/Configuration.vue";
 import ReportsAcom from "../views/admin/Acoms/Reports.vue";
+import UpcomingEvents from "../views/Students/UpcomingEvents.vue";
+import EventProgress from "../views/Students/EventProgress.vue";
 
 
 Vue.use(VueRouter);
@@ -76,7 +78,17 @@ const routes = [
     path: "/acom/reports",
     name: "Reportes",
     component: ReportsAcom
-  }
+  },
+  {
+  path: "/students/upcoming",
+    name: "Proximos",
+    component: UpcomingEvents
+  },
+  {
+    path: "/students/progress",
+      name: "Progreso",
+      component: EventProgress
+    }
 ];
 
 const router = new VueRouter({
