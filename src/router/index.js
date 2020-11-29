@@ -4,7 +4,6 @@ import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
 import ListEvent from "../views/admin/eventos/List.vue";
-import PreviousEvent from "../views/admin/eventos/PreviousEvents.vue";
 import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
 import Reports from "../views/admin/eventos/Reports.vue";
@@ -37,11 +36,6 @@ const routes = [
     component: ListEvent,
     meta: {requiresAuth:true}
 
-  },
-  {
-    path: "/event/previouslist",
-    name: "PreviousEvent",
-    component: PreviousEvent
   },
   {
     path: "/login",
