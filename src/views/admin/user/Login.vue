@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import User from "@/api/User";
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "login",
   data: () => ({
@@ -47,15 +47,12 @@ export default {
     message: ""
   }),
   methods: {
-    async login() {
-      await User.login(this.form);
-      this.user = await User.getUser();
-      localStorage.setItem("auth", true);
-    },
-    async logout() {
-      await User.logout();
-      localStorage.removeItem("auth");
-    },
-  }
+    ...mapActions('auth',['singIn']),
+    login(params){
+      this.singIn(this.form)
+      this.$router.replace({ name: 'dashboard' })
+    }
+  },
+
 };
 </script>

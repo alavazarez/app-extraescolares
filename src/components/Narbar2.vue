@@ -31,9 +31,11 @@
         <v-list-item link>
           <v-list-item-content>
             <v-list-item-title class="title">
-              Diana
+              {{user.name}}
             </v-list-item-title>
-            <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              {{user.email}}
+            </v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-action>
@@ -78,6 +80,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: "Navbar",
   data: () => ({
@@ -121,6 +124,11 @@ export default {
         ]
       }
     ]
-  })
+  }),
+  computed:{
+    ...mapGetters({
+      user: 'auth/user',
+    })
+  }
 };
 </script>

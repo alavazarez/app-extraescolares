@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar />
+    <Navbar v-if="authenticated"/>
     <v-main>
       <v-container class="mt-4">
         <router-view></router-view>
@@ -11,13 +11,18 @@
 
 <script>
 import Navbar from "./components/Narbar2";
+import { mapGetters } from 'vuex'
 export default {
   name: "App",
-
   components: {
     Navbar
   },
-
-  data: () => ({})
+  data: () => ({
+  }),
+  computed:{
+    ...mapGetters({
+      authenticated: 'auth/authenticated',
+    })
+  }
 };
 </script>

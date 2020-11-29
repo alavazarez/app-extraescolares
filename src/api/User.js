@@ -24,7 +24,7 @@ export default {
   async getUser() {
     try {
       const user = await Api.get("api/user");
-      return user.data;
+      return user;
     } catch (error) {
       return error;
     }
