@@ -13,7 +13,12 @@
     >
       <template v-slot:[`item.actions`]>
         <EditForm @submit="submit"/>
-        <v-btn x-small fab color="error" dark>
+        <v-btn 
+        @click="borrar"
+        x-small 
+        fab 
+        color="error" 
+        dark>
           <v-icon dark>mdi-trash-can</v-icon></v-btn
         >
       </template>
@@ -26,6 +31,8 @@ import RegisterForm from "@/components/Eventos/RegisterForm";
 import EditForm from "@/components/Eventos/EditForm";
 import { mapActions, mapGetters } from 'vuex';
 import Event from '../../../api/Event'
+import Swal from 'sweetalert2'
+
 export default {
   name: "List",
   components: { RegisterForm, EditForm },
@@ -47,6 +54,26 @@ export default {
   },
   methods:{
     ...mapActions('event',['getEvents']),
+    borrar(){
+      console.log('error');
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+    },
     submit(){
       try {
         let response = 0;
