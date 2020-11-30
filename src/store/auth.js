@@ -1,16 +1,14 @@
 import User from '../api/User'
 export default {
      namespaced: true,
-    state: {
+      state: {
         authenticated: false,
         user: null
       },
-    
       getters: {
         authenticated (state) {
           return state.authenticated
         },
-    
         user (state) {
           return state.user
         },
@@ -34,7 +32,9 @@ export default {
               throw new Error(`HTTP error! status: ${response.status}`);
             } 
             dispatch('me');
+            router.push({ path: '/' })
           } catch (error) {
+            console.log(error)
           }
         },
 

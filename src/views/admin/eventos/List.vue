@@ -3,16 +3,16 @@
     <v-card-title class="heading-2">
       Eventos
       <v-spacer></v-spacer>
-      <RegisterForm />
+      <RegisterForm @submit="submit"/>
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="data"
+      :items="events"
       sort-by="calories"
       class="elevation-1"
     >
       <template v-slot:[`item.actions`]>
-        <EditForm />
+        <EditForm @submit="submit"/>
         <v-btn x-small fab color="error" dark>
           <v-icon dark>mdi-trash-can</v-icon></v-btn
         >
@@ -24,6 +24,8 @@
 <script>
 import RegisterForm from "@/components/Eventos/RegisterForm";
 import EditForm from "@/components/Eventos/EditForm";
+import { mapActions, mapGetters } from 'vuex';
+import Event from '../../../api/Event'
 export default {
   name: "List",
   components: { RegisterForm, EditForm },
@@ -31,30 +33,27 @@ export default {
     headers: [
       { text: "Id", value: "id" },
       { text: "Nombre", value: "name" },
-      { text: "Tipo", value: "type" },
       { text: "Fecha", value: "date" },
       { text: "Actions", value: "actions", sortable: false }
     ],
-    data: [
-      {
-        id: 1,
-        name: "Partido de basquetbol",
-        type: "deportivo",
-        date: "24/02/2020"
-      },
-      {
-        id: 2,
-        name: "Partido de voleibol",
-        type: "deportivo",
-        date: "01/12/2020"
-      },
-      {
-        id: 3,
-        name: "Honores a la bandera",
-        type: "civico",
-        date: "01/12/2020"
-      },
-    ]
-  })
+  }),
+  mounted(){
+    this.getEvents();
+  },
+  computed:{
+    ...mapGetters({
+      events: 'event/events',
+    })
+  },
+  methods:{
+    ...mapActions('event',['getEvents']),
+    submit(){
+      try {
+        let response = 0;
+      } catch (error) {
+        
+      }
+    },
+  },
 };
 </script>

@@ -13,29 +13,63 @@
         <v-container>
           <v-row>
             <v-col cols="8">
-              <v-text-field label="Nombre*" required></v-text-field>
+              <v-text-field 
+              v-model="form.name"
+              label="Nombre*" 
+              required
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="4">
-              <v-text-field label="Tipo*" required></v-text-field>
+              <v-select
+              v-model="form.type_event_id"
+              :items="items"
+              label="Tipo de evento"
+              item-text="name"
+              item-value="id"
+              ></v-select>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" sm="4">
-              <v-text-field label="Lugar*" required></v-text-field>
+              <v-text-field 
+              v-model="form.place"
+              label="Lugar*" 
+              required>
+              </v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
               <v-menu>
-                <v-text-field slot="activator" label="Fecha"></v-text-field>
-                <v-date-picker></v-date-picker>
+                <v-text-field 
+                v-model="form.date"
+                type="date"
+                slot="activator"
+                label="Fecha">
+                </v-text-field>
               </v-menu>
             </v-col>
             <v-col cols="12" sm="4"> 
-              <v-text-field label="hora*" required></v-text-field>
+              <v-text-field 
+              v-model="form.date"
+              label="hora*" 
+              required>
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+              v-model="form.organizer"
+              label="Organizador*" 
+              required>
+              >
+              </v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
               <v-textarea
+                v-model="form.description"
                 outlined
                 label="Descripción"
                 counter
@@ -51,7 +85,7 @@
         <v-btn color="blue darken-1" text @click="dialog = false">
           Close
         </v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false">
+        <v-btn color="blue darken-1" text @click="submit">
           Save
         </v-btn>
       </v-card-actions>
@@ -60,8 +94,36 @@
 </template>
 
 <script>
+import Event from '../../api/Event'
+import { mapActions } from 'vuex'
 export default {
   name: "RegisterForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    dialog:false,
+    form:{
+      name:'Eduardo',
+      type_event_id:1,
+      description:'test',
+      date:null,
+      place:'Tec',
+      organizer:'Fito'
+    },
+    items: [
+        {id:1, name:'Deportivo'},
+        {id:2, name:'Cultural'},
+        {id:3, name:'Cívico'},
+      ],
+    }),
+    methods:{
+      ...mapActions('event',['store']),
+      async submit(){
+        try {
+          await this.store(this.form)
+          this.dialog = false
+        } catch (error) {
+          //
+        }
+      }
+    },
 };
 </script>
