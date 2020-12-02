@@ -19,16 +19,15 @@ export default {
         },
     },
     actions: {
-        store(data){
+        store( {state} ,datos){
+            console.log(datos);
             return new Promise((resolve,reject) => {
                 Event.store(
-                    data,
+                    datos,
                    (response) => {
-                       console.log(response);
                        resolve(true);
                    },
                    (error) => {
-                       console.log(error);
                        reject(error);
                    } 
                 )
