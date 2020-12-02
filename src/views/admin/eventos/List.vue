@@ -11,10 +11,10 @@
       sort-by="calories"
       class="elevation-1"
     >
-      <template v-slot:[`item.actions`]>
+      <template v-slot:item.actions="{ item }">
         <EditForm @submit="submit"/>
         <v-btn 
-        @click="borrar"
+        @click="borrar(item)"
         x-small 
         fab 
         color="error" 
@@ -53,9 +53,9 @@ export default {
     })
   },
   methods:{
-    ...mapActions('event',['getEvents']),
-    borrar(){
-      console.log('error');
+    ...mapActions('event',['getEvents','destroy']),
+    borrar(item){
+      console.log(item)
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -66,11 +66,22 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+          this.destroy(item)
+          .then((res)=>{
+            Swal.fire(
+            'Eliminado!',
+            'El campo seleccionado ha sido eliminado',
             'success'
           )
+          this.getEvents();
+          })
+          .catch((err)=>{
+            Swal.fire(
+            'Error!',
+            'No pudo ser eliminado',
+            'error'
+          )
+          })
         }
       })
     },

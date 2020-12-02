@@ -20,12 +20,25 @@ export default {
     },
     actions: {
         store( {state} ,datos){
-            console.log(datos);
             return new Promise((resolve,reject) => {
                 Event.store(
                     datos,
                    (response) => {
-                       resolve(true);
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            })
+        },
+        destroy( {state} , datos){
+            console.log(datos);
+            return new Promise((resolve,reject) => {
+                Event.destroy(
+                    datos,
+                   (response) => {
+                       resolve(response);
                    },
                    (error) => {
                        reject(error);

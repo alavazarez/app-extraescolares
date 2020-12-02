@@ -115,11 +115,11 @@ export default {
       ],
     }),
     methods:{
-      ...mapActions('event',['store']),
+      ...mapActions('event',['store','getEvents']),
       async submit(){
         try {
-          console.log(this.form)
           await this.store(this.form)
+          this.getEvents();
           this.dialog = false
         } catch (error) {
           //

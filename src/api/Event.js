@@ -19,6 +19,15 @@ export default {
             })
     },
 
+    destroy(data, callback, callbackError){
+        Api.post('api/evento/destroy',data)
+        .then((res)=>{
+            callback(res) 
+        })
+        .catch((error)=>{
+            callbackError(error);
+        })
+    },
     getEvents(){
         try {
             return Api.get('api/evento');
