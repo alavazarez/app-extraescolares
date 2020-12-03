@@ -101,9 +101,9 @@ export default {
   data: () => ({
     dialog:false,
     form:{
-      name:'Eduardo',
+      name:'Manuel',
       type_event_id:1,
-      description:'test',
+      description:'dfsf',
       date:null,
       place:'Tec',
       organizer:'Fito'
@@ -120,10 +120,20 @@ export default {
         try {
           await this.store(this.form)
           this.getEvents();
+          this.cleanInputs();
           this.dialog = false
+          
         } catch (error) {
           //
         }
+      },
+      cleanInputs(){
+        this.form.name=''
+        this.form.type_event_id=null
+        this.form.description=''
+        this.form.date=null
+        this.form.place=''
+        this.form.organizer=''
       }
     },
 };

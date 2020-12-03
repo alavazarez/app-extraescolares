@@ -40,7 +40,10 @@ export default {
     headers: [
       { text: "Id", value: "id" },
       { text: "Nombre", value: "name" },
+      { text: "TIpo de evento", value: "type_event_id" },
+      { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },
+      { text: "Lugar", value: "place" },
       { text: "Actions", value: "actions", sortable: false }
     ],
   }),
