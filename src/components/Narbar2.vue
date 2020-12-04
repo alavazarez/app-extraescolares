@@ -111,7 +111,7 @@ export default {
           { text: "Entregar", icon: "mdi-check", route: "/acom/delivers" },
           { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
           { text: "Configuracion ", icon: "mdi-message-processing", route: "/acom/configuration" },
-          { text: "Reportes", icon: "mdi-file-document", route: "/acom/reports" }
+          { text: "Reportes", icon: "mdi-file-document", route: "/acom/Reports" }
         ]
       },
       {

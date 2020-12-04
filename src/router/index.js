@@ -79,6 +79,12 @@ const routes = [
     meta: {requiresAuth:true}
   },
   {
+    path: "/acom/reports",
+    name: "Reportes",
+    component: ReportsAcom,
+    meta: {requiresAuth:true}
+  },
+  {
   path: "/students/upcoming",
     name: "Proximos",
     component: UpcomingEvents
