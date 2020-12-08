@@ -7,11 +7,14 @@
     <v-card-text>
         <v-container>
           <v-row>
-            <v-col cols="6">
-              <v-text-field label="Nombre del jefe del departamento" required></v-text-field>
+            <v-col cols="4">
+              <v-text-field label="Nombre del jefe del Departamento de Actividades Extraescolares" required></v-text-field>
             </v-col>
-            <v-col cols="6">
-              <v-text-field label="Nombre del coordinador" required></v-text-field>
+            <v-col cols="4">
+              <v-text-field label="Nombre del coordinador o Profesor responsable" required></v-text-field>
+            </v-col>
+            <v-col cols="4">
+              <v-text-field label="Nombre del jefe del Departamento de Servicios Escolares" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -19,7 +22,7 @@
               <v-text-field label="Muletilla o frase" required></v-text-field>
             </v-col>
           </v-row>
-          <v-row>
+          <!-- <v-row>
             <v-col cols="12">
               <v-textarea
                 outlined
@@ -58,15 +61,30 @@
               src="https://picsum.photos/id/11/500/300"
             ></v-img>
             </v-col>
+          </v-row>-->
+          <v-row align="center" justify="space-around">
+            <v-col cols="6">
+              <v-btn
+                depressed
+                color="primary"
+                >Editar
+              </v-btn>
+            </v-col>
+            <v-col cols="6">
+              <v-btn
+                depressed
+                color="primary"
+                >Actualizar
+              </v-btn>
+            </v-col>
           </v-row>
-          <v-row>
-          <v-btn
-            depressed
-            color="primary"
-            >Actualizar
-            </v-btn>
-            </v-row>
         </v-container>
       </v-card-text>
   </v-card>
 </template>
+
+<script>
+export default {
+  
+}
+</script>
