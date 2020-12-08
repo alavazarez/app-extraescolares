@@ -38,6 +38,7 @@ export default {
       { text: "Nombre", value: "name" },
       { text: "Carrera", value: "carrer" },
       { text: "Semestre", value: "semester" },
+      { text: "Fecha de entrega", value: "date" },
       { text: "Actions", value: "actions", sortable: false }
     ],
     data: [
@@ -45,13 +46,15 @@ export default {
         matri: 16270736,
         name: "Manuel de Jesus Alavazarez Hernandez",
         carrer: "Ingenieria en Sistemas Computacionales",
-        semester: "9°"
+        semester: "9°",
+        date: "10/12/2020"
       },
       {
         matri: 16270837,
         name: "Eduardo Vazquez Bravo",
         carrer: "Ingenieria Mecanica",
-        semester: "8°"
+        semester: "8°",
+        date: "10/12/2020"
       }
     ]
   })
