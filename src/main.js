@@ -15,11 +15,3 @@ store.dispatch('auth/me').then(() => {
     render: h => h(App)
   }).$mount('#app')
 })
-
-/* new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount("#app");
- */
