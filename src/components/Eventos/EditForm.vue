@@ -97,6 +97,17 @@ export default {
         {id:3, name:'Cívico'},
       ],
     }),
+    methods:{
+      /*updateEvent(){
+        Api.post('api/evento/edit/'+this.value.id,this.value)
+          .then(response=>{
+
+          })
+          .catch(error=>(
+              console.log(error)
+          ))
+      }*/       
+    },
   watch:{
     openDialog:function (){
       this.dialog = this.openDialog 

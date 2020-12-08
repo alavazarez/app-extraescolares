@@ -2,6 +2,7 @@
   <v-card>
     <v-card-title class="heading-2">
       <EditForm
+      @closedialog="closedialog"
       :openDialog="openDialog"
       :value="itemSelected"
       />
@@ -23,7 +24,7 @@
         color="primary"
         dark
         @click="selectingItem(item)"
-        @closedialog="closedialog"
+        
       >
         <v-icon dark>mdi-pencil</v-icon>
       </v-btn>
@@ -75,8 +76,10 @@ export default {
   },
   methods:{
     ...mapActions('event',['getEvents','destroy']),
-    closedialog(){
-  console.log('closing')
+
+    closedialog: function(){
+      console.log('closing')
+      this.openDialog = false;
     },
     selectingItem(item){
       this.openDialog = true;
