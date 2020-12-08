@@ -3,7 +3,7 @@ import store  from "../store"
 import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
-import ListEvent from "../views/admin/eventos/List.vue";
+import ListEvent from "../views/admin/eventos/index.vue";
 import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
 import Reports from "../views/admin/eventos/Reports.vue";
@@ -31,7 +31,7 @@ const routes = [
     component: showUsers
   },
   {
-    path: "/event/list",
+    path: "/event/index",
     name: "ListEvent",
     component: ListEvent,
     meta: {requiresAuth:true}
