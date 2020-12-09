@@ -218,6 +218,12 @@ export default {
 
       doc.rect(.6, 2.9, 7.1, 2.1);
       doc.setFontSize(10).text("A C T I V I D A D E S  D E P O R T I V A S", 4.4, 3.02, 'center');
+      doc.setFontSize(9).text("No.", .7, 3.3);
+      doc.setFontSize(9).text("ACTIVIDAD", 2, 3.3);
+      doc.setFontSize(9).text("FECHA", 4.3, 3.3);
+      doc.setFontSize(9).text("FIRMA DEL \rPROMOTOR", 5.7, 3.2, 'center');
+      doc.setFontSize(7).text("Vo. Bo.\rOFICINA DE PROM.\rDEPORTIVA", 7.03, 3.15, 'center');
+
       doc.setLineWidth(0.01).line(.6, 3.05, 7.7, 3.05); 
       doc.setLineWidth(0.01).line(.6, 3.5, 7.7, 3.5);
       doc.setLineWidth(0.01).line(.6, 4, 6.3, 4);
@@ -230,6 +236,12 @@ export default {
 
       doc.rect(.6, 5.2, 7.1, 2.1);
       doc.setFontSize(10).text("A C T I V I D A D E S  C U L T U R A L E S", 4.4, 5.32, 'center');
+      doc.setFontSize(9).text("No.", .7, 5.6);
+      doc.setFontSize(9).text("ACTIVIDAD", 2, 5.6);
+      doc.setFontSize(9).text("FECHA", 4.3, 5.6);
+      doc.setFontSize(9).text("FIRMA DEL \rPROMOTOR", 5.7, 5.5, 'center');
+      doc.setFontSize(7).text("Vo. Bo.\rOFICINA DE PROM.\rCULTURAL", 7.03, 5.45, 'center');
+
       doc.setLineWidth(0.01).line(.6, 5.35, 7.7, 5.35); 
       doc.setLineWidth(0.01).line(.6, 5.8, 7.7, 5.8);
       doc.setLineWidth(0.01).line(.6, 6.3, 6.3, 6.3);
@@ -242,6 +254,12 @@ export default {
 
       doc.rect(.6, 7.5, 7.1, 1.6);
       doc.setFontSize(10).text("A C T I V I D A D E S  C I V I C A S", 4.4, 7.62, 'center');
+      doc.setFontSize(9).text("No.", .7, 7.9);
+      doc.setFontSize(9).text("ACTIVIDAD", 2, 7.9);
+      doc.setFontSize(9).text("FECHA", 4.3, 7.9);
+      doc.setFontSize(9).text("FIRMA DEL \rPROMOTOR", 5.7, 7.8, 'center');
+      doc.setFontSize(7).text("SELLO DEPTO DE\rACTIVIDADES\rEXTRAESCOLARES", 7.03, 7.75, 'center');
+
       doc.setLineWidth(0.01).line(.6, 7.65, 7.7, 7.65); 
       doc.setLineWidth(0.01).line(.6, 8.1, 7.7, 8.1);
       doc.setLineWidth(0.01).line(.6, 8.6, 6.3, 8.6);
