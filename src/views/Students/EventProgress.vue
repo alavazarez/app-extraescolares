@@ -216,8 +216,40 @@ export default {
       { margin:{ top: 2 }}
       );*/
 
-      doc.rect(.8, 2.8, 2, 4);
+      doc.rect(.6, 2.9, 7.1, 2.1);
+      doc.setFontSize(10).text("A C T I V I D A D E S  D E P O R T I V A S", 4.4, 3.02, 'center');
+      doc.setLineWidth(0.01).line(.6, 3.05, 7.7, 3.05); 
+      doc.setLineWidth(0.01).line(.6, 3.5, 7.7, 3.5);
+      doc.setLineWidth(0.01).line(.6, 4, 6.3, 4);
+      doc.setLineWidth(0.01).line(.6, 4.5, 6.3, 4.5);
 
+      doc.setLineWidth(0.01).line(1, 3.05, 1, 5);
+      doc.setLineWidth(0.01).line(3.9, 3.05, 3.9, 5);
+      doc.setLineWidth(0.01).line(5.1, 3.05, 5.1, 5);
+      doc.setLineWidth(0.01).line(6.3, 3.05, 6.3, 5);
+
+      doc.rect(.6, 5.2, 7.1, 2.1);
+      doc.setFontSize(10).text("A C T I V I D A D E S  C U L T U R A L E S", 4.4, 5.32, 'center');
+      doc.setLineWidth(0.01).line(.6, 5.35, 7.7, 5.35); 
+      doc.setLineWidth(0.01).line(.6, 5.8, 7.7, 5.8);
+      doc.setLineWidth(0.01).line(.6, 6.3, 6.3, 6.3);
+      doc.setLineWidth(0.01).line(.6, 6.8, 6.3, 6.8);
+
+      doc.setLineWidth(0.01).line(1, 5.35, 1, 7.3);
+      doc.setLineWidth(0.01).line(3.9, 5.35, 3.9, 7.3);
+      doc.setLineWidth(0.01).line(5.1, 5.35, 5.1, 7.3);
+      doc.setLineWidth(0.01).line(6.3, 5.35, 6.3, 7.3);
+
+      doc.rect(.6, 7.5, 7.1, 1.6);
+      doc.setFontSize(10).text("A C T I V I D A D E S  C I V I C A S", 4.4, 7.62, 'center');
+      doc.setLineWidth(0.01).line(.6, 7.65, 7.7, 7.65); 
+      doc.setLineWidth(0.01).line(.6, 8.1, 7.7, 8.1);
+      doc.setLineWidth(0.01).line(.6, 8.6, 6.3, 8.6);
+
+      doc.setLineWidth(0.01).line(1, 7.65, 1, 9.1);
+      doc.setLineWidth(0.01).line(3.9, 7.65, 3.9, 9.1);
+      doc.setLineWidth(0.01).line(5.1, 7.65, 5.1, 9.1);
+      doc.setLineWidth(0.01).line(6.3, 7.65, 6.3, 9.1);
 
 
 
