@@ -54,7 +54,12 @@
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
 
-        <v-list-group no-action sub-group v-for="(item, i) in items" :key="i">
+        <v-list-group 
+        v-model="item.active"
+        :prepend-icon="item.action"
+        no-action 
+        v-for="(item, i) in items" 
+        :key="i">
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
@@ -97,7 +102,7 @@ export default {
         text: "Eventos",
         icon: "mdi-soccer",
         children: [
-          { text: "Ver", icon: "mdi-format-list-bulleted", route: "/event/list" },
+          { text: "Ver", icon: "mdi-format-list-bulleted", route: "/event/index" },
           { text: "Asignar", icon: "mdi-account-check-outline", route: "/event/asignar" },
           { text: "Reportes", icon: "mdi-file-document", route: "/event/reports" }
         ]

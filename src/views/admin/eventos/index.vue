@@ -1,6 +1,11 @@
 <template>
   <v-card>
     <v-card-title class="heading-2">
+      <EditForm
+      @closedialog="closedialog"
+      :openDialog="openDialog"
+      :value="itemSelected"
+      />
       Eventos
       <v-spacer></v-spacer>
       <RegisterForm @submit="submit"/>
@@ -12,7 +17,17 @@
       class="elevation-1"
     >
       <template v-slot:item.actions="{ item }">
-        <EditForm @submit="submit"/>
+        <v-btn
+        x-small
+        class="mx-3"
+        fab
+        color="primary"
+        dark
+        @click="selectingItem(item)"
+        
+      >
+        <v-icon dark>mdi-pencil</v-icon>
+      </v-btn>
         <v-btn 
         @click="borrar(item)"
         x-small 
@@ -24,6 +39,8 @@
       </template>
     </v-data-table>
   </v-card>
+
+  
 </template>
 
 <script>
@@ -46,6 +63,8 @@ export default {
       { text: "Lugar", value: "place" },
       { text: "Actions", value: "actions", sortable: false }
     ],
+    itemSelected:{},
+    openDialog:false,
   }),
   mounted(){
     this.getEvents();
@@ -57,6 +76,16 @@ export default {
   },
   methods:{
     ...mapActions('event',['getEvents','destroy']),
+
+    closedialog: function(){
+      console.log('closing')
+      this.openDialog = false;
+    },
+    selectingItem(item){
+      this.openDialog = true;
+      console.log(item)
+      this.itemSelected = item;
+    },
     borrar(item){
       console.log(item)
       Swal.fire({
