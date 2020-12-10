@@ -16,7 +16,7 @@
             <v-text-field
               label="Nombre del jefe del Departamento de Actividades Extraescolares"
               outlined
-              readonly
+              v-bind:disabled="BotonDesabilitado"
               v-model="acoms.nameBossDAE"
             ></v-text-field>
         </v-col>
@@ -30,7 +30,7 @@
             <v-text-field
               label="Nombre del Jefe de la oficina de promocion"
               outlined
-              readonly
+              v-bind:disabled="BotonDesabilitado"
               v-model="acoms.nameCoordinator"
             ></v-text-field>
         </v-col>
@@ -44,7 +44,7 @@
             <v-text-field
               label="Nombre del jefe del Departamento de Servicios Escolares"
               outlined
-              readonly
+              v-bind:disabled="BotonDesabilitado"
               v-model="acoms.nameBossDSE"
             ></v-text-field>
         </v-col>
@@ -56,9 +56,10 @@
               md="6"
             >
             <v-text-field
+              id="slogan"
               label="Frase o muletilla"
               outlined
-              readonly
+              v-bind:disabled="BotonDesabilitado"
               v-model="acoms.slogan"
             ></v-text-field>
         </v-col>
@@ -108,13 +109,17 @@
               <v-btn
                 depressed
                 color="primary"
+                @click="Editar()"
+                v-bind:disabled="BotonDesabilitadoEditar"
                 >Editar
               </v-btn>
             </v-col>
             <v-col cols="6">
               <v-btn
                 depressed
+                v-bind:disabled="BotonDesabilitadoActualizar"
                 color="primary"
+                text @click="submit"
                 >Actualizar
               </v-btn>
             </v-col>
@@ -134,17 +139,66 @@ export default {
     this.getAcomData();
     console.log(this.acoms.id);
   },
-  data:()=>({
-    
-    
-        }),
+  data: () => ({
+    BotonDesabilitadoActualizar:true,
+    BotonDesabilitadoEditar:null,
+    BotonDesabilitado:true
+    }),
+  props:{
+    /*acoms: {
+           type:Object,
+           default: function () {
+             return {
+                id:'',
+                nameBossDAE:'',
+                nameCoordinator:'',
+                nameBossDSE:''
+             }
+           }
+         }*/
+  },
   computed:{
     ...mapGetters({
       acoms: 'acom/acoms',
+      bloquearActualizar(){
+        return 
+      }
     })
   },
   methods:{
-    ...mapActions('acom',['getAcomData']),
+    ...mapActions('acom',['getAcomData', 'updateacom']),
+
+    async submit(){
+      this.BotonDesabilitadoActualizar=true
+      this.BotonDesabilitadoEditar=false
+      this.BotonDesabilitado=true
+      console.log(this.acoms.slogan)
+        try {
+          await this.updateacom(this.acoms.id, this.acoms)
+        } catch (error) {
+          //
+        }
+      },
+
+    Editar(){
+      this.BotonDesabilitadoActualizar=false
+      this.BotonDesabilitadoEditar=true
+      this.BotonDesabilitado=false
+    },
+    Actualizar(){
+      this.BotonDesabilitadoActualizar=true
+      this.BotonDesabilitadoEditar=false
+      this.BotonDesabilitado=true
+      console.log(this.acoms.slogan)
+
+      Api.post('api/acom/configuration/'+this.acoms.id,this.acoms)
+                    .then(response=>{
+                      console.log(response)
+                    })
+                .catch(error=>(
+                    console.log(error)
+                ))
+    }
   },
 }
 </script>

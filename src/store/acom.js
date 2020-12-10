@@ -26,6 +26,17 @@ export default{
             } catch (error) {
                 console.log(error);
             }      
+        },
+        async updateacom({commit}){
+            try {
+                let response = await Acom.updateacom();
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_ACOMS', response.data);
+            } catch (error) {
+                console.log(error);
+            }      
         }
     }
 }
