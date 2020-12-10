@@ -75,12 +75,57 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        ></v-card>
-
+        <v-row>
+          <v-col md="6">
+            <v-card
+            class="mb-2"
+            >
+              <v-card-title class="m-0">
+                <v-row>
+                  <v-col md="6">
+                    <v-text-field
+                    placeholder="Ingrese número de control"
+                    v-model="matricula" 
+                    regular label="Número de control"></v-text-field>
+                  </v-col>
+                   <v-col sm=12 md="6" class="mt-4">
+                     <v-btn small
+                     @click="findAlumno"
+                     > 
+                       Buscar
+                     </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-title>
+              <div class="ml-4"> 
+                  <v-row class="p-0 m-0">
+                    <v-col md="6" class="p-0">
+                      <v-text-field
+                      label="Nombre"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+              </div>
+            </v-card>
+          </v-col>
+          <v-col md="6">
+            <v-card
+            class="mb-2"
+            >
+              <v-card-title>
+                <v-row>
+                  <v-col md="8">
+                    <v-text-field
+                    placeholder="Ingrese número de control"
+                    v-model="date" 
+                    regular label="Número de control"></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+       
         <v-btn
           color="primary"
           @click="e1 = 3"
@@ -121,10 +166,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
   export default {
+    name:'Asginar',
     data () {
       return {
         e1: 1,
         date:null,
+        matricula:null,
         items: [
           {id:1, name:'Deportivo'},
           {id:2, name:'Cultural'},
@@ -137,18 +184,30 @@ import { mapActions, mapGetters } from 'vuex'
           { text: 'Lugar', value: 'place' },
           { text: 'Fecha', value: 'date' },
         ],
+        headersAlumno: [
+          { text: 'Número control', value: 'matricula' },
+          { text: 'Nombre', value: 'name' },
+          { text: 'Semestre', value: 'semestre' },
+          { text: 'Carrera', value: 'carrera' },
+        ],
       }
     },
     mounted () {
       this.getEvents();
+      this.getAlumnos();
     },
     computed:{
        ...mapGetters({
       events: 'event/events',
+      alumnos: 'alumno/alumnos',
     })
     },
     methods:{
       ...mapActions('event',['store','getEvents']),
+      ...mapActions('alumno',['getAlumnos','find']),
+      findAlumno(){
+        this.find(this.matricula)
+      }
     },
   }
 </script>
