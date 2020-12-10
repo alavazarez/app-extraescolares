@@ -4,24 +4,65 @@
       CONFIGURACION
       <v-spacer></v-spacer>
     </v-card-title>
+   
     <v-card-text>
         <v-container>
-          <v-row>
-            <v-col cols="4">
-              <v-text-field label="Nombre del jefe del Departamento de Actividades Extraescolares" required></v-text-field>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field label="Nombre del coordinador o Profesor responsable" required></v-text-field>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field label="Nombre del jefe del Departamento de Servicios Escolares" required></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field label="Muletilla o frase" required></v-text-field>
-            </v-col>
-          </v-row>
+          <v-row align="center" justify="space-around">
+            <v-col
+              cols="12"
+              sm="6"
+              md="6"
+            >
+            <v-text-field
+              label="Nombre del jefe del Departamento de Actividades Extraescolares"
+              outlined
+              readonly
+              v-model="acoms.nameBossDAE"
+            ></v-text-field>
+        </v-col>
+        </v-row>
+        <v-row align="center" justify="space-around">
+            <v-col
+              cols="12"
+              sm="6"
+              md="6"
+            >
+            <v-text-field
+              label="Nombre del Jefe de la oficina de promocion"
+              outlined
+              readonly
+              v-model="acoms.nameCoordinator"
+            ></v-text-field>
+        </v-col>
+        </v-row>
+        <v-row align="center" justify="space-around">
+            <v-col
+              cols="12"
+              sm="6"
+              md="6"
+            >
+            <v-text-field
+              label="Nombre del jefe del Departamento de Servicios Escolares"
+              outlined
+              readonly
+              v-model="acoms.nameBossDSE"
+            ></v-text-field>
+        </v-col>
+        </v-row>
+        <v-row align="center" justify="space-around">
+            <v-col
+              cols="12"
+              sm="6"
+              md="6"
+            >
+            <v-text-field
+              label="Frase o muletilla"
+              outlined
+              readonly
+              v-model="acoms.slogan"
+            ></v-text-field>
+        </v-col>
+        </v-row>
           <!-- <v-row>
             <v-col cols="12">
               <v-textarea
@@ -84,7 +125,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import Acom from '../../../api/Acom'
+
 export default {
   
+  mounted(){
+    this.getAcomData();
+    console.log(this.acoms.id);
+  },
+  data:()=>({
+    
+    
+        }),
+  computed:{
+    ...mapGetters({
+      acoms: 'acom/acoms',
+    })
+  },
+  methods:{
+    ...mapActions('acom',['getAcomData']),
+  },
 }
 </script>

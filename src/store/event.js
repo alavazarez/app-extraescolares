@@ -32,6 +32,19 @@ export default {
                 )
             })
         },
+        update( {state} ,datos){
+            return new Promise((resolve,reject) => {
+                Event.update(
+                    datos,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            })
+        },
         destroy( {state} , datos){
             console.log(datos);
             return new Promise((resolve,reject) => {

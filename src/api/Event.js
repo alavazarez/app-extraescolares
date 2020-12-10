@@ -18,7 +18,16 @@ export default {
                 callbackError(error);
             })
     },
-
+    update(data,callback,callbackError){
+        Api.post('api/evento/edit/'+this.value.id,data)
+          .then(response=>{
+            callback(response) 
+          })
+          .catch(error=>{
+              console.log(error)
+              callbackError(error);
+          })
+    },
     destroy(data, callback, callbackError){
         Api.post('api/evento/destroy',data)
         .then((res)=>{
