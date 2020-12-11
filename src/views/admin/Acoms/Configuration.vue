@@ -27,6 +27,12 @@
               sm="6"
               md="6"
             >
+            <v-text-field
+              label="Nombre del Profesor Responsable y/o Coordinador"
+              outlined
+              v-bind:disabled="BotonDesabilitado"
+              v-model="acoms.nameCoordinator"
+            ></v-text-field>
         </v-col>
         </v-row>
         <v-row align="center" justify="space-around">
