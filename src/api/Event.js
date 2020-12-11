@@ -19,7 +19,7 @@ export default {
             })
     },
     update(data,callback,callbackError){
-        Api.post('api/evento/edit/'+this.value.id,data)
+        Api.post('api/evento/edit/'+data.id, data)
           .then(response=>{
             callback(response) 
           })

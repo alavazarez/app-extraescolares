@@ -10,23 +10,15 @@ getAcomData(){
         return error;
     }
 },
-updateacom(){
-    try{
-        return Api.post('api/acom/configuration/'+this.acoms.id,this.acoms)
-        .then(response=>{
-            console.log(response)
+updateacom(data,callback,callbackError){
+    Api.post('api/acom/configuration/'+data.id, data)
+          .then(response=>{
+            callback(response) 
           })
-    } catch (error) {
-        console.log(error)
-        return error;
-    }
-/*Api.post('api/acom/configuration/'+this.acoms.id,this.acoms)
-                    .then(response=>{
-                      console.log(response)
-                    })
-                .catch(error=>(
-                    console.log(error)
-                ))*/
+          .catch(error=>{
+              console.log(error)
+              callbackError(error);
+          })
 }
 
 }

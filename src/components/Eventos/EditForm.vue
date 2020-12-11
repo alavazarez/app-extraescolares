@@ -69,7 +69,7 @@
         <v-btn color="blue darken-1" text @click="$emit('closedialog')">
           Close
         </v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false">
+        <v-btn color="blue darken-1" text @click="submit" v-on:click="$emit('closedialog')">
           Save
         </v-btn>
       </v-card-actions>
@@ -78,6 +78,9 @@
 </template>
 
 <script>
+import Event from '../../api/Event'
+import { mapActions } from 'vuex'
+
 export default {
   name: "EditForm",
   props:{
@@ -98,20 +101,20 @@ export default {
       ],
     }),
     methods:{
-      /*updateEvent(){
-        Api.post('api/evento/edit/'+this.value.id,this.value)
-          .then(response=>{
+      ...mapActions('event',['update']),
 
-          })
-          .catch(error=>(
-              console.log(error)
-          ))
-      }*/       
+      async submit(){
+        try {
+          await this.update(this.value)
+          //this.dialog = false
+        } catch (error) {
+        }
+      },    
     },
   watch:{
     openDialog:function (){
       this.dialog = this.openDialog 
     }
   }
-};
+}
 </script>

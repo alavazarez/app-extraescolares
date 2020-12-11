@@ -27,12 +27,6 @@
               sm="6"
               md="6"
             >
-            <v-text-field
-              label="Nombre del Jefe de la oficina de promocion"
-              outlined
-              v-bind:disabled="BotonDesabilitado"
-              v-model="acoms.nameCoordinator"
-            ></v-text-field>
         </v-col>
         </v-row>
         <v-row align="center" justify="space-around">
@@ -137,32 +131,15 @@ export default {
   
   mounted(){
     this.getAcomData();
-    console.log(this.acoms.id);
   },
   data: () => ({
     BotonDesabilitadoActualizar:true,
     BotonDesabilitadoEditar:null,
     BotonDesabilitado:true
     }),
-  props:{
-    /*acoms: {
-           type:Object,
-           default: function () {
-             return {
-                id:'',
-                nameBossDAE:'',
-                nameCoordinator:'',
-                nameBossDSE:''
-             }
-           }
-         }*/
-  },
   computed:{
     ...mapGetters({
       acoms: 'acom/acoms',
-      bloquearActualizar(){
-        return 
-      }
     })
   },
   methods:{
@@ -172,11 +149,9 @@ export default {
       this.BotonDesabilitadoActualizar=true
       this.BotonDesabilitadoEditar=false
       this.BotonDesabilitado=true
-      console.log(this.acoms.slogan)
         try {
-          await this.updateacom(this.acoms.id, this.acoms)
+          await this.updateacom(this.acoms)
         } catch (error) {
-          //
         }
       },
 
@@ -185,20 +160,6 @@ export default {
       this.BotonDesabilitadoEditar=true
       this.BotonDesabilitado=false
     },
-    Actualizar(){
-      this.BotonDesabilitadoActualizar=true
-      this.BotonDesabilitadoEditar=false
-      this.BotonDesabilitado=true
-      console.log(this.acoms.slogan)
-
-      Api.post('api/acom/configuration/'+this.acoms.id,this.acoms)
-                    .then(response=>{
-                      console.log(response)
-                    })
-                .catch(error=>(
-                    console.log(error)
-                ))
-    }
   },
 }
 </script>

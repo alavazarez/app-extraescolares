@@ -32,10 +32,10 @@ export default {
                 )
             })
         },
-        update( {state} ,datos){
+        update( {state} ,data){
             return new Promise((resolve,reject) => {
                 Event.update(
-                    datos,
+                    data,
                    (response) => {
                        resolve(response);
                    },
