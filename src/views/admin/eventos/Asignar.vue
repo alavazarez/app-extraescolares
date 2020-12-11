@@ -19,15 +19,6 @@
         Seleccionar alumnos
       </v-stepper-step>
 
-      <v-divider></v-divider>
-
-      <v-stepper-step 
-      step="3"
-      :complete="e1 > 1"
-      editable
-      >
-        Confirmar asistencia
-      </v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-items>
@@ -76,7 +67,7 @@
 
       <v-stepper-content step="2">
         <v-row>
-          <v-col md="6">
+          <v-col md="8">
             <v-card
             class="mb-2"
             >
@@ -98,30 +89,72 @@
                 </v-row>
               </v-card-title>
               <div class="ml-4"> 
-                  <v-row class="p-0 m-0">
-                    <v-col md="6" class="p-0">
+                  <v-row>
+                    <v-col md="6">
                       <v-text-field
+                      readonly
+                      v-model="alumno.name"
                       label="Nombre"
                       ></v-text-field>
                     </v-col>
+                     <v-col md="2">
+                      <v-text-field
+                      readonly
+                      v-model="alumno.semestre"
+                      label="Semestre"
+                      ></v-text-field>
+                    </v-col>
                   </v-row>
+                  <v-row>
+                    <v-col md="8">
+                      <v-text-field
+                      readonly
+                      v-model="alumno.carrera"
+                      label="Carrera"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col md="4"
+                      class="d-flex justify-center"
+
+                    >
+                    <v-fab-transition>
+                      <v-btn
+                      v-show="!hidden"
+                      @click="addAlumnoToList"
+                      color="pink"
+                      relative
+                      dark
+                      fab
+                      >
+                       <v-icon>mdi-plus</v-icon>
+                      </v-btn>
+                    </v-fab-transition>
+                  </v-col>
+                  </v-row>
+                  
               </div>
             </v-card>
           </v-col>
-          <v-col md="6">
+          <v-col md="4">
             <v-card
             class="mb-2"
+            min-height="315px"
             >
-              <v-card-title>
-                <v-row>
-                  <v-col md="8">
-                    <v-text-field
-                    placeholder="Ingrese número de control"
-                    v-model="date" 
-                    regular label="Número de control"></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-card-title>
+             <v-list class="overflow-y-auto" max-height="300">
+               <v-subheader>SELECCIONADOS</v-subheader>
+               <v-list-item-group>
+                 <v-list-item
+                  v-for="(item, i) in selectedAlumnos"
+                  :key="i">
+                   <v-list-item-icon>
+                     <v-icon>mdi-account</v-icon>
+                   </v-list-item-icon>
+                   <v-list-item-content>
+                    <v-list-item-title>{{item.matricula}}</v-list-item-title>
+                  </v-list-item-content>
+                 </v-list-item>
+               </v-list-item-group>
+             </v-list>
             </v-card>
           </v-col>
         </v-row>
@@ -131,26 +164,6 @@
           @click="e1 = 3"
         >
           Continuar
-        </v-btn>
-
-        <v-btn text
-        @click="e1 = e1-1"
-        >
-          Regresar
-        </v-btn>
-      </v-stepper-content>
-
-      <v-stepper-content step="3">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        ></v-card>
-        <v-btn
-          color="primary"
-          @click="e1 = 1"
-        >
-          Guardar
         </v-btn>
 
         <v-btn text
@@ -169,9 +182,11 @@ import { mapActions, mapGetters } from 'vuex'
     name:'Asginar',
     data () {
       return {
+        hidden:true,
         e1: 1,
         date:null,
         matricula:null,
+        selectedAlumnos:[],
         items: [
           {id:1, name:'Deportivo'},
           {id:2, name:'Cultural'},
@@ -199,15 +214,29 @@ import { mapActions, mapGetters } from 'vuex'
     computed:{
        ...mapGetters({
       events: 'event/events',
-      alumnos: 'alumno/alumnos',
+      alumno: 'alumno/alumno',
     })
     },
     methods:{
       ...mapActions('event',['store','getEvents']),
       ...mapActions('alumno',['getAlumnos','find']),
-      findAlumno(){
-        this.find(this.matricula)
-      }
+      async findAlumno(){
+        try {
+          let res = await this.find(this.matricula)
+          if(res)
+            this.hidden = false;
+        } catch (error) {
+            console.log(error,'error de vue')
+        }
+      },
+      addAlumnoToList(){
+        this.selectedAlumnos.push(this.alumno);
+        this.matricula = '';
+        delete this.alumno.name;
+        delete this.alumno.semestre;
+        delete this.alumno.carrera;
+        this.hidden=true;
+      },
     },
   }
 </script>

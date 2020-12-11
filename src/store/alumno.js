@@ -41,9 +41,10 @@ export default {
                 if(response.status != 200){
                     throw new Error(`HTTP error! status: ${response.status}`);
                 } 
-                commit('SET_ALUMNO',response.data);    
+                commit('SET_ALUMNO',response.data); 
+                return true;   
             } catch (error) {
-                console.log(error);
+                return false;
             }
         },
                   
