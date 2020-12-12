@@ -73,7 +73,6 @@
             :to="child.route"
           >
             <v-list-item-title v-text="child.text"></v-list-item-title>
-
             <v-list-item-icon>
               <v-icon v-text="child.icon"></v-icon>
             </v-list-item-icon>
@@ -109,11 +108,10 @@ export default {
         ]
       },
       {
-        text: "ACOM",
+        text: "Actividad complementaria",
         icon: "mdi-soccer",
         children: [
           { text: "Ver", icon: "mdi-eye", route: "/acom/list" },
-          { text: "Entregar", icon: "mdi-check", route: "/acom/delivers" },
           { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
           { text: "Configuracion ", icon: "mdi-message-processing", route: "/acom/configuration" },
           { text: "Reportes", icon: "mdi-file-document", route: "/acom/Reports" }
