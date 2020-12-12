@@ -131,7 +131,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Acom from '../../../api/Acom'
 
 export default {
   

@@ -39,6 +39,19 @@ export default{
                    } 
                 )
             }) 
+        },
+        crear({state} ,data){
+            return new Promise((resolve,reject) => {
+                Acom.crear(
+                    data,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            })
         }
     }
 }
