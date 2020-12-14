@@ -2,7 +2,7 @@ import Acom from '../api/Acom'
 export default{
     namespaced: true,
     state: {
-        acoms:{},
+        acoms:[],
         error:false
     },
     getters: {
@@ -13,7 +13,10 @@ export default{
     mutations: {
         SET_ACOMS(state, payload){
             state.acoms = payload;
-        }
+        },
+        SET_ERROR(state, payload){
+            state.error = payload;
+        },
     },
     actions: {
         async getAcomData({commit}){
@@ -26,6 +29,17 @@ export default{
             } catch (error) {
                 console.log(error);
             }      
+        },
+        async getAcoms({commit}){
+            try {
+                let response = await Acom.getAcoms();
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_ACOMS', response.data);
+            } catch (error) {
+                console.log(error);
+            }
         },
         updateacom({state} ,data){
             return new Promise((resolve,reject) => {

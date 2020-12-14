@@ -51,7 +51,6 @@ import Event from '../../../api/Event'
 import Swal from 'sweetalert2'
 
 export default {
-  name: "List",
   components: { RegisterForm, EditForm },
   data: () => ({
     headers: [

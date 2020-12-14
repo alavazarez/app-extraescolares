@@ -67,16 +67,6 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-text-field
-              v-model="form.organizer"
-              label="Organizador*" 
-              required>
-              >
-              </v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
               <v-textarea
                 v-model="form.description"
                 outlined

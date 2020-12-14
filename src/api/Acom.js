@@ -1,4 +1,3 @@
-import { Store } from "vuex";
 import Api from "./Api";
 
 export default{
@@ -6,6 +5,13 @@ export default{
     getAcomData(){
         try {
             return Api.get('api/acom/configuration');
+        } catch (error) {
+            return error;
+        }
+    },
+    getAcoms(){
+        try {
+            return Api.get('api/acom/index');
         } catch (error) {
             return error;
         }
