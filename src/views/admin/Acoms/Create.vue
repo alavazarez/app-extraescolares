@@ -26,29 +26,30 @@
         </v-container>
       </v-card-text>
         <v-row align="center" justify="space-around">
-            <v-col cols="4">
+          <v-col cols="4">
             <v-text-field
               label="Alumno"
               outlined
               readonly
               v-model="alumno.name"
             ></v-text-field>
-            </v-col><v-col cols="2">
+          </v-col>
+          <v-col cols="2">
             <v-text-field
               label="Semestre"
               outlined
               readonly
               v-model="alumno.semestre"
             ></v-text-field>
-            </v-col>
-            <v-col cols="4">
+          </v-col>
+          <v-col cols="4">
             <v-text-field
               label="Carrera"
               outlined
               readonly
               v-model="alumno.carrera"
             ></v-text-field>
-        </v-col>
+          </v-col>
         <v-row align="center" justify="space-around">
             <v-col cols="10">
               <v-textarea
@@ -80,8 +81,9 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: "Delivers",
+  name: "Create",
     mounted(){
+      this.cleanInputs();
       },
   data(){
     return {
