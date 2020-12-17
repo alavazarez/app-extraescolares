@@ -100,12 +100,12 @@ export default {
   data: () => ({
     dialog:false,
     form:{
-      name:'Manuel',
+      name:'',
       type_event_id:1,
-      description:'dfsf',
+      description:'',
       date:null,
-      place:'Tec',
-      organizer:'Fito'
+      place:'',
+      organizer:''
     },
     items: [
         {id:1, name:'Deportivo'},

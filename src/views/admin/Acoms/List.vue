@@ -32,14 +32,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Acom from '../../../api/Acom'
 
 export default {
   data: () => {
     return {
     headers: [
       { text: "Id", value: "id" },
-      { text: "ID Alumno", value: "name" },
+      { text: "ID Alumno", value: "alumno_id" },
       { text: "ID Tipo de Acom", value: "typeAcom_id" },
       { text: "Fecha de Entrega", value: "dateDelivery" },
       { text: "Descripcion", value: "description" },
