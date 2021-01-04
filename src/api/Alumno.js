@@ -15,5 +15,13 @@ export default {
         } catch (error) {
             return error;
         }
+    },
+
+    getCount(matricula){
+        try {
+            return Api.get('api/alumno/count/' + matricula);
+        } catch (error) {
+            return error;
+        }
     }
 }

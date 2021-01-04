@@ -70,7 +70,11 @@
             <v-card-title>Deportivo</v-card-title>
           </v-col>
           <v-col cols="1">
-            <v-text-field value="3" solo disabled></v-text-field>
+            <v-text-field 
+              v-model="value.countDeportivo" 
+              outlined
+              readonly
+              ></v-text-field>
           </v-col>
           <v-col cols="2">
             <v-card-title>Cultural</v-card-title>
@@ -121,18 +125,22 @@ export default {
     return {
         idAlumno : null,
         matricula:null,
+        
         value: {
           alumno_id:this.idAlumno,
+          countDeportivo:null,
         }
     }
   },
   computed:{
     ...mapGetters({
       alumno: 'alumno/alumno',
+      deportivo: 'alumno/deportivo',
     }),
   },
   methods:{
-    ...mapActions('alumno',['find']),
+    ...mapActions('alumno',['find','getCount']),
+
     async findAlumno(){
         try {
           let res = await this.find(this.matricula)
@@ -142,6 +150,17 @@ export default {
             console.log(error,'error de vue')
         }
         this.value.alumno_id=this.alumno.id
+      },
+      async getCountEvents(){
+        try {
+          let res = await this.getCount(this.matricula)
+          if(res)
+            this.hidden = false;
+        } catch (error) {
+            console.log(error,'error de vue')
+        }
+        console.log('aqui'+this.deportivo)
+        this.value.countDeportivo=this.deportivo
       },
       cleanInputs(){
         this.matricula=''

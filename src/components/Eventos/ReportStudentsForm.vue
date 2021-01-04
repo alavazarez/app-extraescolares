@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Estudiantes que asistieron a un evento extraescolar
+        <span class="headline">Alumnos que asistieron a un evento extraescolar
         </span>
       </v-card-title>
       <v-card-text>
@@ -15,7 +15,7 @@
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
-                :items="items"
+                :items="evento"
                 label="Evento"
                 solo
               ></v-select>
@@ -24,7 +24,7 @@
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
-                :items="items"
+                :items="sexo"
                 label="Sexo"
                 solo
               ></v-select>
@@ -33,7 +33,7 @@
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
-                :items="items"
+                :items="carrera"
                 label="Carrera"
                 solo
               ></v-select>
@@ -42,7 +42,7 @@
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
-                :items="items"
+                :items="semestre"
                 label="Semestre"
                 solo
               ></v-select>
@@ -51,6 +51,7 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  text @click="exportar"
                   color="success"
                   fab
                   x-large
@@ -75,8 +76,34 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportStudentsForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    evento: ['Partido de futbol', 'partido de basquetbol'],
+    sexo: ['Masculino', 'Femenino'],
+    carrera: ['Mecanica', 'Sistemas', 'Electrica'],
+    semestre: ['1°', '2°', '3°', '4°', '5°'],
+    dialog:false
+    }),
+    
+    exportTable:[],
+    
+  computed:{
+    ...mapGetters({
+      //events: 'event/events',
+    })
+  },
+    methods:{
+    ...mapActions('event',['exportarAlumnos']),
+
+      async exportar(){
+        try {
+          console.log("Aqui")
+          await this.exportarAlumnos()
+        } catch (error) {
+        }
+      },
+    }
 };
 </script>

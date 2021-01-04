@@ -64,6 +64,9 @@
 <script>
 export default {
   name: "ReportEventDayForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    items: ['Masculino', 'Femenino'],
+    dialog:false
+    })
 };
 </script>

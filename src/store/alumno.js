@@ -4,6 +4,7 @@ export default {
       state: {
         alumnos:[],
         alumno:{},
+        deportivo:0
       },
       getters: {
         alumnos (state){
@@ -11,7 +12,10 @@ export default {
         },
         alumno (state){
             return state.alumno;
-        }
+        },
+        deportivo (state){
+            return state.deportivo;
+        },
       },
     
       mutations: {
@@ -20,6 +24,9 @@ export default {
         },
         SET_ALUMNO (state, payload){
             state.alumno = payload;
+        },
+        SET_DEPORTIVO (state, payload){
+            state.deportivo = payload;
         },
       },
     
@@ -42,6 +49,18 @@ export default {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 } 
                 commit('SET_ALUMNO',response.data); 
+                return true;   
+            } catch (error) {
+                return false;
+            }
+        },
+        async getCount({commit},matricula){
+            try {
+                let response = await Alumno.getCount(matricula);
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } 
+                commit('SET_DEPORTIVO',response.data); 
                 return true;   
             } catch (error) {
                 return false;

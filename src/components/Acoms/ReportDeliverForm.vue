@@ -23,7 +23,7 @@
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
-                :items="items"
+                :items="carrera"
                 label="Carrera"
                 solo
               ></v-select>
@@ -76,6 +76,10 @@
 <script>
 export default {
   name: "ReportDeliverForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    items: ['Masculino', 'Femenino'],
+    carrera: ['Mecanica', 'Sistemas', 'Electrica'],
+    dialog:false
+    })
 };
 </script>

@@ -69,6 +69,21 @@ export default {
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+        exportarAlumnos(){
+            console.log("Aqui tambien")
+            return new Promise((resolve,reject) => {
+                Event.exportarAlumnos(
+                   (response) => {
+                       resolve(response);
+                       console.log("Aqui final")
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },
+        
     }
 }

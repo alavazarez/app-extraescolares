@@ -68,6 +68,9 @@
 <script>
 export default {
   name: "ReportToDeliverForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    items: ['Masculino', 'Femenino'],
+    dialog:false
+    })
 };
 </script>
