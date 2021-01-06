@@ -8,6 +8,7 @@
         step="1"
       >
         Seleccionar evento
+        <span>asd</span>
       </v-stepper-step>
 
       <v-divider></v-divider>
@@ -17,6 +18,7 @@
         step="2"
       >
         Seleccionar alumnos
+        
       </v-stepper-step>
 
     </v-stepper-header>
@@ -51,6 +53,7 @@
         :items="events"
         item-key="id"
         :search="date"
+        @item-selected="seleccionarEvento"
         ></v-data-table>
         </v-card>
         <v-btn
@@ -186,6 +189,7 @@ import { mapActions, mapGetters } from 'vuex'
         e1: 1,
         date:null,
         matricula:null,
+        selectedEvent:{},
         selectedAlumnos:[],
         items: [
           {id:1, name:'Deportivo'},
@@ -220,6 +224,10 @@ import { mapActions, mapGetters } from 'vuex'
     methods:{
       ...mapActions('event',['store','getEvents']),
       ...mapActions('alumno',['getAlumnos','find']),
+      seleccionarEvento(payload){
+        this.selectedEvent = payload.item
+        console.log(this.selectedEvent)
+      },
       async findAlumno(){
         try {
           let res = await this.find(this.matricula)
