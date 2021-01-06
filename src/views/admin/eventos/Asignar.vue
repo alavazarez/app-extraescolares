@@ -169,15 +169,29 @@
         </v-btn>
       </v-stepper-content>
     </v-stepper-items>
+    <div>
+      <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      :color="color"
+      >
+        {{text}}
+      </v-snackbar>
+    </div>
   </v-stepper>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import alert from '../../../util/alert'
   export default {
     name:'Asginar',
     data () {
       return {
+        text:'',
+        snackbar:false,
+        timeout:5000,
+        color:'',
         hidden:true,
         e1: 1,
         date:null,
@@ -223,15 +237,28 @@ import { mapActions, mapGetters } from 'vuex'
         console.log(this.selectedEvent)
       },
       async save(){
-        let data = {
-          event_id : this.event.id,
-          alumnos : this.selectedAlumnos
-        }
-        try {
-          let res = await this.storeAttendance(data);
-        } catch (error) {
-          alert('errror al guardar')
-        }
+        let responseSwal = await alert.confirm(
+          "¿Desean enviar la cédula a revisión?",
+          "La cédula y los datos relacionados se enviarán para su valoración",
+          "Si, enviar!",
+          "No, cancelar!"
+        );
+        if(responseSwal){
+          let data = {
+            event_id : this.event.id,
+            alumnos : this.selectedAlumnos
+          }
+            let res = await this.storeAttendance(data);
+            if(res){
+              alert('asds')
+              this.color = 'green';
+              this.text = 'Guardado correctamente' 
+              this.snackbar = true;
+            }
+            this.color = 'red';
+            this.text = 'Error al guardar'
+            this.snackbar = true;
+          }
       },
       async findAlumno(){
         try {
