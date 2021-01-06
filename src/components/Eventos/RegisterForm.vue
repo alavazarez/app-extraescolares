@@ -31,14 +31,23 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6">
               <v-text-field 
               v-model="form.place"
               label="Lugar*" 
               required>
               </v-text-field>
             </v-col>
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6">
+              <v-text-field 
+              v-model="form.organizer"
+              label="Organizador*" 
+              required>
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" sm="6">
               <v-menu>
                 <v-text-field 
                 v-model="form.date"
@@ -48,21 +57,11 @@
                 </v-text-field>
               </v-menu>
             </v-col>
-            <v-col cols="12" sm="4"> 
+            <v-col cols="12" sm="6"> 
               <v-text-field 
               v-model="form.date"
               label="hora*" 
               required>
-              </v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-              v-model="form.organizer"
-              label="Organizador*" 
-              required>
-              >
               </v-text-field>
             </v-col>
           </v-row>
@@ -101,12 +100,12 @@ export default {
   data: () => ({
     dialog:false,
     form:{
-      name:'Manuel',
+      name:'',
       type_event_id:1,
-      description:'dfsf',
+      description:'',
       date:null,
-      place:'Tec',
-      organizer:'Fito'
+      place:'',
+      organizer:''
     },
     items: [
         {id:1, name:'Deportivo'},

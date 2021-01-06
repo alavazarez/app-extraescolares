@@ -5,74 +5,38 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="data"
+      :items="events"
       sort-by="calories"
       class="elevation-1"
-    >
-      <template v-slot:[`item.actions`]>
-        <v-btn x-small fab color="error" dark>
-          <v-icon dark>mdi-trash-can</v-icon>
-        </v-btn>
-      </template>
-    </v-data-table>
+    ></v-data-table>
   </v-card>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: "List",
+  name: "UpcomingEvents",
   data: () => ({
     headers: [
       { text: "Id", value: "id" },
       { text: "Nombre", value: "name" },
-      { text: "Tipo", value: "type" },
-      { text: "Lugar", value: "place" },
+      { text: "Tipo de evento", value: "type_event_id" },
+      { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },
-      { text: "Hora", value: "time" },
+      { text: "Lugar", value: "place" },
       { text: "Actions", value: "actions", sortable: false }
     ],
-    data: [
-      {
-        id: 1,
-        name: "Partido de basquetbol",
-        type: "deportivo",
-        place: "Campo 2",
-        date: "24/02/2020",
-        time: "06:30 pm"
-      },
-      {
-        id: 2,
-        name: "Partido de voleibol",
-        type: "deportivo",
-        place: "Campo 1",
-        date: "30/06/2020",
-        time: "06:30 pm"
-      },
-      {
-        id: 3,
-        name: "Honores a la bandera",
-        type: "civico",
-        place: "Patio civico",
-        date: "24/02/2020",
-        time: "09:00 am"
-      },
-      {
-        id: 4,
-        name: "Honores a la bandera",
-        type: "civico",
-        place: "Patio civico",
-        date: "24/02/2020",
-        time: "09:00 am"
-      },
-      {
-        id: 5,
-        name: "Honores a la bandera",
-        type: "civico",
-        place: "Patio civico",
-        date: "24/02/2020",
-        time: "09:00 am"
-      }
-    ]
-  })
+  }),
+  computed:{
+    ...mapGetters({
+      events: 'event/events',
+    })
+  },
+  mounted(){
+    this.getEvents();
+  },
+  methods:{
+    ...mapActions('event',['getEvents']),
+  }
 };
 </script>

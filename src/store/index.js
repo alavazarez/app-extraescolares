@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import acom from "./acom";
 import alumno from "./alumno";
 import auth from './auth';
 import event from './event';
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   modules: {
     auth:auth,
     event:event,
+    acom:acom,
     alumno:alumno
   }
 });

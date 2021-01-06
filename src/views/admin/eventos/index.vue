@@ -51,7 +51,6 @@ import Event from '../../../api/Event'
 import Swal from 'sweetalert2'
 
 export default {
-  name: "List",
   components: { RegisterForm, EditForm },
   data: () => ({
     headers: [
@@ -83,7 +82,6 @@ export default {
     },
     selectingItem(item){
       this.openDialog = true;
-      console.log(item)
       this.itemSelected = item;
     },
     borrar(item){

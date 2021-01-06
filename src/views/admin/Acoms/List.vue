@@ -18,7 +18,7 @@
       </v-card-text>
     <v-data-table
       :headers="headers"
-      :items="data"
+      :items="acoms"
       sort-by="calories"
       class="elevation-1">
       <template v-slot:[`item.actions`]>
@@ -31,32 +31,33 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
-  data: () => ({
+  data: () => {
+    return {
     headers: [
-      { text: "Matricula", value: "matri" },
-      { text: "Nombre", value: "name" },
-      { text: "Carrera", value: "carrer" },
-      { text: "Semestre", value: "semester" },
-      { text: "Fecha de entrega", value: "date" },
+      { text: "Id", value: "id" },
+      { text: "ID Alumno", value: "alumno_id" },
+      { text: "ID Tipo de Acom", value: "typeAcom_id" },
+      { text: "Fecha de Entrega", value: "dateDelivery" },
+      { text: "Descripcion", value: "description" },
+      { text: "Status", value: "status" },
       { text: "Actions", value: "actions", sortable: false }
     ],
-    data: [
-      {
-        matri: 16270736,
-        name: "Manuel de Jesus Alavazarez Hernandez",
-        carrer: "Ingenieria en Sistemas Computacionales",
-        semester: "9°",
-        date: "10/12/2020"
-      },
-      {
-        matri: 16270837,
-        name: "Eduardo Vazquez Bravo",
-        carrer: "Ingenieria Mecanica",
-        semester: "8°",
-        date: "10/12/2020"
-      }
-    ]
-  })
+    }
+  },
+  mounted(){
+    this.getAcoms()
+    console.log(this.acoms)
+  },
+  computed:{
+    ...mapGetters({
+      acoms: 'acom/acoms',
+    })
+  },
+  methods:{
+    ...mapActions('acom',['getAcoms']),
+  },
 }
 </script>

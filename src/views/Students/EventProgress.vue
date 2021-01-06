@@ -8,20 +8,56 @@
       <v-container>
         <v-row align="center" justify="space-around">
           <v-col cols="2">
-            <v-text-field label="Matricula*" required></v-text-field>
+            <v-text-field 
+              label="Matricula*" 
+              required
+              v-model="matricula">
+            </v-text-field>
           </v-col>
-          <v-col cols="3" >
+          <v-col cols="2" >
             <v-btn
-              color="primary"
-              dark>
-              Buscar
-          </v-btn>
+                @click="findAlumno"
+                depressed
+                color="primary"
+                >Buscar
+              </v-btn>
           </v-col>
           <v-col cols="3">
-            <v-card-title>Curso Extraescolar</v-card-title>
+            <v-card-title>Actividad Extraescolar</v-card-title>
           </v-col>
           <v-col cols="3">
-            <v-text-field value="Banda de Guerra" solo disabled></v-text-field>
+            <v-text-field 
+            label="Actividad"
+            v-model="alumno.actividad" 
+            outlined
+              readonly
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row align="center" justify="space-around">
+          <v-col cols="4">
+            <v-text-field
+              label="Alumno"
+              outlined
+              readonly
+              v-model="alumno.name"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="2">
+            <v-text-field
+              label="Semestre"
+              outlined
+              readonly
+              v-model="alumno.semestre"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field
+              label="Carrera"
+              outlined
+              readonly
+              v-model="alumno.carrera"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row align="center" justify="space-around">
@@ -50,12 +86,6 @@
           </v-col>
         </v-row>
         <v-card>
-          <v-data-table
-            :headers="headers"
-            :items="data"
-            sort-by="calories"
-            class="elevation-1">
-          </v-data-table>
         </v-card>
         <v-container>
           <v-row align="center" justify="space-around">
@@ -81,37 +111,45 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "EventProgress",
-  data: () => ({
-    headers: [
-      { text: "Id", value: "id" },
-      { text: "Nombre", value: "name" },
-      { text: "Tipo", value: "type" },
-      { text: "Fecha", value: "date" }
-    ],
-    data: [
-      {
-        id: 1,
-        name: "Partido de basquetbol",
-        type: "deportivo",
-        date: "24/02/2020"
+  mounted(){
+      this.cleanInputs();
       },
-      {
-        id: 2,
-        name: "Partido de voleibol",
-        type: "deportivo",
-        date: "01/12/2020"
-      },
-      {
-        id: 3,
-        name: "Honores a la bandera",
-        type: "civico",
-        date: "01/12/2020"
-      },
-    ]
-  }),
+  data(){
+    return {
+        idAlumno : null,
+        matricula:null,
+        value: {
+          alumno_id:this.idAlumno,
+        }
+    }
+  },
+  computed:{
+    ...mapGetters({
+      alumno: 'alumno/alumno',
+    }),
+  },
   methods:{
+    ...mapActions('alumno',['find']),
+    async findAlumno(){
+        try {
+          let res = await this.find(this.matricula)
+          if(res)
+            this.hidden = false;
+        } catch (error) {
+            console.log(error,'error de vue')
+        }
+        this.value.alumno_id=this.alumno.id
+      },
+      cleanInputs(){
+        this.matricula=''
+        this.alumno.name=''
+        this.alumno.carrera=''
+        this.alumno.semestre=''
+        this.alumno.actividad=''
+      },
     generatePDF(){
       const doc = new jsPDF({
         orientation: "portrait",
