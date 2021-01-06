@@ -4,11 +4,11 @@
    >
     <v-stepper-header>
       <v-stepper-step
-         :complete="e1 > 1"
+        :complete="e1 > 1"
         step="1"
       >
-        Seleccionar evento
-        <span>asd</span>
+        <span v-if="!event.name" >Seleccionar evento</span>
+        <span v-if="event.name">{{event.name}}</span>
       </v-stepper-step>
 
       <v-divider></v-divider>
@@ -36,17 +36,10 @@
              type="date"
              regular label="Fecha del evento"></v-text-field>
            </v-col>
-           <v-col md="4">
-             <v-select
-              :items="items"
-              label="Tipo de evento"
-              item-text="name"
-              item-value="id"
-              ></v-select>
-           </v-col>
          </v-row>
         </v-card-title>
         <v-data-table
+        v-model="selectedEvent"
         :headers="headers"
         show-select
         single-select
@@ -164,9 +157,9 @@
        
         <v-btn
           color="primary"
-          @click="e1 = 3"
+          @click="save"
         >
-          Continuar
+          Guardar
         </v-btn>
 
         <v-btn text
@@ -189,7 +182,8 @@ import { mapActions, mapGetters } from 'vuex'
         e1: 1,
         date:null,
         matricula:null,
-        selectedEvent:{},
+        selectedEvent:[],
+        event:{},
         selectedAlumnos:[],
         items: [
           {id:1, name:'Deportivo'},
@@ -222,11 +216,22 @@ import { mapActions, mapGetters } from 'vuex'
     })
     },
     methods:{
-      ...mapActions('event',['store','getEvents']),
+      ...mapActions('event',['store','getEvents','storeAttendance']),
       ...mapActions('alumno',['getAlumnos','find']),
       seleccionarEvento(payload){
         this.selectedEvent = payload.item
         console.log(this.selectedEvent)
+      },
+      async save(){
+        let data = {
+          event_id : this.event.id,
+          alumnos : this.selectedAlumnos
+        }
+        try {
+          let res = await this.storeAttendance(data);
+        } catch (error) {
+          alert('errror al guardar')
+        }
       },
       async findAlumno(){
         try {
@@ -246,6 +251,11 @@ import { mapActions, mapGetters } from 'vuex'
         this.hidden=true;
       },
     },
+    watch:{
+      selectedEvent: function (){
+        this.event = this.selectedEvent[0];
+      }
+    }
   }
 </script>
 

@@ -69,6 +69,19 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        async storeAttendance({commit},data){
+            try {
+                let response = await Event.storeAttendance(data);
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_EVENTS', response.data);
+                return true;
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
         }
     }
 }

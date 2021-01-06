@@ -42,5 +42,12 @@ export default {
         } catch (error) {
             return error;
         }
+    },
+    storeAttendance(data){
+        try {
+            return Api.post('api/evento/asistencia',data)
+        } catch (error) {
+            return error;
+        }
     }
 }
