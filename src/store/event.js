@@ -84,6 +84,20 @@ export default {
                 )
             }) 
         },
+        exportarEvents({state} ,data){
+            return new Promise((resolve,reject) => {
+                Event.exportarEvents(
+                    data,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },
+        
         
     }
 }

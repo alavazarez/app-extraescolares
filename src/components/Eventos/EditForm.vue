@@ -9,7 +9,7 @@
           <v-row>
             <v-col cols="8">
               <v-text-field 
-              v-model="value.name" 
+              v-model="value.nameEvent" 
               label="Nombre*" 
               required>
               </v-text-field>

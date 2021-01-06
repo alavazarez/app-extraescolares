@@ -14,7 +14,11 @@
         <v-container>
           <v-row align="center" justify="space-around">
             <v-col cols="8">
-              <v-text-field type="date" value="as"></v-text-field>
+              <v-text-field
+              v-model="date"
+              type="date"
+              label="Fecha del evento"
+             ></v-text-field>
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
@@ -38,6 +42,7 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  text @click="exportar"
                   color="success"
                   fab
                   x-large
@@ -62,11 +67,24 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportEventDayForm",
   data: () => ({
     items: ['Masculino', 'Femenino'],
-    dialog:false
-    })
+    dialog:false,
+    date:null
+    }),
+
+    methods:{
+      ...mapActions('event',['exportarEvents']),
+      async exportar(){
+        try {
+          //console.log(this.date)
+          await this.exportarEvents(this.date)
+        } catch (error) {
+        }
+      },
+    }
 };
 </script>

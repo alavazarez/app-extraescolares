@@ -55,7 +55,7 @@ export default {
   data: () => ({
     headers: [
       { text: "Id", value: "id" },
-      { text: "Nombre", value: "name" },
+      { text: "Nombre", value: "nameEvent" },
       { text: "Tipo de evento", value: "type_event_id" },
       { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },

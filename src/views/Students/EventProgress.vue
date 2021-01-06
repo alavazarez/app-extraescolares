@@ -255,13 +255,13 @@ export default {
       doc.setFontType('bold');
       doc.setFontSize(12).text("FORMATO DE CONTROL DE LA ACTIVIDAD COMPLEMENTARIA A-COM4", 4.1, 1.5, 'center');
 
-      doc.setFontSize(9).text("NOMBRE: ", .7, 2);
+      doc.setFontSize(9).text("NOMBRE:  "+this.alumno.name, .7, 2);
       doc.setLineWidth(0.01).line(1.3, 2, 7.5, 2);
-      doc.setFontSize(9).text("NUM. DE CONTROL: ", .7, 2.3);
+      doc.setFontSize(9).text("NUM. DE CONTROL:  "+this.matricula, .7, 2.3);
       doc.setLineWidth(0.01).line(1.95, 2.3, 4.9, 2.3);
-      doc.setFontSize(9).text("SEMESTRE: ", 5, 2.3);
+      doc.setFontSize(9).text("SEMESTRE:  "+this.alumno.semestre, 5, 2.3);
       doc.setLineWidth(0.01).line(5.9, 2.3, 7.5, 2.3);
-      doc.setFontSize(9).text("CARRERA: ", .7, 2.6);
+      doc.setFontSize(9).text("CARRERA:  "+this.alumno.carrera, .7, 2.6);
       doc.setLineWidth(0.01).line(1.4, 2.6, 7.5, 2.6);
 
       /*var columns = ["No.", "Actividad", "Fecha", "Firma del promotor"];

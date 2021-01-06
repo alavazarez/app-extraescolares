@@ -14,7 +14,7 @@
           <v-row>
             <v-col cols="8">
               <v-text-field 
-              v-model="form.name"
+              v-model="form.nameEvent"
               label="Nombre*" 
               required
               >
@@ -100,7 +100,7 @@ export default {
   data: () => ({
     dialog:false,
     form:{
-      name:'',
+      nameEvent:'',
       type_event_id:1,
       description:'',
       date:null,
@@ -127,7 +127,7 @@ export default {
         }
       },
       cleanInputs(){
-        this.form.name=''
+        this.form.nameEvent=''
         this.form.type_event_id=null
         this.form.description=''
         this.form.date=null

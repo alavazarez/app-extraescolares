@@ -16,6 +16,7 @@ export default {
     },
     
     store(data,callback,callbackError){
+        console.log("Si llega ",data)
         Api.post('api/evento/store',data)
             .then((response) => {
                 callback(response) 
@@ -62,6 +63,26 @@ export default {
                 XLSX.writeFile(workbook, `${filename}.xlsx`)
                 callback(response) 
                 console.log("Aqui de nuevo")
+            })
+            .catch(error=>{
+                console.log(error)
+                callbackError(error);
+            })
+    },
+    exportarEvents(data, callback, callbackError){
+        console.log("Aqui Igual")
+        console.log(data)
+        Api.get('api/event/reports/exportExcelEvents/'+ data)
+            .then(response=>{
+                console.log("Aqui de nuevo")
+                this.exportTable = response.data
+                const workbook = XLSX.utils.book_new()
+                const filename = 'Reporte'
+                let data = XLSX.utils.json_to_sheet(this.exportTable)
+                XLSX.utils.book_append_sheet(workbook, data, filename)
+                XLSX.writeFile(workbook, `${filename}.xlsx`)
+                callback(response) 
+                
             })
             .catch(error=>{
                 console.log(error)

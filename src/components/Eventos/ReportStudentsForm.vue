@@ -14,7 +14,17 @@
         <v-container>
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
+              <v-text-field
+              v-model="date"
+              type="date"
+              label="Fecha del evento"
+             ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="space-around">
+            <v-col class="d-flex" cols="12" sm="8">
               <v-select
+                @click="obtenerEvents"
                 :items="evento"
                 label="Evento"
                 solo
@@ -83,12 +93,11 @@ export default {
     evento: ['Partido de futbol', 'partido de basquetbol'],
     sexo: ['Masculino', 'Femenino'],
     carrera: ['Mecanica', 'Sistemas', 'Electrica'],
-    semestre: ['1°', '2°', '3°', '4°', '5°'],
+    date: [],
+    semestre: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
     dialog:false
     }),
-    
-    exportTable:[],
-    
+  
   computed:{
     ...mapGetters({
       //events: 'event/events',
@@ -104,6 +113,13 @@ export default {
         } catch (error) {
         }
       },
+      async obtenerEvents(){
+        //Para obtener eventos de un dia
+        try {
+          await this.getEventsforDate()
+        } catch (error) {
+        }
+      }
     }
 };
 </script>
