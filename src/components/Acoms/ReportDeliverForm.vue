@@ -33,6 +33,7 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  text @click="exportar"
                   color="success"
                   fab
                   x-large
@@ -57,14 +58,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportDeliverForm",
   data: () => ({
     date:{
-    initialDate:null,
-    finalDate:null
+      initialDate:null,
+      finalDate:null
     },
     dialog:false
-    })
+    }),
+
+    methods:{
+      ...mapActions('acom',['exportarAcomLiberados']),
+      async exportar(){
+        try {
+          console.log(this.date)
+          await this.exportarAcomLiberados(this.date)
+        } catch (error) {
+        }
+      },
+    }
 };
 </script>

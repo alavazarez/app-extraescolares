@@ -66,6 +66,18 @@ export default {
                 return false;
             }
         },
-                  
+        generatePDFAlumno({state}, data){
+            return new Promise((resolve,reject) => {
+                Alumno.generatePDFAlumno(
+                    data,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },
       }
 }

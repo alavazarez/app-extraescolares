@@ -99,5 +99,6 @@ export default {
                 console.log(error)
                 callbackError(error);
             })
-    }
+    },
+    
 }
