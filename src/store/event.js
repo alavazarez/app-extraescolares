@@ -8,7 +8,7 @@ export default {
     getters: {
         events(state){
             return state.events;
-        }
+        },
     },
     mutations: {
         SET_EVENTS(state, payload){
@@ -87,6 +87,19 @@ export default {
         exportarEvents({state} ,data){
             return new Promise((resolve,reject) => {
                 Event.exportarEvents(
+                    data,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },
+        exportarPeriodEvents({state}, data){
+            return new Promise((resolve,reject) => {
+                Event.exportarPeriodEvents(
                     data,
                    (response) => {
                        resolve(response);

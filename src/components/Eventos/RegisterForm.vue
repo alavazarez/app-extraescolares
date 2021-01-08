@@ -24,7 +24,7 @@
               <v-select
               v-model="form.type_event_id"
               :items="items"
-              label="Tipo de evento"
+              label="Tipo de evento*"
               item-text="name"
               item-value="id"
               ></v-select>
@@ -51,18 +51,11 @@
               <v-menu>
                 <v-text-field 
                 v-model="form.date"
-                type="date"
+                type="datetime-local"
                 slot="activator"
-                label="Fecha">
+                label="Fecha y hora*">
                 </v-text-field>
               </v-menu>
-            </v-col>
-            <v-col cols="12" sm="6"> 
-              <v-text-field 
-              v-model="form.date"
-              label="hora*" 
-              required>
-              </v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -70,7 +63,7 @@
               <v-textarea
                 v-model="form.description"
                 outlined
-                label="Descripción"
+                label="Descripción*"
                 counter
                 maxlength="120"
               ></v-textarea>

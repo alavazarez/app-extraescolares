@@ -38,9 +38,7 @@
         </v-list-item-title>
       </v-list-item-content>
       <v-card-actions>
-        <v-btn depressed color="primary" rounded>
-        <v-icon dark>mdi-arrow-right-bold-circle</v-icon>
-        </v-btn>
+        <ReportEventPeriodForm />
       </v-card-actions>
       </v-list-item>
     </v-card>
@@ -49,8 +47,9 @@
 <script>
 import ReportStudentsForm from "@/components/Eventos/ReportStudentsForm";
 import ReportEventDayForm from "@/components/Eventos/ReportEventDayForm";
+import ReportEventPeriodForm from "@/components/Eventos/ReportEventPeriodForm";
 export default {
-  components: { ReportStudentsForm, ReportEventDayForm },
+  components: { ReportStudentsForm, ReportEventDayForm, ReportEventPeriodForm },
   data: () => ({
       
     }),

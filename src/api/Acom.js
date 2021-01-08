@@ -35,6 +35,15 @@ export default{
                 console.log(error)
                 callbackError(error);
             })
-    }
+    },
+    deliver(data, callback, callbackError){
+        Api.post('api/acom/deliver/'+data.id)
+        .then((res)=>{
+            callback(res) 
+        })
+        .catch((error)=>{
+            callbackError(error);
+        })
+    },
 
 }

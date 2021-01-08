@@ -7,28 +7,27 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Alumnos que asistieron a un evento extraescolar
+        <span class="headline">Eventos extraescolares realizados en un periodo
         </span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
+            <v-col cols="8">
               <v-text-field
-              v-model="date"
+              v-model="date.initialDate"
               type="date"
-              label="Fecha del evento"
+              label="Fecha inicial"
              ></v-text-field>
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                @click="obtenerEvents"
-                :items="evento"
-                label="Evento"
-                solo
-              ></v-select>
+            <v-col cols="8">
+              <v-text-field
+              v-model="date.finalDate"
+              type="date"
+              label="Fecha Final"
+             ></v-text-field>
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
@@ -61,35 +60,23 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: "ReportStudentsForm",
+  name: "ReportEventPeriodForm",
   data: () => ({
-    evento: ['Partido de futbol', 'partido de basquetbol'],
-    date: [],
-    dialog:false
+    dialog:false,
+    date:{
+    initialDate:null,
+    finalDate:null
+    }
     }),
-  
-  computed:{
-    ...mapGetters({
-      //events: 'event/events',
-    })
-  },
-    methods:{
-    ...mapActions('event',['exportarAlumnos']),
 
+    methods:{
+      ...mapActions('event',['exportarPeriodEvents']),
       async exportar(){
         try {
-          console.log("Aqui")
-          await this.exportarAlumnos()
+          await this.exportarPeriodEvents(this.date)
         } catch (error) {
         }
       },
-      async obtenerEvents(){
-        //Para obtener eventos de un dia
-        try {
-          await this.getEventsforDate()
-        } catch (error) {
-        }
-      }
     }
 };
 </script>

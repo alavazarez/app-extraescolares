@@ -52,7 +52,6 @@ export default {
         }
     },
     exportarAlumnos(callback, callbackError){
-        console.log("Aqui Igual")
         Api.get('api/event/reports/exportExcel')
             .then(response=>{
                 this.exportTable = response.data
@@ -62,7 +61,6 @@ export default {
                 XLSX.utils.book_append_sheet(workbook, data, filename)
                 XLSX.writeFile(workbook, `${filename}.xlsx`)
                 callback(response) 
-                console.log("Aqui de nuevo")
             })
             .catch(error=>{
                 console.log(error)
@@ -70,11 +68,8 @@ export default {
             })
     },
     exportarEvents(data, callback, callbackError){
-        console.log("Aqui Igual")
-        console.log(data)
         Api.get('api/event/reports/exportExcelEvents/'+ data)
             .then(response=>{
-                console.log("Aqui de nuevo")
                 this.exportTable = response.data
                 const workbook = XLSX.utils.book_new()
                 const filename = 'Reporte'
@@ -82,7 +77,23 @@ export default {
                 XLSX.utils.book_append_sheet(workbook, data, filename)
                 XLSX.writeFile(workbook, `${filename}.xlsx`)
                 callback(response) 
-                
+            })
+            .catch(error=>{
+                console.log(error)
+                callbackError(error);
+            })
+    },
+    exportarPeriodEvents(data, callback, callbackError){
+        console.log("Aqui Igual", data.finalDate, "aui", data.initialDate)
+        Api.get('api/event/reports/exportExcelPeriodEvents/'+ data.initialDate +'/'+ data.finalDate)
+            .then(response=>{
+                this.exportTable = response.data
+                const workbook = XLSX.utils.book_new()
+                const filename = 'Reporte'
+                let data = XLSX.utils.json_to_sheet(this.exportTable)
+                XLSX.utils.book_append_sheet(workbook, data, filename)
+                XLSX.writeFile(workbook, `${filename}.xlsx`)
+                callback(response) 
             })
             .catch(error=>{
                 console.log(error)

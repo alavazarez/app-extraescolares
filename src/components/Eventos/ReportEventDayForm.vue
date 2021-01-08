@@ -22,24 +22,6 @@
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Tipo"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Lugar"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
                   text @click="exportar"
@@ -71,7 +53,6 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportEventDayForm",
   data: () => ({
-    items: ['Masculino', 'Femenino'],
     dialog:false,
     date:null
     }),

@@ -193,7 +193,7 @@ import { mapActions, mapGetters } from 'vuex'
           {id:3, name:'Cívico'},
         ],
         headers: [
-          { text: 'Nombre', value: 'name' },
+          { text: 'Nombre', value: 'nameEvent' },
           { text: 'Tipo de evento', value: 'type_event_id' },
           { text: 'Organizador', value: 'organizer' },
           { text: 'Lugar', value: 'place' },

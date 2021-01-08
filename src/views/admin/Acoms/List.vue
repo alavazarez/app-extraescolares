@@ -21,9 +21,13 @@
       :items="acoms"
       sort-by="calories"
       class="elevation-1">
-      <template v-slot:[`item.actions`]>
-        <v-btn x-small fab color="primary" dark>
-          <v-icon dark>mdi-printer</v-icon></v-btn
+      <template v-slot:item.actions="{ item }">
+        <v-btn 
+          @click="entregar(item)"
+          x-small 
+          fab color="success" 
+          dark>
+          <v-icon dark>mdi-checkbox-marked-circle</v-icon></v-btn
         >
       </template>
     </v-data-table>
@@ -32,6 +36,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Swal from 'sweetalert2'
 
 export default {
   data: () => {
@@ -49,7 +54,6 @@ export default {
   },
   mounted(){
     this.getAcoms()
-    console.log(this.acoms)
   },
   computed:{
     ...mapGetters({
@@ -57,7 +61,39 @@ export default {
     })
   },
   methods:{
-    ...mapActions('acom',['getAcoms']),
+    ...mapActions('acom',['getAcoms', 'deliver']),
+
+    entregar(item){
+      Swal.fire({
+        title: '¿Desea entregar este ACOM?',
+        text: "¡No podrás revertir esta accion!",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'SI, entregar ACOM',
+        cancelButtonText: 'NO, cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deliver(item)
+          .then((res)=>{
+            Swal.fire(
+            '¡ACOM Entregado!',
+            'Se ha entregado El ACOM al alumno seleccionado',
+            'success'
+          )
+          this.getAcoms();
+          })
+          .catch((err)=>{
+            Swal.fire(
+            'Error!',
+            'No pudo ser entregado el ACOM',
+            'error'
+          )
+          })
+        }
+      })
+    },
   },
 }
 </script>

@@ -66,6 +66,19 @@ export default{
                    } 
                 )
             })
-        }
+        },
+        deliver( {state} , datos){
+            return new Promise((resolve,reject) => {
+                Acom.deliver(
+                    datos,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            })
+        },
     }
 }
