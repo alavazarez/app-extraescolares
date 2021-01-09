@@ -48,7 +48,6 @@ export default{
         })
     },
     exportarAcomLiberados(data, callback, callbackError){
-        console.log("Aqui Igual", data.finalDate, "aui", data.initialDate)
         Api.get('api/acom/reports/exportarAcomLiberados/'+ data.initialDate +'/'+ data.finalDate)
             .then(response=>{
                 this.exportTable = response.data

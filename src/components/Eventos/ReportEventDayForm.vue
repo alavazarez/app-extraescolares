@@ -61,7 +61,6 @@ export default {
       ...mapActions('event',['exportarEvents']),
       async exportar(){
         try {
-          //console.log(this.date)
           await this.exportarEvents(this.date)
         } catch (error) {
         }

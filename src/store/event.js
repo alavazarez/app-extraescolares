@@ -70,13 +70,23 @@ export default {
                 console.log(error);
             }
         },
-        exportarAlumnos(){
-            console.log("Aqui tambien")
+        async getEventsforDate({commit}, date){
+            try {
+                let response = await Event.getEventsforDate(date);
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_EVENTS', response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        exportarAlumnos({state} ,data){
             return new Promise((resolve,reject) => {
                 Event.exportarAlumnos(
+                    data,
                    (response) => {
                        resolve(response);
-                       console.log("Aqui final")
                    },
                    (error) => {
                        reject(error);

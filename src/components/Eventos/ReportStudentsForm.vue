@@ -25,8 +25,11 @@
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
                 @click="obtenerEvents"
-                :items="evento"
-                label="Evento"
+                v-model="value.id"
+                :items="events"
+                label="Evento*"
+                item-text="nameEvent"
+                item-value="id"
                 solo
               ></v-select>
             </v-col>
@@ -63,33 +66,35 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportStudentsForm",
   data: () => ({
-    evento: ['Partido de futbol', 'partido de basquetbol'],
+    items: [
+        {id:"id", name:"nameEvent"},
+      ],
     date: [],
-    dialog:false
+    dialog:false,
+    value:{
+      id:''}
     }),
-  
   computed:{
     ...mapGetters({
-      //events: 'event/events',
+      events: 'event/events',
     })
   },
     methods:{
-    ...mapActions('event',['exportarAlumnos']),
+    ...mapActions('event',['exportarAlumnos', 'getEventsforDate']),
 
       async exportar(){
         try {
-          console.log("Aqui")
-          await this.exportarAlumnos()
+          await this.exportarAlumnos(this.value.id)
         } catch (error) {
         }
       },
       async obtenerEvents(){
         //Para obtener eventos de un dia
         try {
-          await this.getEventsforDate()
-        } catch (error) {
+          await this.getEventsforDate(this.date)
+          } catch (error) {
         }
-      }
+      },
     }
 };
 </script>

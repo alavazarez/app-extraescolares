@@ -73,7 +73,6 @@ export default {
       ...mapActions('acom',['exportarAcomLiberados']),
       async exportar(){
         try {
-          console.log(this.date)
           await this.exportarAcomLiberados(this.date)
         } catch (error) {
         }

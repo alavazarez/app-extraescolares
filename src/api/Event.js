@@ -51,8 +51,15 @@ export default {
             return error;
         }
     },
-    exportarAlumnos(callback, callbackError){
-        Api.get('api/event/reports/exportExcel')
+    getEventsforDate(date){
+        try {
+            return Api.get('api/eventForDate/'+ date)
+        } catch (error) {
+            return error;
+        }
+    },
+    exportarAlumnos(data, callback, callbackError){
+        Api.get('api/event/reports/exportExcel/'+data)
             .then(response=>{
                 this.exportTable = response.data
                 const workbook = XLSX.utils.book_new()
