@@ -3,11 +3,22 @@ export default {
     namespaced: true,
     state: {
       events:[],
+      event:{
+        name:'',
+        type_event_id:0,
+        description:'',
+        date:undefined, //DateTime
+        place:'',
+        organizer:''
+      },
       error:false
     },
     getters: {
         events(state){
             return state.events;
+        },
+        event(state){
+            return state.event;
         }
     },
     mutations: {
@@ -17,9 +28,15 @@ export default {
         SET_ERROR(state, payload){
             state.error = payload;
         },
+        SET_EVENT(state, payload){
+            state.event = payload;
+        },
     },
     actions: {
-        store( {state} ,datos){
+        setEvent({commit},event){
+            commit('SET_EVENT', event);
+        },
+        store( {state} , datos){
             return new Promise((resolve,reject) => {
                 Event.store(
                     datos,
@@ -76,7 +93,6 @@ export default {
                 if(response.status != 200){
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                commit('SET_EVENTS', response.data);
                 return true;
             } catch (error) {
                 console.log(error);
