@@ -18,13 +18,12 @@ export default {
   name: "UpcomingEvents",
   data: () => ({
     headers: [
-      { text: "Id", value: "id" },
       { text: "Nombre", value: "nameEvent" },
-      { text: "Tipo de evento", value: "type_event_id" },
+      { text: "Tipo de evento", value: "type" },
       { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },
       { text: "Lugar", value: "place" },
-      { text: "Actions", value: "actions", sortable: false }
+      { text: "Descripcion", value: "description" },
     ],
   }),
   computed:{
@@ -33,10 +32,10 @@ export default {
     })
   },
   mounted(){
-    this.getEvents();
+    this.getEventsForStudents();
   },
   methods:{
-    ...mapActions('event',['getEvents']),
+    ...mapActions('event',['getEventsForStudents']),
   }
 };
 </script>

@@ -100,5 +100,12 @@ export default {
                 callbackError(error);
             })
     },
+    getEventsForStudents(){
+        try {
+            return Api.get('api/eventoForStudents');
+        } catch (error) {
+            return error;
+        }
+    },
     
 }

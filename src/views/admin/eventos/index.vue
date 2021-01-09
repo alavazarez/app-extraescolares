@@ -56,7 +56,7 @@ export default {
     headers: [
       { text: "Id", value: "id" },
       { text: "Nombre", value: "nameEvent" },
-      { text: "Tipo de evento", value: "type_event_id" },
+      { text: "Tipo de evento", value: "type" },
       { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },
       { text: "Lugar", value: "place" },
@@ -66,6 +66,7 @@ export default {
     openDialog:false,
   }),
   mounted(){
+    console.log(this.events)
     this.getEvents();
   },
   computed:{

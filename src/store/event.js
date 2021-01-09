@@ -110,6 +110,17 @@ export default {
                 )
             }) 
         },
+        async getEventsForStudents({commit}){
+            try {
+                let response = await Event.getEventsForStudents();
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_EVENTS', response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
         
         
     }

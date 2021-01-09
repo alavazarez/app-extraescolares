@@ -42,9 +42,11 @@ export default {
   data: () => {
     return {
     headers: [
-      { text: "Id", value: "id" },
-      { text: "ID Alumno", value: "alumno_id" },
-      { text: "ID Tipo de Acom", value: "typeAcom_id" },
+      { text: "Numero de control", value: "matricula" },
+      { text: "Alumno", value: "name" },
+      { text: "Carrera", value: "carrera" },
+      { text: "Semestre", value: "semestre" },
+      { text: "Tipo de Liberacion", value: "type" },
       { text: "Fecha de Entrega", value: "dateDelivery" },
       { text: "Descripcion", value: "description" },
       { text: "Status", value: "status" },
