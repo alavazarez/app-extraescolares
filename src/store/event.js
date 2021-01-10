@@ -4,7 +4,7 @@ export default {
     state: {
       events:[],
       event:{
-        name:'',
+        nameEvent:'',
         type_event_id:0,
         description:'',
         date:undefined, //DateTime
