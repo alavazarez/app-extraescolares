@@ -16,7 +16,6 @@ export default {
     },
     
     store(data,callback,callbackError){
-        console.log("Si llega ",data)
         Api.post('api/evento/store',data)
             .then((response) => {
                 callback(response) 
