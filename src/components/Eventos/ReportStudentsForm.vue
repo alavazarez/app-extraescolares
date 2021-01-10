@@ -7,43 +7,29 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Estudiantes que asistieron a un evento extraescolar
+        <span class="headline">Alumnos que asistieron a un evento extraescolar
         </span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Evento"
-                solo
-              ></v-select>
+              <v-text-field
+              v-model="date"
+              type="date"
+              label="Fecha del evento"
+             ></v-text-field>
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
-                :items="items"
-                label="Sexo"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Carrera"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Semestre"
+                @click="obtenerEvents"
+                v-model="value.id"
+                :items="events"
+                label="Evento*"
+                item-text="nameEvent"
+                item-value="id"
                 solo
               ></v-select>
             </v-col>
@@ -51,6 +37,7 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  text @click="exportar"
                   color="success"
                   fab
                   x-large
@@ -75,8 +62,39 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportStudentsForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    items: [
+        {id:"id", name:"nameEvent"},
+      ],
+    date: [],
+    dialog:false,
+    value:{
+      id:''}
+    }),
+  computed:{
+    ...mapGetters({
+      events: 'event/events',
+    })
+  },
+    methods:{
+    ...mapActions('event',['exportarAlumnos', 'getEventsforDate']),
+
+      async exportar(){
+        try {
+          await this.exportarAlumnos(this.value.id)
+        } catch (error) {
+        }
+      },
+      async obtenerEvents(){
+        //Para obtener eventos de un dia
+        try {
+          await this.getEventsforDate(this.date)
+          } catch (error) {
+        }
+      },
+    }
 };
 </script>

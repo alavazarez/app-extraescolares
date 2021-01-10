@@ -13,35 +13,9 @@
       <v-card-text>
         <v-container>
           <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Carrera"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Sexo"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Semestre"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  text @click="exportar"
                   color="success"
                   fab
                   x-large
@@ -66,8 +40,21 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportToDeliverForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    dialog:false
+    }),
+
+  methods:{
+      ...mapActions('acom',['exportarAcomsPendientes']),
+      async exportar(){
+        try {
+          await this.exportarAcomsPendientes()
+        } catch (error) {
+        }
+      },
+    }
 };
 </script>

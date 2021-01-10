@@ -7,49 +7,33 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">ACOM´s entregados a los estudiantes
+        <span class="headline">ACOM´s liberados a los estudiantes
         </span>
       </v-card-title>
       <v-card-text>
         <v-container>
           <v-row align="center" justify="space-around">
-            <v-col cols="5">
-              <v-text-field type="date" value="as"></v-text-field>
-            </v-col>
-            <v-col cols="5">
-              <v-text-field type="date" value="as"></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Carrera"
-                solo
-              ></v-select>
+            <v-col cols="8">
+              <v-text-field
+              v-model="date.initialDate"
+              type="date"
+              label="Fecha inicial"
+             ></v-text-field>
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Sexo"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Semestre"
-                solo
-              ></v-select>
+            <v-col cols="8">
+              <v-text-field
+              v-model="date.finalDate"
+              type="date"
+              label="Fecha Final"
+             ></v-text-field>
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  text @click="exportar"
                   color="success"
                   fab
                   x-large
@@ -74,8 +58,25 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportDeliverForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    date:{
+      initialDate:null,
+      finalDate:null
+    },
+    dialog:false
+    }),
+
+    methods:{
+      ...mapActions('acom',['exportarAcomLiberados']),
+      async exportar(){
+        try {
+          await this.exportarAcomLiberados(this.date)
+        } catch (error) {
+        }
+      },
+    }
 };
 </script>

@@ -14,7 +14,7 @@
           <v-row>
             <v-col cols="8">
               <v-text-field 
-              v-model="form.name"
+              v-model="form.nameEvent"
               label="Nombre*" 
               required
               >
@@ -24,7 +24,7 @@
               <v-select
               v-model="form.type_event_id"
               :items="items"
-              label="Tipo de evento"
+              label="Tipo de evento*"
               item-text="name"
               item-value="id"
               ></v-select>
@@ -51,18 +51,11 @@
               <v-menu>
                 <v-text-field 
                 v-model="form.date"
-                type="date"
+                type="datetime-local"
                 slot="activator"
-                label="Fecha">
+                label="Fecha y hora*">
                 </v-text-field>
               </v-menu>
-            </v-col>
-            <v-col cols="12" sm="6"> 
-              <v-text-field 
-              v-model="form.date"
-              label="hora*" 
-              required>
-              </v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -70,7 +63,7 @@
               <v-textarea
                 v-model="form.description"
                 outlined
-                label="Descripción"
+                label="Descripción*"
                 counter
                 maxlength="120"
               ></v-textarea>
@@ -100,7 +93,7 @@ export default {
   data: () => ({
     dialog:false,
     form:{
-      name:'',
+      nameEvent:'',
       type_event_id:1,
       description:'',
       date:null,
@@ -127,7 +120,7 @@ export default {
         }
       },
       cleanInputs(){
-        this.form.name=''
+        this.form.nameEvent=''
         this.form.type_event_id=null
         this.form.description=''
         this.form.date=null

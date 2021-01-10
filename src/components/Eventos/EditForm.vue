@@ -9,7 +9,7 @@
           <v-row>
             <v-col cols="8">
               <v-text-field 
-              v-model="value.name" 
+              v-model="value.nameEvent" 
               label="Nombre*" 
               required>
               </v-text-field>
@@ -42,21 +42,12 @@
           </v-row>
           <v-row>
             <v-col cols="12" sm="6">
-              <v-menu>
                 <v-text-field 
                 v-model="value.date"
-                type="date"
-                slot="activator"
-                label="Fecha">
+                
+                label="Fecha y hora*"
+                required>
                 </v-text-field>
-              </v-menu>
-            </v-col>
-            <v-col cols="12" sm="6"> 
-              <v-text-field 
-              v-model="value.date"
-              label="hora*" 
-              required>
-              </v-text-field>
             </v-col>
           </v-row>
           <v-row>

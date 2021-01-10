@@ -55,8 +55,8 @@ export default {
   data: () => ({
     headers: [
       { text: "Id", value: "id" },
-      { text: "Nombre", value: "name" },
-      { text: "Tipo de evento", value: "type_event_id" },
+      { text: "Nombre", value: "nameEvent" },
+      { text: "Tipo de evento", value: "type" },
       { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },
       { text: "Lugar", value: "place" },
@@ -77,7 +77,6 @@ export default {
     ...mapActions('event',['getEvents','destroy']),
 
     closedialog: function(){
-      console.log('closing')
       this.openDialog = false;
     },
     selectingItem(item){

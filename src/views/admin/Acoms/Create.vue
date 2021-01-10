@@ -113,8 +113,6 @@ export default {
     async findAlumno(){
         try {
           let res = await this.find(this.matricula)
-          if(res)
-            this.hidden = false;
         } catch (error) {
             console.log(error,'error de vue')
         }
