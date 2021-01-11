@@ -11,8 +11,14 @@
         </template>
 
         <v-list>
-          <v-list-item>
-            <v-list-item-title>Cerrar sesión</v-list-item-title>
+          <v-list-item> 
+            <v-list-item-title>
+              <v-btn
+                @click="logout"
+                text
+                color="primary">Cerrar Sesion
+              </v-btn>
+            </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -85,7 +91,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import alert from '../util/alert'
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Navbar",
   data: () => ({
@@ -164,6 +171,27 @@ export default {
     ...mapGetters({
       user: "auth/user"
     })
-  }
+  },
+   methods:{
+     ...mapActions('auth',['cerrarSesion']),
+     async logout(){
+      let responseSwal = await alert.confirm(
+        "Cerrar Sesión",
+        "¿Está seguro de cerrar sesión?",
+        "Si, salir!",
+        "No, cancelar!"
+      );
+      console.log(responseSwal)
+      if(responseSwal){
+        let response = await this.cerrarSesion()
+        if(response){
+          alert.toast("Sesión cerrada", 5000);
+        }else{
+          alert.toast("Cancelada", 5000, 'error');
+        }
+      }
+    }
+
+   }
 };
 </script>

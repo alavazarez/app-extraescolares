@@ -24,10 +24,12 @@ const routes = [
     component: Dashboard,
     meta: { requiresAuth: true }
   },
+
   {
     path: "/User/showUsers",
     name: "showUsers",
-    component: showUsers
+    component: showUsers,
+    meta: { requiresAuth: true }
   },
   {
     path: "/event/index",
@@ -85,7 +87,8 @@ const routes = [
   {
     path: "/students/progress",
     name: "Progreso",
-    component: EventProgress
+    component: EventProgress,
+    meta: { requiresAuth: true }
   }
 ];
 

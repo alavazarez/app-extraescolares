@@ -57,6 +57,17 @@ export default {
         commit("SET_AUTHENTICATED", false);
         commit("SET_USER", null);
       }
-    }
+    },
+    async cerrarSesion({commit}){
+      try {
+          let response = await User.logout();
+          if(response.status != 200){
+              throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          //commit("SET_AUTHENTICATED", false);
+      } catch (error) {
+          console.log(error);
+      }
+  },
   }
 };
