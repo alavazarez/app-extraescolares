@@ -66,6 +66,44 @@ export default{
                    } 
                 )
             })
-        }
+        },
+        deliver( {state} , datos){
+            return new Promise((resolve,reject) => {
+                Acom.deliver(
+                    datos,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            })
+        },
+        exportarAcomLiberados({state}, data){
+            return new Promise((resolve,reject) => {
+                Acom.exportarAcomLiberados(
+                    data,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },
+        exportarAcomsPendientes(){
+            return new Promise((resolve,reject) => {
+                Acom.exportarAcomsPendientes(
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },
     }
 }

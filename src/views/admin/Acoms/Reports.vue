@@ -8,7 +8,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="font-weight-medium">
-            1. ACOM´s entregados a los estudiantes
+            1. ACOM´s liberados a los estudiantes
         </v-list-item-title>
       </v-list-item-content>
       <v-card-actions>

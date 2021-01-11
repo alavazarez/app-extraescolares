@@ -1,4 +1,5 @@
 import Api from "./Api";
+import XLSX from "xlsx";
 
 export default {
     /**
@@ -7,6 +8,12 @@ export default {
      * @param {function} callback - respuesta sastifactoria
      * @param {function} callbackError - respuesta con error.
      */
+
+    data: () => {
+        return {
+            exportTable:[]
+        }  
+    },
     
     store(data,callback,callbackError){
         Api.post('api/evento/store',data)
@@ -42,5 +49,76 @@ export default {
         } catch (error) {
             return error;
         }
-    }
+    },
+    storeAttendance(data){
+        try {
+            return Api.post('api/evento/asistencia',data)
+        } catch (error) {
+            return error;
+        }
+    },
+    getEventsforDate(date){
+        try {
+            return Api.get('api/eventForDate/'+ date)
+        } catch (error) {
+            return error;
+        }
+    },
+    exportarAlumnos(data, callback, callbackError){
+        Api.get('api/event/reports/exportExcel/'+data)
+            .then(response=>{
+                this.exportTable = response.data
+                const workbook = XLSX.utils.book_new()
+                const filename = 'Reporte'
+                let data = XLSX.utils.json_to_sheet(this.exportTable)
+                XLSX.utils.book_append_sheet(workbook, data, filename)
+                XLSX.writeFile(workbook, `${filename}.xlsx`)
+                callback(response) 
+            })
+            .catch(error=>{
+                console.log(error)
+                callbackError(error);
+            })
+    },
+    exportarEvents(data, callback, callbackError){
+        Api.get('api/event/reports/exportExcelEvents/'+ data)
+            .then(response=>{
+                this.exportTable = response.data
+                const workbook = XLSX.utils.book_new()
+                const filename = 'Reporte'
+                let data = XLSX.utils.json_to_sheet(this.exportTable)
+                XLSX.utils.book_append_sheet(workbook, data, filename)
+                XLSX.writeFile(workbook, `${filename}.xlsx`)
+                callback(response) 
+            })
+            .catch(error=>{
+                console.log(error)
+                callbackError(error);
+            })
+    },
+    exportarPeriodEvents(data, callback, callbackError){
+        console.log("Aqui Igual", data.finalDate, "aui", data.initialDate)
+        Api.get('api/event/reports/exportExcelPeriodEvents/'+ data.initialDate +'/'+ data.finalDate)
+            .then(response=>{
+                this.exportTable = response.data
+                const workbook = XLSX.utils.book_new()
+                const filename = 'Reporte'
+                let data = XLSX.utils.json_to_sheet(this.exportTable)
+                XLSX.utils.book_append_sheet(workbook, data, filename)
+                XLSX.writeFile(workbook, `${filename}.xlsx`)
+                callback(response) 
+            })
+            .catch(error=>{
+                console.log(error)
+                callbackError(error);
+            })
+    },
+    getEventsForStudents(){
+        try {
+            return Api.get('api/eventoForStudents');
+        } catch (error) {
+            return error;
+        }
+    },
+    
 }

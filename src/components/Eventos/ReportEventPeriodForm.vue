@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Evento extraescolar realizado en un dia especifico
+        <span class="headline">Eventos extraescolares realizados en un periodo
         </span>
       </v-card-title>
       <v-card-text>
@@ -15,9 +15,18 @@
           <v-row align="center" justify="space-around">
             <v-col cols="8">
               <v-text-field
-              v-model="date"
+              v-model="date.initialDate"
               type="date"
-              label="Fecha del evento"
+              label="Fecha inicial"
+             ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="space-around">
+            <v-col cols="8">
+              <v-text-field
+              v-model="date.finalDate"
+              type="date"
+              label="Fecha Final"
              ></v-text-field>
             </v-col>
           </v-row>
@@ -51,17 +60,20 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: "ReportEventDayForm",
+  name: "ReportEventPeriodForm",
   data: () => ({
     dialog:false,
-    date:null
+    date:{
+    initialDate:null,
+    finalDate:null
+    }
     }),
 
     methods:{
-      ...mapActions('event',['exportarEvents']),
+      ...mapActions('event',['exportarPeriodEvents']),
       async exportar(){
         try {
-          await this.exportarEvents(this.date)
+          await this.exportarPeriodEvents(this.date)
         } catch (error) {
         }
       },
