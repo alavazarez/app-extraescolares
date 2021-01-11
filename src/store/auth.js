@@ -1,55 +1,62 @@
-import User from '../api/User'
+import User from "../api/User";
 export default {
-     namespaced: true,
-      state: {
-        authenticated: false,
-        user: null
-      },
-      getters: {
-        authenticated (state) {
-          return state.authenticated
-        },
-        user (state) {
-          return state.user
-        },
-      },
-    
-      mutations: {
-        SET_AUTHENTICATED (state, value) {
-          state.authenticated = value
-        },
-    
-        SET_USER (state, value) {
-          state.user = value
-        }
-      },
-    
-      actions: {
-        async singIn ({dispatch}, credentials){
-          try {
-            let response = await User.login(credentials);
-            if(response.status != 200){
-              throw new Error(`HTTP error! status: ${response.status}`);
-            } 
-            dispatch('me');
-            router.push({ path: '/' })
-          } catch (error) {
-            console.log(error)
-          }
-        },
+  namespaced: true,
+  state: {
+    authenticated: false,
+    user: null,
+    loading: false
+  },
+  getters: {
+    authenticated(state) {
+      return state.authenticated;
+    },
+    user(state) {
+      return state.user;
+    },
+    loading(state) {
+      return state.loading;
+    }
+  },
 
-        async me({commit}){
-          try {
-            let response = await User.getUser();
-            if(response.status != 200){
-              throw new Error(`HTTP error! status: ${response.status}`);
-            } 
-            commit('SET_AUTHENTICATED', true)
-            commit('SET_USER', response.data)
-          } catch (error) {
-            commit('SET_AUTHENTICATED', false)
-            commit('SET_USER', null)
-          }
+  mutations: {
+    SET_AUTHENTICATED(state, value) {
+      state.authenticated = value;
+    },
+    SET_USER(state, value) {
+      state.user = value;
+    },
+    SET_LOADING(state, value) {
+      state.loading = value;
+    }
+  },
+
+  actions: {
+    async singIn({ dispatch, commit }, credentials) {
+      try {
+        commit("SET_LOADING", true);
+        let response = await User.login(credentials);
+        if (response.status != 200) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+        dispatch("me");
+        commit("SET_LOADING", false);
+      } catch (error) {
+        commit("SET_LOADING", false);
       }
-}
+    },
+
+    async me({ commit }) {
+      try {
+        let response = await User.getUser();
+        if (response.status != 200) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        commit("SET_AUTHENTICATED", true);
+        commit("SET_USER", response.data);
+      } catch (error) {
+        commit("SET_AUTHENTICATED", false);
+        commit("SET_USER", null);
+      }
+    }
+  }
+};

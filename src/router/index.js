@@ -1,5 +1,5 @@
 import Vue from "vue";
-import store  from "../store"
+import store from "../store"
 import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
@@ -23,7 +23,7 @@ const routes = [
     path: "/",
     name: "Dashboard",
     component: Dashboard,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/User/showUsers",
@@ -34,7 +34,7 @@ const routes = [
     path: "/event/index",
     name: "ListEvent",
     component: ListEvent,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
 
   },
   {
@@ -46,54 +46,54 @@ const routes = [
     path: "/event/asignar",
     name: "Asignar",
     component: Asignar,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/event/reports",
     name: "Reportes",
     component: Reports,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/list",
     name: "listAcom",
     component: ListAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/delivers",
     name: "Entregar",
     component: DeliversAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/create",
     name: "Crear",
     component: CreateAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/configuration",
     name: "Configurar",
     component: ConfigurationAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/reports",
     name: "Reportes",
     component: ReportsAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
-  path: "/students/upcoming",
+    path: "/students/upcoming",
     name: "Proximos",
     component: UpcomingEvents
   },
   {
     path: "/students/progress",
-      name: "Progreso",
-      component: EventProgress
-    }
+    name: "Progreso",
+    component: EventProgress
+  }
 ];
 
 const router = new VueRouter({
@@ -102,12 +102,12 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach( (to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    if(store.state.auth.authenticated){
+    if (store.state.auth.authenticated) {
       next();
-    }else{
-      next('/login');
+    } else {
+      next("/login");
     }
   } else {
     next();
