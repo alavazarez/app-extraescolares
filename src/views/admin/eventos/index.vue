@@ -70,12 +70,7 @@ export default {
   methods: {
     ...mapActions("event", ["getEvents", "destroy"]),
 
-<<<<<<< HEAD
-    closedialog: function () {
-      console.log("closing");
-=======
     closedialog: function(){
->>>>>>> 9d98df4a20563a9d635dabf8d276fd7bfbba963b
       this.openDialog = false;
     },
     selectingItem(item) {

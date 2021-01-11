@@ -59,16 +59,6 @@ const routes = [
     component: ListAcom,
     meta: { requiresAuth: true }
   },
-<<<<<<< HEAD
-  {
-    path: "/acom/delivers",
-    name: "Entregar",
-    component: DeliversAcom,
-    meta: { requiresAuth: true }
-  },
-=======
-  
->>>>>>> 9d98df4a20563a9d635dabf8d276fd7bfbba963b
   {
     path: "/acom/create",
     name: "Crear",
