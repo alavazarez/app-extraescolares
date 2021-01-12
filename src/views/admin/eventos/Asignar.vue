@@ -27,7 +27,7 @@
 
       <v-stepper-content step="2">
         <v-card class="mb-2">
-          <AlumnoSelect v-model="form.alumnos" />
+          <AlumnoSelect v-model="form.alumnos" :event_id="form.event_id" />
         </v-card>
         <v-btn v-if="isAlumnosFilled" color="primary" @click="guardar"> Guardar </v-btn>
         <v-btn @click="e1 = 1" text> Regresar </v-btn>

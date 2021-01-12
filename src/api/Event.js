@@ -120,5 +120,12 @@ export default {
             return error;
         }
     },
+    filtrosEventos(data){
+        try {
+            return Api.get('api/event/filtrosEventos/'+data);
+        } catch (error) {
+            return error;
+        }
+    },
     
 }

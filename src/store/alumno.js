@@ -49,7 +49,7 @@ export default {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 } 
                 commit('SET_ALUMNO',response.data); 
-                return true;   
+                return response.data;   
             } catch (error) {
                 return false;
             }
@@ -69,6 +69,19 @@ export default {
         generatePDFAlumno({state}, data){
             return new Promise((resolve,reject) => {
                 Alumno.generatePDFAlumno(
+                    data,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },
+        validate({state}, data){
+            return new Promise((resolve,reject) => {
+                Alumno.validate(
                     data,
                    (response) => {
                        resolve(response);

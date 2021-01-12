@@ -13,7 +13,7 @@
               ></v-text-field>
             </v-col>
             <v-col sm="12" md="6" class="mt-4">
-              <v-btn  @click="findAlumno"> Buscar </v-btn>
+              <v-btn @click="findAlumno"> Buscar </v-btn>
             </v-col>
           </v-row>
         </v-card-title>
@@ -82,52 +82,93 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Swal from "sweetalert2";
 export default {
   name: "AlumnoSelect",
-  props:{
-    value:{
-      type:Array,
-      required:true,
-    }
+  props: {
+    value: {
+      type: Array,
+      required: true,
+    },
+    event_id: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
-      selectedAlumnos:[],
-      matricula:undefined,
-      hidden:true,
+      selectedAlumnos: [],
+      matricula: undefined,
+      hidden: true,
+      data: {
+        idEvento: 0,
+        idAlumno: 0,
+      },
     };
   },
   computed: {
     ...mapGetters({
       alumno: "alumno/alumno",
     }),
-    inputValue:{
-      get(){
+    inputValue: {
+      get() {
         return this.value;
       },
-      set(val){
-        return this.$emit('input',val)
-      }
+      set(val) {
+        return this.$emit("input", val);
+      },
     },
   },
   methods: {
-    ...mapActions('alumno',['getAlumnos','find']),
+    ...mapActions("alumno", ["getAlumnos", "find", "validate"]),
     async findAlumno() {
       try {
         let res = await this.find(this.matricula);
         if (res) this.hidden = false;
+        if (res == false) {
+          this.matricula = ""
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "El alumno no existe",
+          });
+        }
       } catch (error) {
         console.log(error, "error de vue");
       }
     },
-    addAlumnoToList(){
+    /*addAlumnoToList(){
+      this.validar()
       this.inputValue.push(this.alumno);
       this.matricula = '';
       delete this.alumno.name;
       delete this.alumno.semestre;
       delete this.alumno.carrera;
       this.hidden=true;
+    },*/
+    async addAlumnoToList() {
+      this.data.idEvento = this.event_id;
+      this.data.idAlumno = this.alumno.id;
+      let res = await this.validate(this.data);
+      if (res.data == true) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El alumno ya se encuentra registrado a este evento",
+        })
+        this.clear()
+      } else {
+        this.inputValue.push(this.alumno);
+        this.clear()
+      }
     },
+    clear(){
+      this.matricula = "";
+      delete this.alumno.name;
+      delete this.alumno.semestre;
+      delete this.alumno.carrera;
+      this.hidden = true;
+    }
   },
 };
 </script>

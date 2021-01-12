@@ -24,6 +24,16 @@ export default {
             return error;
         }
     },
+    validate(data,callback,callbackError){
+        Api.get('api/alumnoEvent/'+data.idAlumno +'/'+ data.idEvento)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            console.log(error)
+            callbackError(error);
+        })
+},
     generatePDFAlumno(data,callback,callbackError){
         console.log(data)
         Api.post('api/acom/store/'+data.alumno_id, data)

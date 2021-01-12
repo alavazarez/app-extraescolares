@@ -160,6 +160,17 @@ export default {
                 console.log(error);
             }
         },
+        async filtrosEventos({commit}, data){
+            try {
+                let response = await Event.filtrosEventos(data);
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_EVENTS', response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
         
         
     }

@@ -28,7 +28,6 @@ export default{
             })
     },
     crear(data,callback,callbackError){
-        console.log(data.alumno_id)
         Api.post('api/acom/store/'+data.alumno_id, data)
             .then(response=>{
                 callback(response) 

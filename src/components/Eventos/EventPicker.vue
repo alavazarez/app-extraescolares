@@ -35,7 +35,7 @@ export default {
             selectedEvent:[],
             headersEvent: [
                 { text: 'Nombre', value: 'nameEvent' },
-                { text: 'Tipo de evento', value: 'type_event_id' },
+                { text: 'Tipo de evento', value: 'type' },
                 { text: 'Organizador', value: 'organizer' },
                 { text: 'Lugar', value: 'place' },
                 { text: 'Fecha', value: 'date' },
