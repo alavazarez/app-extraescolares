@@ -78,5 +78,12 @@ export default{
                 callbackError(error);
             })
     },
+    filtrosAcoms(data){
+        try {
+            return Api.get('api/acom/filtrosAcoms/'+data);
+        } catch (error) {
+            return error;
+        }
+    },
 
 }

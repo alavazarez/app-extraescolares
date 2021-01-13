@@ -79,7 +79,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import Swal from "sweetalert2";
 export default {
   name: "Create",
     mounted(){
@@ -120,7 +120,23 @@ export default {
       },
       async crearAcom(){
         try {
-          await this.crear(this.value)
+          let res = await this.crear(this.value)
+          console.log(res)
+          if(res.data==true)
+          {
+            Swal.fire({
+            icon: "success",
+            title: "ACOM creado",
+            text: "El ACOM de este alumno se ha creado",
+          })
+          }
+          else{
+            Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "El ACOM de este alumno ya se encuentra generado",
+          })
+          }
         } catch (error) {
         }
         this.cleanInputs();

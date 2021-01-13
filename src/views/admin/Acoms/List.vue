@@ -7,11 +7,28 @@
     <v-card-text>
         <v-container>
           <v-row>
-            <v-col cols="6">
-              <v-text-field label="Matricula" required></v-text-field>
+            <v-col cols="4">
+              <v-text-field 
+                label="Numero de control" 
+                required
+                v-model="numControl" ></v-text-field>
             </v-col>
-            <v-col cols="6">
-              <v-text-field type="date" value="as"></v-text-field>
+            <v-col cols="4">
+              <v-select
+                :items="items"
+                label="Filtrar"
+                item-text="name"
+                item-value="id"
+                v-model="idFiltro"
+                @change="filtrar"
+                dense
+                outlined
+              ></v-select>
+            </v-col>
+            <v-col cols="4">
+              <v-text-field 
+                type="date"
+                regular label="Fecha de liberacion"></v-text-field>
             </v-col>
           </v-row>
         </v-container>
@@ -20,7 +37,8 @@
       :headers="headers"
       :items="acoms"
       sort-by="calories"
-      class="elevation-1">
+      class="elevation-1"
+      :search="numControl">
       <template v-slot:item.actions="{ item }">
         <v-btn 
           @click="entregar(item)"
@@ -41,6 +59,7 @@ import Swal from 'sweetalert2'
 export default {
   data: () => {
     return {
+      numControl:'',
     headers: [
       { text: "Numero de control", value: "matricula" },
       { text: "Alumno", value: "name" },
@@ -52,6 +71,12 @@ export default {
       { text: "Status", value: "status" },
       { text: "Actions", value: "actions", sortable: false }
     ],
+    items: [
+        {id:0, name:'Todos los ACOM´s'},
+        {id:1, name:'ACOM´s liberados'},
+        {id:2, name:'ACOM´s pendientes'},
+      ],
+    idFiltro:0,
     }
   },
   mounted(){
@@ -63,8 +88,14 @@ export default {
     })
   },
   methods:{
-    ...mapActions('acom',['getAcoms', 'deliver']),
+    ...mapActions('acom',['getAcoms', 'deliver', 'filtrosAcoms']),
 
+    async filtrar(){
+        try {
+          await this.filtrosAcoms(this.idFiltro)
+        } catch (error) {
+        }
+      },
     entregar(item){
       Swal.fire({
         title: '¿Desea entregar este ACOM?',

@@ -105,5 +105,16 @@ export default{
                 )
             }) 
         },
+        async filtrosAcoms({commit}, data){
+            try {
+                let response = await Acom.filtrosAcoms(data);
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_ACOMS', response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
     }
 }

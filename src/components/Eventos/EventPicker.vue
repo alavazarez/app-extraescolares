@@ -4,9 +4,13 @@
             <v-row>
                 <v-col md="4">
                     <v-text-field
+                    v-model="date"
                     type="date"
                     regular label="Fecha del evento">
                     </v-text-field>
+                </v-col>
+                <v-col> 
+                    <v-btn @click="date=null" color="primary"> Limpiar fecha </v-btn>
                 </v-col>
             </v-row>
         </v-card-title>
@@ -16,6 +20,7 @@
         :items="events"
         single-select
         show-select
+        :search="date"
         />
   </div>
 </template>
@@ -28,11 +33,13 @@ export default {
         value:{
             type:Number,
             required:true,
-        }
+        },
+        
     },
     data (){
         return {
             selectedEvent:[],
+            date:null,
             headersEvent: [
                 { text: 'Nombre', value: 'nameEvent' },
                 { text: 'Tipo de evento', value: 'type' },
