@@ -25,6 +25,7 @@
           </v-row>
         </v-container>
       </v-card-text>
+      <v-container>
         <v-row align="center" justify="space-around">
           <v-col cols="4">
             <v-text-field
@@ -50,6 +51,7 @@
               v-model="alumno.carrera"
             ></v-text-field>
           </v-col>
+        </v-row>
         <v-row align="center" justify="space-around">
             <v-col cols="10">
               <v-textarea
@@ -61,7 +63,7 @@
               ></v-textarea>
             </v-col>
           </v-row>
-        </v-row>
+      </v-container>
         <v-row align="center" justify="space-around">
         <v-col cols="2">
               <v-btn
@@ -121,7 +123,6 @@ export default {
       async crearAcom(){
         try {
           let res = await this.crear(this.value)
-          console.log(res)
           if(res.data==true)
           {
             Swal.fire({
