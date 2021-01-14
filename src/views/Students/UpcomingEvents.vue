@@ -1,19 +1,19 @@
 <template>
-  <v-card>
-    <v-card-title class="heading-2">
-      Proximos Eventos
-    </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="events"
-      sort-by="calories"
-      class="elevation-1"
-    ></v-data-table>
-  </v-card>
+  <v-container>
+    <v-card>
+      <v-card-title class="heading-2"> Proximos Eventos </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="events"
+        sort-by="calories"
+        class="elevation-1"
+      ></v-data-table>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "UpcomingEvents",
   data: () => ({
@@ -26,16 +26,16 @@ export default {
       { text: "Descripcion", value: "description" },
     ],
   }),
-  computed:{
+  computed: {
     ...mapGetters({
-      events: 'event/events',
-    })
+      events: "event/events",
+    }),
   },
-  mounted(){
+  mounted() {
     this.getEventsForStudents();
   },
-  methods:{
-    ...mapActions('event',['getEventsForStudents']),
-  }
+  methods: {
+    ...mapActions("event", ["getEventsForStudents"]),
+  },
 };
 </script>

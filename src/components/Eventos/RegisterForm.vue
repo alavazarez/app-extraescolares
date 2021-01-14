@@ -13,47 +13,42 @@
         <v-container>
           <v-row>
             <v-col cols="8">
-              <v-text-field 
-              v-model="form.nameEvent"
-              label="Nombre*" 
-              required
-              >
+              <v-text-field v-model="form.nameEvent" label="Nombre*" required>
               </v-text-field>
             </v-col>
             <v-col cols="4">
               <v-select
-              v-model="form.type_event_id"
-              :items="items"
-              label="Tipo de evento*"
-              item-text="name"
-              item-value="id"
+                v-model="form.type_event_id"
+                :items="items"
+                label="Tipo de evento*"
+                item-text="name"
+                item-value="id"
               ></v-select>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" sm="6">
-              <v-text-field 
-              v-model="form.place"
-              label="Lugar*" 
-              required>
+              <v-text-field v-model="form.place" label="Lugar*" required>
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
-              <v-text-field 
-              v-model="form.organizer"
-              label="Organizador*" 
-              required>
+              <v-text-field
+                v-model="form.organizer"
+                label="Organizador*"
+                required
+              >
               </v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" sm="6">
               <v-menu>
-                <v-text-field 
-                v-model="form.date"
-                type="datetime-local"
-                slot="activator"
-                label="Fecha y hora*">
+                <v-text-field
+                  v-model="form.date"
+                  type="datetime-local"
+                  slot="activator"
+                  label="Fecha y hora*"
+                >
                 </v-text-field>
               </v-menu>
             </v-col>
@@ -77,56 +72,53 @@
         <v-btn color="blue darken-1" text @click="dialog = false">
           Close
         </v-btn>
-        <v-btn color="blue darken-1" text @click="submit">
-          Save
-        </v-btn>
+        <v-btn color="blue darken-1" text @click="submit"> Save </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import Event from '../../api/Event'
-import { mapActions } from 'vuex'
+import Event from "../../api/Event";
+import { mapActions } from "vuex";
 export default {
   name: "RegisterForm",
   data: () => ({
-    dialog:false,
-    form:{
-      nameEvent:'',
-      type_event_id:1,
-      description:'',
-      date:null,
-      place:'',
-      organizer:''
+    dialog: false,
+    form: {
+      nameEvent: "",
+      type_event_id: 1,
+      description: "",
+      date: null,
+      place: "",
+      organizer: "",
     },
     items: [
-        {id:1, name:'Deportivo'},
-        {id:2, name:'Cultural'},
-        {id:3, name:'Cívico'},
-      ],
-    }),
-    methods:{
-      ...mapActions('event',['store','getEvents']),
-      async submit(){
-        try {
-          await this.store(this.form)
-          this.getEvents();
-          this.cleanInputs();
-          this.dialog = false
-          
-        } catch (error) {
-          //
-        }
-      },
-      cleanInputs(){
-        this.form.nameEvent=''
-        this.form.type_event_id=null
-        this.form.description=''
-        this.form.date=null
-        this.form.place=''
-        this.form.organizer=''
+      { id: 1, name: "Deportivo" },
+      { id: 2, name: "Cultural" },
+      { id: 3, name: "Cívico" },
+    ],
+  }),
+  methods: {
+    ...mapActions("event", ["store", "getEvents"]),
+    async submit() {
+      try {
+        await this.store(this.form);
+        this.getEvents();
+        this.cleanInputs();
+        this.dialog = false;
+      } catch (error) {
+        //
       }
     },
+    cleanInputs() {
+      this.form.nameEvent = "";
+      this.form.type_event_id = null;
+      this.form.description = "";
+      this.form.date = null;
+      this.form.place = "";
+      this.form.organizer = "";
+    },
+  },
 };
 </script>
