@@ -3,6 +3,7 @@ import store from "../store"
 import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
+import registerUsers from "../views/admin/user/Register.vue";
 import ListEvent from "../views/admin/eventos/index.vue";
 import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
@@ -24,11 +25,16 @@ const routes = [
     component: Dashboard,
     meta: { requiresAuth: true }
   },
-
   {
     path: "/User/showUsers",
     name: "showUsers",
     component: showUsers,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/User/registerUsers",
+    name: "registerUsers",
+    component: registerUsers,
     meta: { requiresAuth: true }
   },
   {

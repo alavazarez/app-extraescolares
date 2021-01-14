@@ -1,24 +1,23 @@
 <template>
-  <v-card>
-    <v-card-title class="heading-2">
-      Crear ACOM
-      <v-spacer></v-spacer>
-    </v-card-title>
-    <v-card-text>
+  <v-container>
+    <v-card>
+      <v-card-title class="heading-2">
+        Crear ACOM
+        <v-spacer></v-spacer>
+      </v-card-title>
+      <v-card-text>
         <v-container>
-          <v-row >
+          <v-row>
             <v-col cols="3">
-              <v-text-field 
-              label="Matricula*" 
-              required
-              v-model="matricula"
+              <v-text-field
+                label="Numero de control*"
+                required
+                type="number"
+                v-model="matricula"
               ></v-text-field>
             </v-col>
             <v-col cols="2">
-              <v-btn
-                @click="findAlumno"
-                depressed
-                color="primary"
+              <v-btn @click="findAlumno" depressed color="primary"
                 >Buscar
               </v-btn>
             </v-col>
@@ -53,104 +52,101 @@
           </v-col>
         </v-row>
         <v-row align="center" justify="space-around">
-            <v-col cols="10">
-              <v-textarea
-                outlined
-                label="Descripción"
-                counter
-                maxlength="120"
-                v-model="value.description"
-              ></v-textarea>
-            </v-col>
-          </v-row>
-      </v-container>
-        <v-row align="center" justify="space-around">
-        <v-col cols="2">
-              <v-btn
-                depressed
-                x-large
-                color="primary"
-                :disabled="bloquear"
-                @click="crearAcom"
-                >Crear
-              </v-btn>
-            </v-col>
+          <v-col cols="10">
+            <v-textarea
+              outlined
+              label="Descripción"
+              counter
+              maxlength="120"
+              v-model="value.description"
+            ></v-textarea>
+          </v-col>
         </v-row>
-  </v-card>
+      </v-container>
+      <v-row align="center" justify="space-around">
+        <v-col cols="2">
+          <v-btn
+            depressed
+            x-large
+            color="primary"
+            :disabled="bloquear"
+            @click="crearAcom"
+            >Crear
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
   name: "Create",
-    mounted(){
-      this.cleanInputs();
-      },
-  data(){
-    return {
-        idAlumno : null,
-        matricula:null,
-        value: {
-          alumno_id:this.idAlumno,
-          typeAcom_id:1,
-          dateDelivery: '',
-          description: '',
-          status:0,
-        }
-    }
+  mounted() {
+    this.cleanInputs();
   },
-  computed:{
+  data() {
+    return {
+      idAlumno: null,
+      matricula: null,
+      value: {
+        alumno_id: this.idAlumno,
+        typeAcom_id: 1,
+        dateDelivery: "",
+        description: "",
+        status: 0,
+      },
+    };
+  },
+  computed: {
     ...mapGetters({
-      alumno: 'alumno/alumno',
+      alumno: "alumno/alumno",
     }),
 
-    bloquear(){
-      return this.value.description.trim() === "" ? true : false
-    }
+    bloquear() {
+      return this.value.description.trim() === "" ? true : false;
+    },
   },
-  methods:{
-      ...mapActions('alumno',['find']),
-      ...mapActions('acom',['crear']),
-    async findAlumno(){
-        try {
-          let res = await this.find(this.matricula)
-        } catch (error) {
-            console.log(error,'error de vue')
-        }
-        this.value.alumno_id=this.alumno.id
-      },
-      async crearAcom(){
-        try {
-          let res = await this.crear(this.value)
-          if(res.data==true)
-          {
-            Swal.fire({
+  methods: {
+    ...mapActions("alumno", ["find"]),
+    ...mapActions("acom", ["crear"]),
+    async findAlumno() {
+      try {
+        let res = await this.find(this.matricula);
+      } catch (error) {
+        console.log(error, "error de vue");
+      }
+      this.value.alumno_id = this.alumno.id;
+    },
+    async crearAcom() {
+      try {
+        let res = await this.crear(this.value);
+        if (res.data == true) {
+          Swal.fire({
             icon: "success",
             title: "ACOM creado",
             text: "El ACOM de este alumno se ha creado",
-          })
-          }
-          else{
-            Swal.fire({
+          });
+        } else {
+          Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "El ACOM de este alumno ya se encuentra generado",
-          })
-          }
-        } catch (error) {
+          });
         }
-        this.cleanInputs();
-      },
-      cleanInputs(){
-        this.value.description=''
-        this.matricula=''
-        this.alumno.name=''
-        this.alumno.carrera=''
-        this.alumno.semestre=''
-      }
-  }
-
-}
+      } catch (error) {}
+      this.cleanInputs();
+    },
+    cleanInputs() {
+      this.value.description = "";
+      this.matricula = "";
+      this.alumno.name = "";
+      this.alumno.carrera = "";
+      this.alumno.semestre = "";
+    },
+  },
+};
 </script>
 

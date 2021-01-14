@@ -104,9 +104,14 @@ export default {
         icon: "mdi-account",
         children: [
           {
-            text: "Ver usuarios",
-            icon: "mdi-account-plus",
+            text: "Editar perfil",
+            icon: "mdi-account",
             route: "/User/showUsers"
+          },
+          {
+            text: "Registrar usuario",
+            icon: "mdi-account-check",
+            route: "/User/registerUsers"
           }
         ]
       },

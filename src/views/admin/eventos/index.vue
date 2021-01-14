@@ -2,33 +2,30 @@
   <v-container>
     <v-card>
       <v-card-title class="heading-2">
-        
         <EditForm
           @closedialog="closedialog"
           :openDialog="openDialog"
           :value="itemSelected"
         />
-        Eventos Extraescolares
-        <v-spacer></v-spacer>
-         <v-row align="center">
-         <v-col
-        class="d-flex"
-        cols="5"
-        sm="5"
-      >
-        <v-select
-          :items="items"
-          label="Filtrar"
-          item-text="name"
-          item-value="id"
-          v-model="idFiltro"
-          @change="filtrar"
-          dense
-          outlined
-        ></v-select>
-      </v-col>
-         </v-row>
-        <RegisterForm @submit="submit" />
+        <v-row>
+          <v-col cols="10">
+            Eventos Extraescolares
+            <v-spacer></v-spacer>
+          </v-col>
+          <v-col class="d-flex" cols="3" sm="3">
+            <v-select
+              :items="items"
+              label="Filtrar"
+              item-text="name"
+              item-value="id"
+              v-model="idFiltro"
+              @change="filtrar"
+              dense
+              outlined
+            ></v-select>
+          </v-col>
+        </v-row>
+          <RegisterForm @submit="submit" />
       </v-card-title>
       <v-data-table
         :headers="headers"
@@ -76,11 +73,11 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
     items: [
-        {id:0, name:'Todos los eventos'},
-        {id:1, name:'Eventos realizados'},
-        {id:2, name:'Eventos Proximos'},
-      ],
-    idFiltro:0,
+      { id: 0, name: "Todos los eventos" },
+      { id: 1, name: "Eventos realizados" },
+      { id: 2, name: "Eventos Proximos" },
+    ],
+    idFiltro: 0,
     itemSelected: {},
     openDialog: false,
   }),
@@ -95,15 +92,14 @@ export default {
   methods: {
     ...mapActions("event", ["getEvents", "destroy", "filtrosEventos"]),
 
-    closedialog: function(){
+    closedialog: function () {
       this.openDialog = false;
     },
-    async filtrar(){
-        try {
-          await this.filtrosEventos(this.idFiltro)
-        } catch (error) {
-        }
-      },
+    async filtrar() {
+      try {
+        await this.filtrosEventos(this.idFiltro);
+      } catch (error) {}
+    },
     selectingItem(item) {
       this.openDialog = true;
       this.itemSelected = item;
