@@ -93,8 +93,8 @@ export default {
         matricula:null,
         value: {
           alumno_id:this.idAlumno,
-          typeAcom_id:1,
-          dateDelivery: '',
+          typeAcom_id:2,
+          dateDelivery:'',
           description: '',
           status:0,
         }
