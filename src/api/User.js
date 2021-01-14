@@ -37,6 +37,18 @@ export default {
     } catch (error) {
       return error;
     }
-  }
+  },
+
+  sendEmail(data, callback, callbackError){
+    console.log("Aqui llega",data)
+    Api.get('api/user/sendEmail/'+data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            console.log(error)
+            callbackError(error);
+        })
+},
 
 }

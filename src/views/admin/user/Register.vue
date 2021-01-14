@@ -39,17 +39,26 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
     data:() =>({
         value:{
-            email:"",
-            confirmEmail:""
+            email:"eemanuel_11@hotmail.com",
+            confirmEmail:"eemanuel_11@hotmail.com"
         }
     }),
     methods:{
+      ...mapActions("auth", ["sendEmail"]),
         async send(){
-            this.value.email = "",
-            this.value.confirmEmail = ""
+          if(this.value.email == this.value.confirmEmail){
+            let res = await this.sendEmail(this.value.email);
+            console.log(res)
+            //this.value.email = "",
+            //this.value.confirmEmail = ""
+            }
+          else{
+            alert("No coinciden los correos")
+          }
         }
     }
 }

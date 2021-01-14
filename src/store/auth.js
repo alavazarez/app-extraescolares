@@ -69,5 +69,18 @@ export default {
           console.log(error);
       }
   },
+  sendEmail({state}, data){
+    return new Promise((resolve,reject) => {
+      User.sendEmail(
+            data,
+           (response) => {
+               resolve(response);
+           },
+           (error) => {
+               reject(error);
+           } 
+        )
+    }) 
+},
   }
 };
