@@ -103,6 +103,7 @@ export default {
     }
   }),
   methods:{
+    ...mapActions("auth", ["updatePass"]),
     EditarContraseña() {
       this.BotonActualizar = false;
       this.BotonEditar = true;
@@ -118,7 +119,22 @@ export default {
       this.value.confirmPassword = ""
     },
     async updatePassword() {
-      this.Actualizar()
+      if(this.value.newPassword == this.value.confirmPassword)
+      {
+        if(this.value.oldPassword != this.value.newPassword && this.value.oldPassword != this.value.confirmPassword)
+        { 
+          let res = await this.updatePass(this.value.newPassword);
+          alert("Todo Bien")
+          this.Actualizar()
+        }
+        else{
+          alert("error debe ser diferente a la anterior")
+        }
+      }
+      else
+      {
+        alert("Las contraseñas no coinciden")
+      }
 
     }
   }

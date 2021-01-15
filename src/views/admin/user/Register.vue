@@ -7,11 +7,16 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row>
             <v-col cols="3">
               <v-text-field
                 label="Correo electronico del nuevo usuario"
                 outlined
+                :rules="emailRules"
                 v-model="value.email"
               ></v-text-field>
             </v-col>
@@ -19,6 +24,7 @@
               <v-text-field
                 label="Confirmar Correo electronico"
                 outlined
+                :rules="emailRules"
                 v-model="value.confirmEmail"
               ></v-text-field>
             </v-col>
@@ -27,11 +33,13 @@
               <v-btn
               @click="send"
                 x-large
+                :disabled="!valid"
                 depressed
                 color="primary"
                 >Enviar solicitud
               </v-btn>
           </v-row>
+          </v-form>
         </v-container>
       </v-card-text>
     </v-card>
@@ -42,23 +50,31 @@
 import { mapActions } from "vuex";
 export default {
     data:() =>({
+      valid: true,
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
         value:{
-            email:"eemanuel_11@hotmail.com",
-            confirmEmail:"eemanuel_11@hotmail.com"
+            email:"",
+            confirmEmail:""
         }
     }),
     methods:{
       ...mapActions("auth", ["sendEmail"]),
         async send(){
+          if(this.$refs.form.validate() == true)
+          {
           if(this.value.email == this.value.confirmEmail){
             let res = await this.sendEmail(this.value.email);
-            console.log(res)
-            //this.value.email = "",
-            //this.value.confirmEmail = ""
+            this.$refs.form.reset()
+            this.value.email = "",
+            this.value.confirmEmail = ""
             }
           else{
             alert("No coinciden los correos")
           }
+        }
         }
     }
 }

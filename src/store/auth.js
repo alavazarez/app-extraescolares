@@ -68,19 +68,32 @@ export default {
       } catch (error) {
           console.log(error);
       }
+    },
+    sendEmail({state}, data){
+      return new Promise((resolve,reject) => {
+        User.sendEmail(
+              data,
+            (response) => {
+                resolve(response);
+            },
+            (error) => {
+                reject(error);
+            })
+      }) 
+    },
+    registerUser({state}, data){
+      return new Promise((resolve,reject) => {
+        User.registerUser(
+              data,
+             (response) => {
+                 resolve(response);
+             },
+             (error) => {
+                 reject(error);
+             } 
+          )
+      }) 
   },
-  sendEmail({state}, data){
-    return new Promise((resolve,reject) => {
-      User.sendEmail(
-            data,
-           (response) => {
-               resolve(response);
-           },
-           (error) => {
-               reject(error);
-           } 
-        )
-    }) 
-},
+
   }
 };
