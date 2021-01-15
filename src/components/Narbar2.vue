@@ -113,6 +113,11 @@ export default {
             icon: "mdi-account-check",
             route: "/User/registerUsers"
           }
+          /*{
+            text: "Nuevo usuario",
+            icon: "mdi-account-plus",
+            route: "/User/newUser"
+          }*/
         ]
       },
       {
