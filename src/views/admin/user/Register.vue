@@ -48,6 +48,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import Swal from "sweetalert2";
 export default {
     data:() =>({
       valid: true,
@@ -70,9 +71,18 @@ export default {
             this.$refs.form.reset()
             this.value.email = "",
             this.value.confirmEmail = ""
+            Swal.fire({
+            icon: "success",
+            title: "Email enviado",
+            text: "Envio exitoso del email",
+          });
             }
           else{
-            alert("No coinciden los correos")
+            Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No coinciden los correos electronicos",
+          });
           }
         }
         }

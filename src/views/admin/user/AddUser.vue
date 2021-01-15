@@ -89,6 +89,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Swal from "sweetalert2";
 export default {
   name: "AddUser",
   data() {
@@ -143,16 +144,28 @@ export default {
         console.log(res.data)
         if(res.data == false)
       {
-        alert("Ya existe ese correo")
+        Swal.fire({
+            icon: "error",
+            title: "¡Correo incorrecto!",
+            text: "El correo que ha ingresado ya existe, intente con otro",
+          });
       }
       else{
-        alert("Todo bien")
         this.$refs.form.reset()
         this.clean()
+        Swal.fire({
+            icon: "success",
+            title: "Registro exitoso",
+            text: "El usuario se ha registrado",
+          });
       }
       }
       else{
-        alert("Las contraseñas no coinciden")
+        Swal.fire({
+            icon: "error",
+            title: "¡Contraseñas invalidas!",
+            text: "Las contraseñas que ha ingresado no coinciden",
+          });
       }
     }
   },

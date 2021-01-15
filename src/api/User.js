@@ -60,5 +60,15 @@ export default {
             callbackError(error);
         })
   },
+  verifiPassOld(data, callback, callbackError){
+    Api.post('api/user/verifiPassOld/'+data.user,data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            console.log(error)
+            callbackError(error);
+        })
+  },
 
 }

@@ -93,7 +93,21 @@ export default {
              } 
           )
       }) 
-  },
+    },
+    verifiPassOld({state}, data){
+      console.log(data)
+      return new Promise((resolve,reject) => {
+        User.verifiPassOld(
+              data,
+             (response) => {
+                 resolve(response);
+             },
+             (error) => {
+                 reject(error);
+             } 
+          )
+      }) 
+    },
 
   }
 };
