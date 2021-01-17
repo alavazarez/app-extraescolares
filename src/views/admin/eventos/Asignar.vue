@@ -44,7 +44,7 @@
 import eventPicker from "../../../components/Eventos/EventPicker";
 import AlumnoSelect from "../../../components/Alumnos/AlumnoSelect";
 import alert from "../../../util/alert";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "Asignar",
   components: {
