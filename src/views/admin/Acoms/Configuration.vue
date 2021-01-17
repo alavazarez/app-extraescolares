@@ -77,7 +77,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-
+import Swal from "sweetalert2";
 export default {
   mounted() {
     this.getAcomData();
@@ -101,6 +101,11 @@ export default {
       this.BotonDesabilitado = true;
       try {
         await this.updateacom(this.acoms);
+        Swal.fire({
+            icon: "success",
+            title: "Datos actualizados",
+            text: "La informacion se ha guardado satisfactoriamente",
+          });
       } catch (error) {}
     },
 

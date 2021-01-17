@@ -71,4 +71,16 @@ export default {
         })
   },
 
+  sendEmailReset(data, callback, callbackError){
+    console.log(data)
+    Api.post('api/user/sendEmailReset',data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            console.log(error)
+            callbackError(error);
+        })
+  },
+
 }

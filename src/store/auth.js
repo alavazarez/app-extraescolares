@@ -108,6 +108,18 @@ export default {
           )
       }) 
     },
+    sendEmailReset({state}, data){
+      return new Promise((resolve,reject) => {
+        User.sendEmailReset(
+              data,
+            (response) => {
+                resolve(response);
+            },
+            (error) => {
+                reject(error);
+            })
+      }) 
+    },
 
   }
 };
