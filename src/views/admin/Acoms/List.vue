@@ -111,7 +111,7 @@ export default {
         confirmButtonText: "SI, entregar ACOM",
         cancelButtonText: "NO, cancelar",
       }).then((result) => {
-        if (result.isConfirmed) {
+        if (result.isConfirmed && item.status==0) {
           this.deliver(item)
             .then((res) => {
               Swal.fire(
@@ -124,6 +124,9 @@ export default {
             .catch((err) => {
               Swal.fire("Error!", "No pudo ser entregado el ACOM", "error");
             });
+        }
+        else{
+          Swal.fire("Error!", "Este ACOM ya fue entregado", "error");
         }
       });
     },

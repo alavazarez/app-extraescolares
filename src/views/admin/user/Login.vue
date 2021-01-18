@@ -59,6 +59,7 @@
 <script>
 import OlvidatePasswordForm from "@/components/User/OlvidatePasswordForm";
 import { mapActions, mapGetters } from "vuex";
+
 export default {
   components: { OlvidatePasswordForm },
   name: "login",
@@ -82,7 +83,6 @@ export default {
     ...mapActions("auth", ["singIn"]),
     async login() {
       await this.singIn(this.form);
-      this.$router.push({ path: "dashboard" });
     },
   },
 };

@@ -16,12 +16,14 @@ import ReportsAcom from "../views/admin/Acoms/Reports.vue";
 import UpcomingEvents from "../views/Students/UpcomingEvents.vue";
 import EventProgress from "../views/Students/EventProgress.vue";
 
+import DashboardEstudiantes from "../views/Students/Dashboard.vue";
+
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/User/dashboard",
     name: "Dashboard",
     component: Dashboard,
     meta: { requiresAuth: true }
@@ -48,7 +50,6 @@ const routes = [
     name: "ListEvent",
     component: ListEvent,
     meta: { requiresAuth: true }
-
   },
   {
     path: "/login",
@@ -101,7 +102,13 @@ const routes = [
     name: "Progreso",
     component: EventProgress,
     meta: { requiresAuth: true }
-  }
+  },
+
+  {
+    path: "/",
+    name: "DashboardEstudiantes",
+    component: DashboardEstudiantes,
+  },
 ];
 
 const router = new VueRouter({

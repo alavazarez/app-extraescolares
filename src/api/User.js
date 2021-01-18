@@ -30,10 +30,9 @@ export default {
     }
   },
 
-  async logout() {
+  async logout(data) {
     try {
-      console.log("Llega")
-      return Api.post("/logout");
+      return Api.post("api/logout",data);
     } catch (error) {
       return error;
     }
