@@ -97,7 +97,6 @@ export default {
             })
     },
     exportarPeriodEvents(data, callback, callbackError){
-        console.log("Aqui Igual", data.finalDate, "aui", data.initialDate)
         Api.get('api/event/reports/exportExcelPeriodEvents/'+ data.initialDate +'/'+ data.finalDate)
             .then(response=>{
                 this.exportTable = response.data

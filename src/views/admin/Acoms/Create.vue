@@ -31,7 +31,7 @@
               label="Alumno"
               outlined
               readonly
-              v-model="alumno.name"
+              v-model="data.nameComplet"
             ></v-text-field>
           </v-col>
           <v-col cols="2">
@@ -91,8 +91,9 @@ export default {
     return {
         idAlumno : null,
         matricula:null,
+        data: {nameComplet:''},
         value: {
-          alumno_id:this.idAlumno,
+          no_de_control:this.matricula,
           typeAcom_id:2,
           dateDelivery:'',
           description: '',
@@ -115,6 +116,7 @@ export default {
     async findAlumno() {
       try {
         let res = await this.find(this.matricula);
+        this.data.nameComplet = this.alumno.nombre+" "+this.alumno.apellidos
       } catch (error) {
         console.log(error, "error de vue");
       }
@@ -122,6 +124,7 @@ export default {
     },
     async crearAcom() {
       try {
+        this.value.no_de_control=this.matricula
         let res = await this.crear(this.value);
         if (res.data == true) {
           Swal.fire({

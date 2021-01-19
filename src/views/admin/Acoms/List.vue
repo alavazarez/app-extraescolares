@@ -66,10 +66,10 @@ export default {
     return {
       numControl: "",
       headers: [
-        { text: "Numero de control", value: "matricula" },
-        { text: "Alumno", value: "name" },
-        { text: "Carrera", value: "carrera" },
-        { text: "Semestre", value: "semestre" },
+        { text: "Numero de control", value: "" },
+        { text: "Alumno", value: "" },
+        { text: "Carrera", value: "" },
+        { text: "Semestre", value: "" },
         { text: "Tipo de Liberacion", value: "type" },
         { text: "Fecha de Entrega", value: "dateDelivery" },
         { text: "Descripcion", value: "description" },
