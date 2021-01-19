@@ -25,7 +25,7 @@
             >
             </v-text-field>
             <v-text-field
-              label="form"
+              label="Contraseña"
               v-model="form.password"
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -37,6 +37,9 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn large block @click="login" color="primary">Ingresar</v-btn>
+          </v-card-actions>
+          <v-card-actions >
+            <OlvidatePasswordForm />
           </v-card-actions>
           <v-progress-linear :indeterminate="loading"></v-progress-linear>
         </v-card>
@@ -54,8 +57,11 @@
 </template>
 
 <script>
+import OlvidatePasswordForm from "@/components/User/OlvidatePasswordForm";
 import { mapActions, mapGetters } from "vuex";
+
 export default {
+  components: { OlvidatePasswordForm },
   name: "login",
   data: () => ({
     showPassword: false,
@@ -77,7 +83,6 @@ export default {
     ...mapActions("auth", ["singIn"]),
     async login() {
       await this.singIn(this.form);
-      this.$router.push({ path: "dashboard" });
     },
   },
 };

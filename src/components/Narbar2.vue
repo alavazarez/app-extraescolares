@@ -24,14 +24,14 @@
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer app>
-      <v-list>
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-          </v-list-item-avatar>
-        </v-list-item>
-      </v-list>
+    <v-navigation-drawer app v-model="drawer">
+      <div class="text-center">
+      <v-avatar
+      color="primary"
+      size="90">
+    <span class="white--text headline"  > {{ letra }} </span>
+    </v-avatar>
+      </div>
 
       <v-list>
         <v-list-item link>
@@ -52,13 +52,17 @@
       <v-divider></v-divider>
 
       <v-list nav dense>
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
+        <v-list-item-group>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item>
+            <v-list-item-content>
+              <v-list-item-title @click="home()">Home</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
 
         <v-list-group
           v-model="item.active"
@@ -96,6 +100,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Navbar",
   data: () => ({
+    letra: '',
     item: 0,
     drawer: null,
     items: [
@@ -112,7 +117,12 @@ export default {
             text: "Registrar usuario",
             icon: "mdi-account-check",
             route: "/User/registerUsers"
-          }
+          },
+          {
+            text: "Nuevo usuario",
+            icon: "mdi-account-plus",
+            route: "/User/AddUser"
+          },
         ]
       },
       {
@@ -154,22 +164,6 @@ export default {
           },
         ],
       },
-      {
-        text: "Estudiantes",
-        icon: "mdi-soccer",
-        children: [
-          {
-            text: "Eventos proximos",
-            icon: "mdi-eye",
-            route: "/students/upcoming"
-          },
-          {
-            text: "Avance extraescolar",
-            icon: "mdi-check",
-            route: "/students/progress"
-          }
-        ]
-      }
     ]
   }),
   computed: {
@@ -177,8 +171,14 @@ export default {
       user: "auth/user"
     })
   },
+  mounted() {
+    this.letra = this.user.name.charAt(0)
+  },
    methods:{
      ...mapActions('auth',['cerrarSesion']),
+     home(){
+        this.$router.push({path: "/User/dashboard"})
+     },
      async logout(){
       let responseSwal = await alert.confirm(
         "Cerrar Sesión",
@@ -186,14 +186,11 @@ export default {
         "Si, salir!",
         "No, cancelar!"
       );
-      console.log(responseSwal)
       if(responseSwal){
-        let response = await this.cerrarSesion()
-        if(response){
+        let response = await this.cerrarSesion(this.user)
           alert.toast("Sesión cerrada", 5000);
-        }else{
-          alert.toast("Cancelada", 5000, 'error');
-        }
+          this.$router.push({path: "/login"})
+        
       }
     }
 

@@ -30,17 +30,15 @@ export default {
     }
   },
 
-  async logout() {
+  async logout(data) {
     try {
-      console.log("Llega")
-      return Api.post("/logout");
+      return Api.post("api/logout",data);
     } catch (error) {
       return error;
     }
   },
 
   sendEmail(data, callback, callbackError){
-    console.log("Aqui llega",data)
     Api.get('api/user/sendEmail/'+data)
         .then(response=>{
             callback(response) 
@@ -49,6 +47,39 @@ export default {
             console.log(error)
             callbackError(error);
         })
-},
+  },
+
+  registerUser(data, callback, callbackError){
+    Api.post('api/user/registerUser',data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            console.log(error)
+            callbackError(error);
+        })
+  },
+  verifiPassOld(data, callback, callbackError){
+    Api.post('api/user/verifiPassOld/'+data.user,data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            console.log(error)
+            callbackError(error);
+        })
+  },
+
+  sendEmailReset(data, callback, callbackError){
+    console.log(data)
+    Api.post('api/user/sendEmailReset',data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            console.log(error)
+            callbackError(error);
+        })
+  },
 
 }

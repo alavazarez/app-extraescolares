@@ -1,4 +1,6 @@
 import User from "../api/User";
+import router from '../router/index';
+
 export default {
   namespaced: true,
   state: {
@@ -38,8 +40,10 @@ export default {
         if (response.status != 200) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        dispatch("me");
-        commit("SET_LOADING", false);
+        await dispatch("me");
+        await commit("SET_LOADING", false);
+        router.push({path: "/User/dashboard"})
+        return true;
       } catch (error) {
         commit("SET_LOADING", false);
       }
@@ -58,29 +62,68 @@ export default {
         commit("SET_USER", null);
       }
     },
-    async cerrarSesion({commit}){
+    async cerrarSesion({commit}, data){
       try {
-          let response = await User.logout();
-          if(response.status != 200){
+          let response = await User.logout(data);
+          if(response.status != 204){
               throw new Error(`HTTP error! status: ${response.status}`);
           }
-          //commit("SET_AUTHENTICATED", false);
+          commit("SET_AUTHENTICATED", false);
       } catch (error) {
           console.log(error);
       }
-  },
-  sendEmail({state}, data){
-    return new Promise((resolve,reject) => {
-      User.sendEmail(
-            data,
-           (response) => {
-               resolve(response);
-           },
-           (error) => {
-               reject(error);
-           } 
-        )
-    }) 
-},
+    },
+    sendEmail({state}, data){
+      return new Promise((resolve,reject) => {
+        User.sendEmail(
+              data,
+            (response) => {
+                resolve(response);
+            },
+            (error) => {
+                reject(error);
+            })
+      }) 
+    },
+    registerUser({state}, data){
+      return new Promise((resolve,reject) => {
+        User.registerUser(
+              data,
+             (response) => {
+                 resolve(response);
+             },
+             (error) => {
+                 reject(error);
+             } 
+          )
+      }) 
+    },
+    verifiPassOld({state}, data){
+      console.log(data)
+      return new Promise((resolve,reject) => {
+        User.verifiPassOld(
+              data,
+             (response) => {
+                 resolve(response);
+             },
+             (error) => {
+                 reject(error);
+             } 
+          )
+      }) 
+    },
+    sendEmailReset({state}, data){
+      return new Promise((resolve,reject) => {
+        User.sendEmailReset(
+              data,
+            (response) => {
+                resolve(response);
+            },
+            (error) => {
+                reject(error);
+            })
+      }) 
+    },
+
   }
 };

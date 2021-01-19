@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
 import registerUsers from "../views/admin/user/Register.vue";
+import AddUser from "../views/admin/user/AddUser.vue";
 import ListEvent from "../views/admin/eventos/index.vue";
 import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
@@ -15,12 +16,14 @@ import ReportsAcom from "../views/admin/Acoms/Reports.vue";
 import UpcomingEvents from "../views/Students/UpcomingEvents.vue";
 import EventProgress from "../views/Students/EventProgress.vue";
 
+import DashboardEstudiantes from "../views/Students/Dashboard.vue";
+
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/User/dashboard",
     name: "Dashboard",
     component: Dashboard,
     meta: { requiresAuth: true }
@@ -38,11 +41,15 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: "/User/AddUser",
+    name: "AddUser",
+    component: AddUser,
+  },
+  {
     path: "/event/index",
     name: "ListEvent",
     component: ListEvent,
     meta: { requiresAuth: true }
-
   },
   {
     path: "/login",
@@ -95,7 +102,13 @@ const routes = [
     name: "Progreso",
     component: EventProgress,
     meta: { requiresAuth: true }
-  }
+  },
+
+  {
+    path: "/",
+    name: "DashboardEstudiantes",
+    component: DashboardEstudiantes,
+  },
 ];
 
 const router = new VueRouter({
