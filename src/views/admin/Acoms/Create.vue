@@ -120,11 +120,10 @@ export default {
       } catch (error) {
         console.log(error, "error de vue");
       }
-      this.value.alumno_id = this.alumno.id;
     },
     async crearAcom() {
       try {
-        this.value.no_de_control=this.matricula
+        this.value.no_de_control=this.alumno.no_de_control
         let res = await this.crear(this.value);
         if (res.data == true) {
           Swal.fire({
@@ -145,7 +144,7 @@ export default {
     cleanInputs() {
       this.value.description = "";
       this.matricula = "";
-      this.alumno.name = "";
+      this.data.nameComplet = "";
       this.alumno.carrera = "";
       this.alumno.semestre = "";
     },
