@@ -1,17 +1,43 @@
 <template>
   <v-card>
-    <v-toolbar color="primary" dark flat prominent>
-    <v-spacer></v-spacer>
-      <v-btn icon href="/login">
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
+    <v-app-bar extended color="white">
+      <v-row align="center" justify="center" style="margin-top: 70px">
+      <v-col col="12" md="10" sm="5">
+            <div class="d-flex justify-space-between mb-6">
+              <v-img
+                max-height="200"
+                max-width="200"
+                src="../../assets/tecnm.png"
+              ></v-img>
+               <v-card-title class="display-1 text--primary" > DEPARTAMENTO DE FORMACIÓN INTEGRAL</v-card-title>
+               
+              <v-img
+                max-height="100"
+                max-width="100"
+                src="../../assets/logo.png"
+              ></v-img>
+            </div>
+       
+      </v-col>
+      </v-row>
+    </v-app-bar>
+    
+    <v-toolbar color="primary" dark flat height="8">
+    
+      
+      
 
       <template v-slot:extension>
         <v-tabs v-model="tabs" centered>
           <v-tab v-for="item in items" :key="item.tab">
             {{ item.tab }}
           </v-tab>
+          
         </v-tabs>
+        <v-spacer></v-spacer>
+          <v-btn icon href="/login">
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
       </template>
     </v-toolbar>
     <v-tabs-items v-model="tabs">
