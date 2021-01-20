@@ -11,9 +11,17 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+           <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row>
             <v-col cols="8">
-              <v-text-field v-model="form.nameEvent" label="Nombre*" required>
+              <v-text-field 
+              required
+              :rules="nameRules"
+              v-model="form.nameEvent" 
+              label="Nombre*">
               </v-text-field>
             </v-col>
             <v-col cols="4">
@@ -28,11 +36,16 @@
           </v-row>
           <v-row>
             <v-col cols="12" sm="6">
-              <v-text-field v-model="form.place" label="Lugar*" required>
+              <v-text-field 
+              :rules="placeRules"
+              v-model="form.place" 
+              label="Lugar*" 
+              required>
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
+                :rules="OrganizatorRules"
                 v-model="form.organizer"
                 label="Organizador*"
                 required
@@ -44,11 +57,11 @@
             <v-col cols="12" sm="6">
               <v-menu>
                 <v-text-field
+                  :rules="dateRules"
                   v-model="form.date"
                   type="datetime-local"
                   slot="activator"
-                  label="Fecha y hora*"
-                >
+                  label="Fecha y hora*">
                 </v-text-field>
               </v-menu>
             </v-col>
@@ -56,24 +69,29 @@
           <v-row>
             <v-col cols="12">
               <v-textarea
+                :rules="descriptionRules"
                 v-model="form.description"
                 outlined
                 label="Descripción*"
                 counter
-                maxlength="120"
+                maxlength="100"
               ></v-textarea>
             </v-col>
           </v-row>
+          </v-form>
         </v-container>
         <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog = false">
-          Close
+        <v-btn color="blue darken-1" text @click="clouse()">
+          Cancelar
         </v-btn>
-        <v-btn color="blue darken-1" text @click="submit"> Save </v-btn>
+        <v-btn color="blue darken-1" 
+          :disabled="!valid" 
+          text @click="submit"> Guardar </v-btn>
       </v-card-actions>
+      
     </v-card>
   </v-dialog>
 </template>
@@ -85,6 +103,22 @@ import { mapActions } from "vuex";
 export default {
   name: "RegisterForm",
   data: () => ({
+    valid: true,
+    nameRules: [
+        v => !!v || 'Nombre del evento es requerido',
+      ],
+    placeRules: [
+        v => !!v || 'El lugar del evento es requerido',
+      ],
+    OrganizatorRules: [
+        v => !!v || 'El organizador del evento es requerido',
+      ],
+    dateRules: [
+        v => !!v || 'La fecha del evento es requerido',
+      ],
+    descriptionRules: [
+        v => !!v || 'La descripción del evento es requerido',
+      ],
     dialog: false,
     form: {
       nameEvent: "",
@@ -103,6 +137,8 @@ export default {
   methods: {
     ...mapActions("event", ["store", "getEvents"]),
     async submit() {
+      if(this.$refs.form.validate() == true)
+      {
       try {
         await this.store(this.form);
         alert.toast("Evento creado", 5000);
@@ -112,6 +148,12 @@ export default {
       } catch (error) {
         //
       }
+      }
+    },
+    clouse(){
+      this.$refs.form.reset()
+      this.cleanInputs();
+      this.dialog=false
     },
     cleanInputs() {
       this.form.nameEvent = "";
