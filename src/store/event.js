@@ -63,7 +63,6 @@ export default {
             })
         },
         destroy( {state} , datos){
-            console.log(datos);
             return new Promise((resolve,reject) => {
                 Event.destroy(
                     datos,

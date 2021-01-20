@@ -94,12 +94,20 @@
                   </v-col>
                 </v-row>
                 <v-row align="center" justify="space-around">
-                  <v-col cols="4">
+                  <v-col cols="2">
                     <v-text-field
                       label="Alumno"
                       outlined
                       readonly
-                      v-model="alumno.name"
+                      v-model="alumno.nombre"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="2">
+                    <v-text-field
+                      label="Apellidos"
+                      outlined
+                      readonly
+                      v-model="alumno.apellidos"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="2">
@@ -223,19 +231,20 @@ export default {
     async findAlumno() {
       try {
         let res = await this.find(this.matricula);
+        console.log(res)
         if (res == false) {
             Swal.fire({
             icon: "error",
             title: "¡El alumno no existe!",
             text: "Numero de control incorrecto",
           });
-          this.deshabilitar();
-          this.matricula = "";
+          this.deshabilitar()
+          this.cleanInputs()
         } else {
           this.habilitar();
         }
       } catch (error) {
-        console.log(error, "error de vue");
+        alert(error, "error de vue");
       }
     },
     habilitar() {
@@ -248,7 +257,8 @@ export default {
     },
     cleanInputs() {
       this.matricula = "";
-      this.alumno.name = "";
+      this.alumno.nombre = "";
+      this.alumno.apellidos = "",
       this.alumno.carrera = "";
       this.alumno.semestre = "";
       this.alumno.actividad = "";
@@ -369,7 +379,7 @@ export default {
           "center"
         );
 
-      doc.setFontSize(9).text("NOMBRE:  " + this.alumno.name, 0.7, 2);
+      doc.setFontSize(9).text("NOMBRE:  " + this.alumno.nombre + " " +this.alumno.apellidos, 0.7, 2);
       doc.setLineWidth(0.01).line(1.3, 2, 7.5, 2);
       doc.setFontSize(9).text("NUM. DE CONTROL:  " + this.matricula, 0.7, 2.3);
       doc.setLineWidth(0.01).line(1.95, 2.3, 4.9, 2.3);

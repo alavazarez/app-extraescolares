@@ -37,7 +37,7 @@ export default {
     },*/
 
     generatePDFAlumno(data,callback,callbackError){
-        Api.get('api/acom/findAcomAlumno/'+data.id)
+        Api.get('api/acom/findAcomAlumno/'+data.no_de_control)
             .then(response=>{
         callback(response)
     })

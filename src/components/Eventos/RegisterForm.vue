@@ -80,6 +80,7 @@
 
 <script>
 import Event from "../../api/Event";
+import alert from '../../util/alert'
 import { mapActions } from "vuex";
 export default {
   name: "RegisterForm",
@@ -104,6 +105,7 @@ export default {
     async submit() {
       try {
         await this.store(this.form);
+        alert.toast("Evento creado", 5000);
         this.getEvents();
         this.cleanInputs();
         this.dialog = false;

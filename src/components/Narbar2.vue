@@ -183,7 +183,6 @@ export default {
       );
       if(responseSwal){
         let response = await this.cerrarSesion(this.user)
-          alert.toast("Sesión cerrada", 5000);
           this.$router.push({path: "/login"})
         
       }

@@ -105,7 +105,6 @@ export default {
       this.itemSelected = item;
     },
     borrar(item) {
-      console.log(item);
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
