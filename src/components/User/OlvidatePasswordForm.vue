@@ -29,16 +29,6 @@
               ></v-text-field>
             </v-col>
           </v-row>
-            <v-row>
-            <v-col cols="8">
-              <v-text-field
-                label="Confirmar Correo electronico"
-                outlined
-                :rules="emailRules"
-                v-model="value.confirmEmail"
-              ></v-text-field>
-            </v-col>
-          </v-row>
           <v-row>
               <v-btn
                 @click="sendEmail"
@@ -75,35 +65,26 @@ export default {
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
         value:{
-            email:"example@example.com ",
-            confirmEmail:"example@example.com "
+            email:"admin@admin.com",
         }
     }),
 
     methods:{
       ...mapActions("auth", ["sendEmailReset"]),
         async sendEmail(){
+          this.value.email = "admin@admin.com"
           if(this.$refs.form.validate() == true)
           {
-          if(this.value.email == this.value.confirmEmail){
+            console.log(this.value.email)
             let res = await this.sendEmailReset(this.value);
             this.$refs.form.reset()
-            this.value.email = "",
-            this.value.confirmEmail = ""
+            //this.value.email = "admin@admin.com",
             Swal.fire({
             icon: "success",
             title: "Email enviado",
             text: "Envio exitoso del email",
-          });
-            }
-          else{
-            Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "No coinciden los correos electronicos",
-          });
+            });
           }
-        }
         }
     }
 };

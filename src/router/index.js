@@ -3,7 +3,6 @@ import store from "../store"
 import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
-import registerUsers from "../views/admin/user/Register.vue";
 import AddUser from "../views/admin/user/AddUser.vue";
 import ListEvent from "../views/admin/eventos/index.vue";
 import Login from "../views/admin/user/Login.vue";
@@ -32,12 +31,6 @@ const routes = [
     path: "/User/showUsers",
     name: "showUsers",
     component: showUsers,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: "/User/registerUsers",
-    name: "registerUsers",
-    component: registerUsers,
     meta: { requiresAuth: true }
   },
   {
