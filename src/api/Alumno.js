@@ -18,7 +18,7 @@ export default {
     },
     
     validate(data, callback, callbackError) {
-        Api.get('api/alumnoEvent/' + data.idAlumno + '/' + data.idEvento)
+        Api.get('api/alumnoEvent/' + data.no_de_control + '/' + data.event_id)
             .then(response => {
                 callback(response)
             })

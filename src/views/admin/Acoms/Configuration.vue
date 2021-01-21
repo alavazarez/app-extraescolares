@@ -7,9 +7,14 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row align="center" justify="space-around">
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+              :rules="nameJefeRules"
                 label="Nombre del jefe del Departamento de Actividades Extraescolares"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
@@ -20,6 +25,7 @@
           <v-row align="center" justify="space-around">
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+              :rules="nameCoordiRules"
                 label="Nombre del Profesor Responsable y/o Coordinador"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
@@ -30,6 +36,7 @@
           <v-row align="center" justify="space-around">
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                :rules="nameJefeEscoRules"
                 label="Nombre del jefe del Departamento de Servicios Escolares"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
@@ -40,7 +47,7 @@
           <v-row align="center" justify="space-around">
             <v-col cols="12" sm="6" md="6">
               <v-text-field
-                id="slogan"
+                :rules="muletillaRules"
                 label="Frase o muletilla"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
@@ -61,6 +68,7 @@
             <v-col cols="6">
               <v-btn
                 depressed
+                 
                 v-bind:disabled="BotonDesabilitadoActualizar"
                 color="primary"
                 text
@@ -69,6 +77,7 @@
               </v-btn>
             </v-col>
           </v-row>
+          </v-form>
         </v-container>
       </v-card-text>
     </v-card>
@@ -83,9 +92,22 @@ export default {
     this.getAcomData();
   },
   data: () => ({
+    valid: true,
     BotonDesabilitadoActualizar: true,
     BotonDesabilitadoEditar: null,
     BotonDesabilitado: true,
+    nameJefeRules: [
+        v => !!v || 'Nombre del jefe es requerido',
+      ],
+    nameCoordiRules: [
+        v => !!v || 'Nombre del coordinador es requerido',
+      ],
+    nameJefeEscoRules: [
+        v => !!v || 'Nombre del jefe es requerido',
+      ],
+    muletillaRules: [
+        v => !!v || 'La muletilla es requerido',
+      ],
   }),
   computed: {
     ...mapGetters({

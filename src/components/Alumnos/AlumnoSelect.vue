@@ -92,6 +92,10 @@ import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
   name: "AlumnoSelect",
+  mounted ()
+  {
+    this.clear()
+  },
   props: {
     value: {
       type: Array,
@@ -108,8 +112,8 @@ export default {
       matricula: undefined,
       hidden: true,
       data: {
-        idEvento: 0,
-        idAlumno: 0,
+        event_id: 0,
+        no_de_control: 0,
       },
     };
   },
@@ -144,19 +148,26 @@ export default {
         console.log(error, "error de vue");
       }
     },
-    /*addAlumnoToList(){
-      this.validar()
-      this.inputValue.push(this.alumno);
-      this.matricula = '';
-      delete this.alumno.name;
-      delete this.alumno.semestre;
-      delete this.alumno.carrera;
-      this.hidden=true;
-    },*/
     async addAlumnoToList() {
-      this.inputValue.push(this.alumno);
-      this.data.idEvento = this.event_id;
-      this.data.idAlumno = this.alumno.id;
+      this.data.event_id = this.event_id
+      this.data.no_de_control = this.alumno.no_de_control
+      let res = await this.validate(this.data);
+      if(res.data == true)
+      {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El alumno ya se encuentra registrado a este evento",
+        });
+        this.clear();
+      }
+      else
+      {
+        this.inputValue.push(this.alumno);
+        this.data.idEvento = this.event_id;
+        this.data.idAlumno = this.alumno.id;
+        this.clear();
+      }
     },
     clear(){
       this.matricula = "";

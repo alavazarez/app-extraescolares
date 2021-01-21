@@ -116,9 +116,18 @@ export default {
     async findAlumno() {
       try {
         let res = await this.find(this.matricula);
-        this.data.nameComplet = this.alumno.nombre+" "+this.alumno.apellidos
+        if (res == false) {
+            Swal.fire({
+            icon: "error",
+            title: "¡El alumno no existe!",
+            text: "Numero de control incorrecto",
+          });
+          this.cleanInputs()
+        } else {
+          this.data.nameComplet = this.alumno.nombre+" "+this.alumno.apellidos
+        }
       } catch (error) {
-        console.log(error, "error de vue");
+        alert(error, "error de vue");
       }
     },
     async crearAcom() {

@@ -231,7 +231,6 @@ export default {
     async findAlumno() {
       try {
         let res = await this.find(this.matricula);
-        console.log(res)
         if (res == false) {
             Swal.fire({
             icon: "error",

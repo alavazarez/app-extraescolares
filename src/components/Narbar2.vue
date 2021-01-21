@@ -28,7 +28,7 @@
       <div class="text-center">
       <v-avatar
       color="primary"
-      size="90">
+      size="70">
     <span class="white--text headline"  > {{ letra }} </span>
     </v-avatar>
       </div>

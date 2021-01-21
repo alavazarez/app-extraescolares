@@ -88,7 +88,7 @@
           Cancelar
         </v-btn>
         <v-btn color="blue darken-1" 
-          :disabled="!valid" 
+          :disabled="!valid"
           text @click="submit"> Guardar </v-btn>
       </v-card-actions>
       
@@ -143,6 +143,7 @@ export default {
         await this.store(this.form);
         alert.toast("Evento creado", 5000);
         this.getEvents();
+        this.$refs.form.reset()
         this.cleanInputs();
         this.dialog = false;
       } catch (error) {

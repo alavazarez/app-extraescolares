@@ -30,13 +30,6 @@
                 outlined
               ></v-select>
             </v-col>
-            <!--<v-col cols="4">
-              <v-text-field
-                type="date"
-                regular
-                label="Fecha de liberacion"
-              ></v-text-field>
-            </v-col>-->
           </v-row>
         </v-container>
       </v-card-text>
