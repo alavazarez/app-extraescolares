@@ -65,27 +65,40 @@ export default {
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
         value:{
-            email:"admin@admin.com",
+            email:"",
         }
     }),
 
     methods:{
       ...mapActions("auth", ["sendEmailReset"]),
         async sendEmail(){
-          this.value.email = "admin@admin.com"
           if(this.$refs.form.validate() == true)
           {
-            console.log(this.value.email)
             let res = await this.sendEmailReset(this.value);
-            this.$refs.form.reset()
-            //this.value.email = "admin@admin.com",
-            Swal.fire({
-            icon: "success",
-            title: "Email enviado",
-            text: "Envio exitoso del email",
-            });
+            if(res.status == 200)
+            {
+              Swal.fire({
+              icon: "success",
+              title: "Email enviado",
+              text: "Envio exitoso del email",
+              });   
+              this.$refs.form.reset()
+              this.value.email = "";
+              this.$router.push('/User/ResetPassword')
+            }
+            else if(res.status)
+            {
+              Swal.fire({
+              icon: "error",
+              title: "Email no existe",
+              text: "El correo electronico no es un usuario registrado",
+              }); 
+              this.$refs.form.reset()
+              this.value.email = "";
+            }
           }
         }
+        
     }
 };
 </script>

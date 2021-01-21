@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Dashboard from "../views/admin/user/Dashboard.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
 import AddUser from "../views/admin/user/AddUser.vue";
+import ResetPassword from "../views/admin/user/ResetUsers.vue";
 import ListEvent from "../views/admin/eventos/index.vue";
 import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
@@ -32,6 +33,11 @@ const routes = [
     name: "showUsers",
     component: showUsers,
     meta: { requiresAuth: true }
+  },
+  {
+    path: "/User/ResetPassword",
+    name: "ResetPassword",
+    component: ResetPassword,
   },
   {
     path: "/User/AddUser",
