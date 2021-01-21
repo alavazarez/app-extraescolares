@@ -69,7 +69,6 @@ export default {
       email: "admin@admin.com",
       password: "password",
     },
-    user: {},
     snackbar: false,
     message: "",
     value: false,
@@ -82,7 +81,16 @@ export default {
   methods: {
     ...mapActions("auth", ["singIn"]),
     async login() {
-      await this.singIn(this.form);
+      let res = await this.singIn(this.form);
+      console.log(res)
+      if(res == false)
+      {
+        Swal.fire({
+        icon: "error",
+        title: "Datos incorrectos",
+        text: "Ingresa de nuevo tus credenciales",
+        });
+      }
     },
   },
 };

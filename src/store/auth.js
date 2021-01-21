@@ -114,7 +114,20 @@ export default {
     },
     sendEmailReset({state}, data){
       return new Promise((resolve,reject) => {
+        console.log(data, "data")
         User.sendEmailReset(
+              data,
+            (response) => {
+                resolve(response);
+            },
+            (error) => {
+                reject(error);
+            })
+      }) 
+    },
+    passwordReset({state}, data){
+      return new Promise((resolve,reject) => {
+        User.passwordReset(
               data,
             (response) => {
                 resolve(response);
