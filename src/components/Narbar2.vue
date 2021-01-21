@@ -11,26 +11,20 @@
         </template>
 
         <v-list>
-          <v-list-item> 
+          <v-list-item>
             <v-list-item-title>
-              <v-btn
-                @click="logout"
-                text
-                color="primary">Cerrar Sesion
-              </v-btn>
+              <v-btn @click="logout" text color="primary">Cerrar Sesion </v-btn>
             </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer">
-      <div class="text-center">
-      <v-avatar
-      color="primary"
-      size="70">
-    <span class="white--text headline"  > {{ letra }} </span>
-    </v-avatar>
+    <v-navigation-drawer  width="330" app v-model="drawer">
+      <div class="text-center mt-3">
+        <v-avatar color="primary" size="60">
+          <span class="white--text headline"> {{ letra }} </span>
+        </v-avatar>
       </div>
 
       <v-list>
@@ -95,12 +89,12 @@
 </template>
 
 <script>
-import alert from '../util/alert'
+import alert from "../util/alert";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Navbar",
   data: () => ({
-    letra: '',
+    letra: "",
     item: 0,
     drawer: null,
     items: [
@@ -111,14 +105,14 @@ export default {
           {
             text: "Editar perfil",
             icon: "mdi-account",
-            route: "/User/showUsers"
+            route: "/User/showUsers",
           },
           {
             text: "Nuevo usuario",
             icon: "mdi-account-plus",
-            route: "/User/AddUser"
+            route: "/User/AddUser",
           },
-        ]
+        ],
       },
       {
         text: "Eventos",
@@ -127,19 +121,19 @@ export default {
           {
             text: "Ver",
             icon: "mdi-format-list-bulleted",
-            route: "/event/index"
+            route: "/event/index",
           },
           {
             text: "Asignar",
             icon: "mdi-account-check-outline",
-            route: "/event/asignar"
+            route: "/event/asignar",
           },
           {
             text: "Reportes",
             icon: "mdi-file-document",
-            route: "/event/reports"
-          }
-        ]
+            route: "/event/reports",
+          },
+        ],
       },
       {
         text: "Actividad complementaria",
@@ -150,44 +144,42 @@ export default {
           {
             text: "Configuracion ",
             icon: "mdi-message-processing",
-            route: "/acom/configuration"
+            route: "/acom/configuration",
           },
           {
             text: "Reportes",
             icon: "mdi-file-document",
-            route: "/acom/Reports"
+            route: "/acom/Reports",
           },
         ],
       },
-    ]
+    ],
   }),
   computed: {
     ...mapGetters({
-      user: "auth/user"
-    })
+      user: "auth/user",
+    }),
   },
   mounted() {
-    this.letra = this.user.name.charAt(0)
+    this.letra = this.user.name.charAt(0);
   },
-   methods:{
-     ...mapActions('auth',['cerrarSesion']),
-     home(){
-        this.$router.push({path: "/User/dashboard"})
-     },
-     async logout(){
+  methods: {
+    ...mapActions("auth", ["cerrarSesion"]),
+    home() {
+      this.$router.push({ path: "/User/dashboard" });
+    },
+    async logout() {
       let responseSwal = await alert.confirm(
         "Cerrar Sesión",
         "¿Está seguro de cerrar sesión?",
         "Si, salir!",
         "No, cancelar!"
       );
-      if(responseSwal){
-        let response = await this.cerrarSesion(this.user)
-          this.$router.push({path: "/login"})
-        
+      if (responseSwal) {
+        let response = await this.cerrarSesion(this.user);
+        this.$router.push({ path: "/login" });
       }
-    }
-
-   }
+    },
+  },
 };
 </script>

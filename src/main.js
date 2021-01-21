@@ -7,7 +7,6 @@ import './assets/main.scss';
 
 Vue.config.productionTip = false;
 
-
 store.dispatch('auth/me').then(() => {
   new Vue({
     router,
