@@ -31,13 +31,12 @@
       </v-tab-item>
       <v-tab-item>
         <v-container>
-          <v-card>
             <v-card-title class="heading-2">
               Progreso de Eventos Extraescolares
               <v-spacer></v-spacer>
             </v-card-title>
             <v-card-text>
-              <v-container>
+              <v-container >
                 <v-row align="center" justify="space-around">
                   <v-col cols="2">
                     <v-text-field
@@ -71,6 +70,7 @@
                 <v-row align="center" justify="space-around">
                   <v-col cols="2">
                     <v-text-field
+                      v-if="showforms"
                       label="Alumno"
                       outlined
                       readonly
@@ -79,26 +79,30 @@
                   </v-col>
                   <v-col cols="2">
                     <v-text-field
+                      v-if="showforms"
+                      v-model="progreso.alumno.apellidos"
                       label="Apellidos"
                       outlined
                       readonly
-                      v-model="alumno.no_de_control"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="2">
                     <v-text-field
+                      v-if="showforms"
+                      v-model="progreso.alumno.semestre"
+
                       label="Semestre"
                       outlined
                       readonly
-                      v-model="alumno.semestre"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="4">
                     <v-text-field
+                      v-if="showforms"
+                      v-model="progreso.alumno.carrera"
                       label="Carrera"
                       outlined
                       readonly
-                      v-model="progreso.carrera"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -174,7 +178,8 @@ export default {
       idAlumno: null,
       matricula: "",
       BotonDesabilitadoACOM: true,
-      BotonDesabilitadoFirmas: true
+      BotonDesabilitadoFirmas: true,
+      showforms:false,
     };
   },
   computed: {
@@ -189,6 +194,7 @@ export default {
   },
   mounted() {
     this.getEventsForStudents();
+
   },
   methods: {
     ...mapActions("event", ["getEventsForStudents"]),
@@ -207,6 +213,7 @@ export default {
           this.cleanInputs();
         } else {
           await this.getProgreso(this.matricula);
+          this.showforms = true;
           this.habilitar();
         }
       } catch (error) {
