@@ -49,6 +49,19 @@ export default {
                 )
             })
         },
+        validarEvent( {state} , datos){
+            return new Promise((resolve,reject) => {
+                Event.validarEvent(
+                    datos,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            })
+        },
         update( {state} ,data){
             return new Promise((resolve,reject) => {
                 Event.update(

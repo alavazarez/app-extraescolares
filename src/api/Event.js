@@ -24,6 +24,16 @@ export default {
                 callbackError(error);
             })
     },
+    validarEvent(data,callback,callbackError){
+        Api.get('api/evento/validarEvent/'+data)
+          .then(response=>{
+            callback(response) 
+          })
+          .catch(error=>{
+              console.log(error)
+              callbackError(error);
+          })
+    },
     update(data,callback,callbackError){
         Api.post('api/evento/edit/'+data.id, data)
           .then(response=>{

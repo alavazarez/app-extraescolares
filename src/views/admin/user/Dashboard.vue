@@ -2,7 +2,7 @@
   <v-container>
     <v-card class="mx-auto" color="primary">
       <v-container fluid>
-        <v-row dense>
+        <!--<v-row dense>
           <v-col cols="12" sm="6">
             <v-card-text>
               <p class="display-1 text--primary">Estudiantes Liberados</p>
@@ -19,7 +19,7 @@
               </div>
             </v-card-text>
           </v-col>
-        </v-row>
+        </v-row>-->
       </v-container>
     </v-card>
   </v-container>

@@ -88,6 +88,7 @@
 
 <script>
 import Event from '../../api/Event'
+import Swal from "sweetalert2";
 import { mapActions } from 'vuex'
 
 export default {
@@ -126,16 +127,28 @@ export default {
       ],
     }),
     methods:{
-      ...mapActions('event',['update', 'getEvents']),
+      ...mapActions('event',['update', 'getEvents', 'validarEvent']),
 
       async submit(){
       if(this.$refs.form.validate() == true)
         {
+        let response = await this.validarEvent(this.value.id)
+          if(response.data == true)
+          {
+            Swal.fire({
+            icon: "error",
+            title: "¡Imposible actualizar!",
+            text: "Este evento extraescolar ya cuenta con asistencias",
+          });
+          this.getEvents()
+          }
+          else{
           try {
             await this.update(this.value)
             this.getEvents()
             //this.dialog = false
           }catch (error) {
+          }
           }
         }
       }   

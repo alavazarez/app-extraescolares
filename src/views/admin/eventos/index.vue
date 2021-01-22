@@ -57,7 +57,6 @@
 import RegisterForm from "@/components/Eventos/RegisterForm";
 import EditForm from "@/components/Eventos/EditForm";
 import { mapActions, mapGetters } from "vuex";
-import Event from "../../../api/Event";
 import Swal from "sweetalert2";
 
 export default {
@@ -90,7 +89,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions("event", ["getEvents", "destroy", "filtrosEventos"]),
+    ...mapActions("event", ["getEvents", "destroy", "filtrosEventos", "validarEvent"]),
 
     closedialog: function () {
       this.openDialog = false;
@@ -104,18 +103,29 @@ export default {
       this.openDialog = true;
       this.itemSelected = item;
     },
-    borrar(item) {
+    async borrar(item) {
+      let response = await this.validarEvent(item.id)
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "¿Estas seguro de borrar este evento?",
+        text: "Ya no podras revertir esta acción",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Si, eliminar evento!",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.destroy(item)
+          if(response.data == true)
+          {
+            Swal.fire({
+            icon: "error",
+            title: "¡Imposible eliminar!",
+            text: "Este evento extraescolar ya cuenta con asistencias",
+          });
+          }
+          else
+          {
+              this.destroy(item)
             .then((res) => {
               Swal.fire(
                 "Eliminado!",
@@ -127,6 +137,7 @@ export default {
             .catch((err) => {
               Swal.fire("Error!", "No pudo ser eliminado", "error");
             });
+          }
         }
       });
     },
