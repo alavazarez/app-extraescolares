@@ -33,7 +33,7 @@
         <v-container>
           <v-card>
             <v-card-title class="heading-2">
-              arriba Progreso de Eventos Extraescolares
+              Progreso de Eventos Extraescolares
               <v-spacer></v-spacer>
             </v-card-title>
             <v-card-text>
@@ -207,6 +207,7 @@ export default {
       try {
         await this.datosAcom()
         let res = await this.find(this.matricula);
+        console.log(res)
         if (res == false) {
           Swal.fire({
             icon: "error",
@@ -235,7 +236,7 @@ export default {
     },
     cleanInputs() {
       this.matricula = "";
-      this.alumno.nombre = "";
+      this.progreso.alumno.carrera = "";
       (this.alumno.apellidos = ""), (this.alumno.carrera = "");
       this.alumno.semestre = "";
       this.alumno.actividad = "";
