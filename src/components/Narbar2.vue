@@ -99,7 +99,7 @@ export default {
     drawer: null,
     items: [
       {
-        text: "User",
+        text: "Usuarios",
         icon: "mdi-account",
         children: [
           {

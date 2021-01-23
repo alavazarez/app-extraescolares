@@ -19,6 +19,18 @@ export default{
         },
     },
     actions: {
+        async datosAcom({ commit }) {
+            try {
+              let response = await Acom.datosAcom();
+              if (response.status != 200) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              commit("SET_ACOMS", response.data);
+              return response.data;
+            } catch (error) {
+              return false;
+            }
+          },
         async getAcomData({commit}){
             try {
                 let response = await Acom.getAcomData();

@@ -2,7 +2,13 @@ import Api from "./Api";
 import XLSX from "xlsx";
 
 export default{
-
+    datosAcom() {
+        try {
+          return Api.get("api/acom/datosAcom");
+        } catch (error) {
+          return error;
+        }
+      },
     getAcomData(){
         try {
             return Api.get('api/acom/configuration');
