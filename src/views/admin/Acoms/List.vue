@@ -119,7 +119,10 @@ export default {
             .catch((err) => {
               Swal.fire("Error!", "No pudo ser entregado el ACOM", "error");
             });
-        } else {
+        } 
+        else if(result.isConfirmed == false)
+        {}
+        else {
           Swal.fire("Error!", "Este ACOM ya fue entregado", "error");
         }
       });

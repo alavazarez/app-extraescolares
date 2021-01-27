@@ -125,7 +125,7 @@ export default {
           });
           this.$refs.form.reset()
           this.clearInputs()
-          //this.$router.push('/login')
+          this.$router.push('/login')
       }
       else{
         Swal.fire({
