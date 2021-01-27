@@ -82,6 +82,7 @@ export default {
     ...mapActions("auth", ["singIn"]),
     async login() {
       let res = await this.singIn(this.form);
+      console.log(res)
       if(res == false)
       {
         Swal.fire({

@@ -1,20 +1,20 @@
 import Vue from "vue";
 import store from "../store"
 import VueRouter from "vue-router";
-import Dashboard from "../views/admin/user/Dashboard.vue";
+
+import Login from "../views/admin/user/Login.vue";
 import showUsers from "../views/admin/user/ShowUsers.vue";
 import AddUser from "../views/admin/user/AddUser.vue";
 import ResetPassword from "../views/admin/user/ResetUsers.vue";
+
 import ListEvent from "../views/admin/eventos/index.vue";
-import Login from "../views/admin/user/Login.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
 import Reports from "../views/admin/eventos/Reports.vue";
+
 import ListAcom from "../views/admin/Acoms/List.vue";
 import CreateAcom from "../views/admin/Acoms/Create.vue";
 import ConfigurationAcom from "../views/admin/Acoms/Configuration.vue";
 import ReportsAcom from "../views/admin/Acoms/Reports.vue";
-import UpcomingEvents from "../views/Students/UpcomingEvents.vue";
-import EventProgress from "../views/Students/EventProgress.vue";
 
 import DashboardEstudiantes from "../views/Students/Dashboard.vue";
 
@@ -22,12 +22,6 @@ import DashboardEstudiantes from "../views/Students/Dashboard.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/User/dashboard",
-    name: "Dashboard",
-    component: Dashboard,
-    meta: { requiresAuth: true }
-  },
   {
     path: "/User/showUsers",
     name: "showUsers",
@@ -91,18 +85,6 @@ const routes = [
     component: ReportsAcom,
     meta: { requiresAuth: true }
   },
-  {
-    path: "/students/upcoming",
-    name: "Proximos",
-    component: UpcomingEvents
-  },
-  {
-    path: "/students/progress",
-    name: "Progreso",
-    component: EventProgress,
-    meta: { requiresAuth: true }
-  },
-
   {
     path: "/",
     name: "DashboardEstudiantes",

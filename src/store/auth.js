@@ -42,7 +42,7 @@ export default {
         }
         await dispatch("me");
         await commit("SET_LOADING", false);
-        router.push({path: "/User/dashboard"})
+        router.push({path: "/event/index"})
         return true;
       } catch (error) {
         commit("SET_LOADING", false);

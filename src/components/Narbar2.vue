@@ -166,7 +166,7 @@ export default {
   methods: {
     ...mapActions("auth", ["cerrarSesion"]),
     home() {
-      this.$router.push({ path: "/User/dashboard" });
+      this.$router.push({ path: "/event/index" });
     },
     async logout() {
       let responseSwal = await alert.confirm(

@@ -80,7 +80,7 @@
                         elevation="10"
                         block
                         @click="generateAsistencia"
-                      >
+                        v-bind:disabled="BotonDesabilitadoFirmas">
                         Generar formato de asistencias
                       </v-btn>
                     </v-col>
@@ -111,7 +111,8 @@
                   </v-row>
                   <v-row>
                     <v-col cols="12" sm="12">
-                      <v-btn color="primary" elevation="10" block>
+                      <v-btn color="primary" elevation="10" block @click="generatePDF"
+                      v-bind:disabled="BotonDesabilitadoACOM">
                         Genenar ACOM
                       </v-btn>
                     </v-col>
@@ -168,6 +169,7 @@ export default {
   },
   mounted() {
     this.getEventsForStudents();
+    this.cleanInputs();
   },
   methods: {
     ...mapActions("acom", ["datosAcom"]),
@@ -189,6 +191,7 @@ export default {
           this.cleanInputs();
         } else {
           await this.getProgreso(this.matricula);
+          console.log(this.progreso)
           this.showforms = true;
           this.habilitar();
           
@@ -206,11 +209,10 @@ export default {
       this.BotonDesabilitadoFirmas = true;
     },
     cleanInputs() {
-      this.matricula = "";
-      this.progreso.alumno.carrera = "";
-      (this.alumno.apellidos = ""), (this.alumno.carrera = "");
-      this.alumno.semestre = "";
-      this.alumno.actividad = "";
+      this.matricula = ""
+      this.progreso.alumno.nombre = ""
+      this.progreso.alumno.carrera = ""
+      this.progreso.alumno.apellidos = ""
     },
     async generatePDF() {
       try {
@@ -326,7 +328,8 @@ export default {
                 this.matricula +
                 " de la carrera " +
                 this.progreso.alumno.carrera +
-                " ha acreditado la actividad complementaria, “Actividades Extraescolares”, durante el período escolar Enero-Junio 2017.",
+                " ha acreditado la actividad complementaria, “Actividades Extraescolares”, durante el período escolar " + 
+                this.progreso.formacionIntegral.periodo + ".",
               1,
               4.1,
               { maxWidth: 6.6, align: "justify" }
