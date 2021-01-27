@@ -36,26 +36,51 @@
                 <v-card-text>
                   <v-row align="center">
                     <v-col cols="12" sm="12" md="7">
-                      <v-text-field label="No de control"></v-text-field>
+                      <v-text-field
+                        label="No de control"
+                        v-model="matricula"
+                      ></v-text-field>
                     </v-col>
                     <v-col>
-                      <v-btn class="block" color="primary"> Buscar </v-btn>
+                      <v-btn class="block" color="primary" @click="findAlumno">
+                        Buscar
+                      </v-btn>
                     </v-col>
                   </v-row>
                   <v-row>
                     <v-col cols="12" sm="12" md="6">
-                      <v-text-field outlined label="Nombre"></v-text-field>
+                      <v-text-field
+                        outlined
+                        label="Nombre"
+                        v-model="progreso.alumno.nombre"
+                        readonly
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="12" md="6">
-                      <v-text-field outlined label="Apellidos"></v-text-field>
+                      <v-text-field
+                        outlined
+                        label="Apellidos"
+                        v-model="progreso.alumno.apellidos"
+                        readonly
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="12" md="12">
-                      <v-text-field outlined label="Carrera"></v-text-field>
+                      <v-text-field
+                        outlined
+                        label="Carrera"
+                        v-model="progreso.alumno.carrera"
+                        readonly
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row>
                     <v-col cols="12" sm="12">
-                      <v-btn color="primary" elevation="10" block>
+                      <v-btn
+                        color="primary"
+                        elevation="10"
+                        block
+                        @click="generateAsistencia"
+                      >
                         Generar formato de asistencias
                       </v-btn>
                     </v-col>
@@ -67,41 +92,20 @@
               <v-card elevation="10">
                 <v-card-title> Progreso de asistencias </v-card-title>
                 <v-card-text>
-                  <v-row class="justify-center">
+                  <v-row
+                    class="justify-center"
+                    v-for="asistencia in progreso.asistencias"
+                    :key="asistencia.type_event"
+                  >
                     <v-col cols="4" align="center" justify="center">
-                      <h2>Deportivos</h2>
+                      <h2>{{ asistencia.type }}</h2>
                     </v-col>
                     <v-col cols="12" sm="12" md="3">
                       <v-text-field
                         disabled
                         outlined
                         label="Total"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-
-                  <v-row class="justify-center">
-                    <v-col cols="4" align="center" justify="center">
-                      <h2>Culturales</h2>
-                    </v-col>
-                    <v-col cols="12" sm="12" md="3">
-                      <v-text-field
-                        disabled
-                        outlined
-                        label="Total"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-
-                  <v-row class="justify-center">
-                    <v-col cols="4" align="center" justify="center">
-                      <h2>Cívicos</h2>
-                    </v-col>
-                    <v-col cols="12" sm="12" md="3">
-                      <v-text-field
-                        disabled
-                        outlined
-                        label="Total"
+                        v-model="asistencia.total_asistencia"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -556,4 +560,3 @@ export default {
   font-size: 30em;
 }
 </style>
-

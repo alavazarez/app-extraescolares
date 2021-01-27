@@ -4,7 +4,11 @@ export default {
   state: {
     alumnos: [],
     alumno: {},
-    progreso: {}
+    progreso: {
+      alumno: {},
+      asistencias: [],
+      formacionIntegral: {}
+    }
   },
   getters: {
     alumnos(state) {
