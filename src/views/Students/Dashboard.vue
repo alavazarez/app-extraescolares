@@ -180,7 +180,6 @@ export default {
       try {
         await this.datosAcom()
         let res = await this.find(this.matricula);
-        console.log(res)
         if (res == false) {
           Swal.fire({
             icon: "error",
@@ -191,7 +190,6 @@ export default {
           this.cleanInputs();
         } else {
           await this.getProgreso(this.matricula);
-          console.log(this.progreso)
           this.showforms = true;
           this.habilitar();
           
@@ -316,7 +314,7 @@ export default {
           doc
             .setFontSize(10)
             .text("JEFE DEL DEPTO. DE SERVICIOS ESCOLARES", 1, 3.4);
-          doc.setFontSize(10).text("P  R  E  S  E  N  T  E", 1, 3.6);
+          doc.setFontSize(10).text("PRESENTE", 1, 3.6);
 
           doc.setFontType("normal");
           doc

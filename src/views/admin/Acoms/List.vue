@@ -68,7 +68,6 @@ export default {
         { text: "Tipo de Liberacion", value: "type" },
         { text: "Fecha de Entrega", value: "dateDelivery" },
         { text: "Descripcion", value: "description" },
-        { text: "Status", value: "status" },
         { text: "Actions", value: "actions", sortable: false },
       ],
       items: [
