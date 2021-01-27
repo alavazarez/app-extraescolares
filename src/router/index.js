@@ -37,6 +37,7 @@ const routes = [
     path: "/User/AddUser",
     name: "AddUser",
     component: AddUser,
+    meta: { requiresAuth: true }
   },
   {
     path: "/event/index",

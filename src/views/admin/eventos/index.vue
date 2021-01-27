@@ -63,12 +63,12 @@ export default {
   components: { RegisterForm, EditForm },
   data: () => ({
     headers: [
-      { text: "Id", value: "id" },
       { text: "Nombre", value: "nameEvent" },
       { text: "Tipo de evento", value: "type" },
       { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },
       { text: "Lugar", value: "place" },
+      { text: "Descripción", value: "description" },
       { text: "Actions", value: "actions", sortable: false },
     ],
     items: [
