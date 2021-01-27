@@ -58,11 +58,13 @@ export default {
   data: () => {
     return {
       numControl: "",
+      //alumno:this.acoms.nombre,
       headers: [
-        { text: "Numero de control", value: "" },
-        { text: "Alumno", value: "" },
-        { text: "Carrera", value: "" },
-        { text: "Semestre", value: "" },
+        { text: "Numero de control", value: "no_de_control" },
+        { text: "Nombre", value: "nombre" },
+        { text: "Apellidos", value: "apellidos" },
+        { text: "Carrera", value: "carrera" },
+        { text: "Semestre", value: "semestre" },
         { text: "Tipo de Liberacion", value: "type" },
         { text: "Fecha de Entrega", value: "dateDelivery" },
         { text: "Descripcion", value: "description" },
@@ -117,7 +119,10 @@ export default {
             .catch((err) => {
               Swal.fire("Error!", "No pudo ser entregado el ACOM", "error");
             });
-        } else {
+        } 
+        else if(result.isConfirmed == false)
+        {}
+        else {
           Swal.fire("Error!", "Este ACOM ya fue entregado", "error");
         }
       });

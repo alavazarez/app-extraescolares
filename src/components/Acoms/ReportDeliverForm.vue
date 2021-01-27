@@ -12,9 +12,14 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row align="center" justify="space-around">
             <v-col cols="8">
               <v-text-field
+              :rules="dateInicialRules"
               v-model="date.initialDate"
               type="date"
               label="Fecha inicial"
@@ -24,6 +29,7 @@
           <v-row align="center" justify="space-around">
             <v-col cols="8">
               <v-text-field
+              :rules="dateFinalRules"
               v-model="date.finalDate"
               type="date"
               label="Fecha Final"
@@ -33,6 +39,7 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                :disabled="!valid"
                   text @click="exportar"
                   color="success"
                   fab
@@ -45,6 +52,7 @@
           <v-row align="center" justify="space-around">
           <v-card-title>Generar Excel</v-card-title>
           </v-row>
+          </v-form>
         </v-container>
       </v-card-text>
       <v-card-actions>
@@ -62,19 +70,29 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportDeliverForm",
   data: () => ({
+    valid: true,
+    dialog:false,
+    dateInicialRules: [
+        v => !!v || 'La fecha inicial del periodo es requerido',
+      ],
+      dateFinalRules: [
+        v => !!v || 'La fecha final del periodo es requerido',
+      ],
     date:{
       initialDate:null,
       finalDate:null
     },
-    dialog:false
     }),
 
     methods:{
       ...mapActions('acom',['exportarAcomLiberados']),
       async exportar(){
+        if(this.$refs.form.validate() == true)
+        {
         try {
           await this.exportarAcomLiberados(this.date)
         } catch (error) {
+        }
         }
       },
     }

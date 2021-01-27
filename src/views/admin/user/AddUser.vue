@@ -117,7 +117,8 @@ export default {
     data: {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      isAdmin:false
     },
         show3: false,
         rules: {

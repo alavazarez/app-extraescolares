@@ -12,10 +12,15 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row align="center" justify="space-around">
             <v-col cols="8">
               <v-text-field
               v-model="date"
+              :rules="dateRules"
               type="date"
               label="Fecha del evento"
              ></v-text-field>
@@ -24,6 +29,7 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  :disabled="!valid"
                   text @click="exportar"
                   color="success"
                   fab
@@ -36,6 +42,7 @@
           <v-row align="center" justify="space-around">
           <v-card-title>Generar Excel</v-card-title>
           </v-row>
+          </v-form>
         </v-container>
       </v-card-text>
       <v-card-actions>
@@ -53,16 +60,23 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ReportEventDayForm",
   data: () => ({
+    valid: true,
     dialog:false,
-    date:null
+    date:null,
+    dateRules: [
+        v => !!v || 'La fecha del evento es requerido',
+      ],
     }),
 
     methods:{
       ...mapActions('event',['exportarEvents']),
       async exportar(){
+        if(this.$refs.form.validate() == true)
+        {
         try {
           await this.exportarEvents(this.date)
         } catch (error) {
+        }
         }
       },
     }

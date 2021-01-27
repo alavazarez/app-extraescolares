@@ -12,9 +12,14 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-text-field
+              :rules="dateRules"
               v-model="date"
               type="date"
               label="Fecha del evento"
@@ -25,6 +30,7 @@
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
                 @click="obtenerEvents"
+                :rules="eventRules"
                 v-model="value.id"
                 :items="events"
                 label="Evento*"
@@ -38,6 +44,7 @@
               <div class="my-2">
                 <v-btn
                   text @click="exportar"
+                  :disabled="!valid"
                   color="success"
                   fab
                   x-large
@@ -49,6 +56,7 @@
           <v-row align="center" justify="space-around">
           <v-card-title>Generar Excel</v-card-title>
           </v-row>
+          </v-form>
         </v-container>
       </v-card-text>
       <v-card-actions>
@@ -63,13 +71,21 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Swal from "sweetalert2";
 export default {
   name: "ReportStudentsForm",
   data: () => ({
+    valid: true,
     items: [
         {id:"id", name:"nameEvent"},
       ],
-    date: [],
+      dateRules: [
+        v => !!v || 'La fecha del evento es requerido',
+      ],
+      eventRules: [
+        v => !!v || 'El evento es requerido',
+      ],
+    date: '',
     dialog:false,
     value:{
       id:''}
@@ -83,16 +99,32 @@ export default {
     ...mapActions('event',['exportarAlumnos', 'getEventsforDate']),
 
       async exportar(){
+        if(this.$refs.form.validate() == true)
+        {
         try {
           await this.exportarAlumnos(this.value.id)
         } catch (error) {
         }
+        }
       },
       async obtenerEvents(){
         //Para obtener eventos de un dia
+        if(this.date == '')
+        {
+          Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Selecciona una fecha',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        }
+        else
+        {
         try {
           await this.getEventsforDate(this.date)
           } catch (error) {
+        }
         }
       },
     }
