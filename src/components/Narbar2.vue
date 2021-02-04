@@ -129,6 +129,11 @@ export default {
             route: "/event/asignar",
           },
           {
+            text: "Consultar",
+            icon: "mdi-arrow-right-bold-circle-outline",
+            route: "/event/consultar",
+          },
+          {
             text: "Reportes",
             icon: "mdi-file-document",
             route: "/event/reports",

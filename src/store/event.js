@@ -183,6 +183,30 @@ export default {
                 console.log(error);
             }
         },
+        async getEventsAlumno({commit}, data){
+            try {
+                let response = await Event.getEventsAlumno(data);
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_EVENTS', response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },/*
+        getEventsAlumno({state}, data){
+            return new Promise((resolve,reject) => {
+                Event.getEventsAlumno(
+                    data,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            }) 
+        },*/
         
         
     }
