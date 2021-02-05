@@ -18,7 +18,7 @@
                 label="Nombre del jefe del Departamento de Actividades Extraescolares"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.nameBossDAE"
+                v-model="acom.nameBossDAE"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -29,7 +29,7 @@
                 label="Nombre del Profesor Responsable y/o Coordinador"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.nameCoordinator"
+                v-model="acom.nameCoordinator"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -40,7 +40,7 @@
                 label="Nombre del jefe del Departamento de Servicios Escolares"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.nameBossDSE"
+                v-model="acom.nameBossDSE"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -51,7 +51,7 @@
                 label="Frase o muletilla"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.slogan"
+                v-model="acom.slogan"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -111,7 +111,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      acoms: "acom/acoms",
+      acom: "acom/acom",
     }),
   },
   methods: {
@@ -122,7 +122,7 @@ export default {
       this.BotonDesabilitadoEditar = false;
       this.BotonDesabilitado = true;
       try {
-        await this.updateacom(this.acoms);
+        await this.updateacom(this.acom);
         Swal.fire({
             icon: "success",
             title: "Datos actualizados",

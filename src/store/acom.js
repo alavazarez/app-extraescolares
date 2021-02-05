@@ -3,11 +3,15 @@ export default{
     namespaced: true,
     state: {
         acoms:[],
+        acom:{},
         error:false
     },
     getters: {
         acoms(state){
             return state.acoms;
+        },
+        acom(state){
+            return state.acom;
         },
     },
     mutations: {
@@ -16,6 +20,9 @@ export default{
         },
         SET_ERROR(state, payload){
             state.error = payload;
+        },
+        SET_ACOM(state, payload){
+            state.acom = payload;
         },
     },
     actions: {
@@ -37,7 +44,7 @@ export default{
                 if(response.status != 200){
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                commit('SET_ACOMS', response.data);
+                commit('SET_ACOM', response.data);
             } catch (error) {
                 console.log(error);
             }      

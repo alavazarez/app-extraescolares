@@ -65,9 +65,9 @@ export default {
         { text: "Apellidos", value: "apellidos" },
         { text: "Carrera", value: "carrera" },
         { text: "Semestre", value: "semestre" },
-        { text: "Tipo de Liberacion", value: "type" },
-        { text: "Fecha de Entrega", value: "dateDelivery" },
-        { text: "Descripcion", value: "description" },
+        { text: "Tipo de Liberación", value: "type" },
+        { text: "Fecha de Liberación", value: "dateDelivery" },
+        { text: "Descripción", value: "description" },
         { text: "Actions", value: "actions", sortable: false },
       ],
       items: [

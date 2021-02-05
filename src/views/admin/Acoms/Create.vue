@@ -133,12 +133,24 @@ export default {
     async crearAcom() {
       try {
         this.value.no_de_control=this.alumno.no_de_control
+        if(this.value.no_de_control == null)
+        {
+          Swal.fire({
+          icon: 'error',
+          title: 'No se ha buscado al alumno',
+          showConfirmButton: false,
+          timer: 2500
+          })
+        }
+        else{
         let res = await this.crear(this.value);
         if (res.data == true) {
           Swal.fire({
             icon: "success",
             title: "ACOM creado",
             text: "El ACOM de este alumno se ha creado",
+            showConfirmButton: false,
+            timer: 2500
           });
         } else {
           Swal.fire({
@@ -146,6 +158,7 @@ export default {
             title: "Oops...",
             text: "El ACOM de este alumno ya se encuentra generado",
           });
+        }
         }
       } catch (error) {}
       this.cleanInputs();
@@ -156,6 +169,7 @@ export default {
       this.data.nameComplet = "";
       this.alumno.carrera = "";
       this.alumno.semestre = "";
+      this.alumno.no_de_control = null
     },
   },
 };
