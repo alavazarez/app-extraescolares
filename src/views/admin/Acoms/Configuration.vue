@@ -68,10 +68,8 @@
             <v-col cols="6">
               <v-btn
                 depressed
-                 
-                v-bind:disabled="BotonDesabilitadoActualizar"
+                :disabled="!valid"
                 color="primary"
-                text
                 @click="submit"
                 >Actualizar
               </v-btn>
@@ -90,10 +88,10 @@ import Swal from "sweetalert2";
 export default {
   mounted() {
     this.getAcomData();
+    this.valid=false
   },
   data: () => ({
     valid: true,
-    BotonDesabilitadoActualizar: true,
     BotonDesabilitadoEditar: null,
     BotonDesabilitado: true,
     nameJefeRules: [
@@ -118,21 +116,24 @@ export default {
     ...mapActions("acom", ["getAcomData", "updateacom"]),
 
     async submit() {
-      this.BotonDesabilitadoActualizar = true;
-      this.BotonDesabilitadoEditar = false;
+      
       this.BotonDesabilitado = true;
       try {
         await this.updateacom(this.acom);
         Swal.fire({
             icon: "success",
             title: "Datos actualizados",
-            text: "La informacion se ha guardado satisfactoriamente",
+            text: "La informacion se ha guardado correctamente",
+            showConfirmButton: false,
+            timer: 2500
           });
+        this.BotonDesabilitadoEditar = false;
+        this.valid=false
       } catch (error) {}
     },
 
     Editar() {
-      this.BotonDesabilitadoActualizar = false;
+      this.valid=true
       this.BotonDesabilitadoEditar = true;
       this.BotonDesabilitado = false;
     },

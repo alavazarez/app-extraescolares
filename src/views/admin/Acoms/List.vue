@@ -40,6 +40,9 @@
         class="elevation-1"
         :search="numControl"
       >
+      <template v-slot:item.dateDelivery="{ item }">
+      {{ formatDate(item.dateDelivery) }}
+    </template>
         <template v-slot:item.actions="{ item }">
           <v-btn @click="entregar(item)" x-small fab color="success" dark>
             <v-icon dark>mdi-checkbox-marked-circle</v-icon></v-btn
@@ -51,6 +54,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 
@@ -88,6 +92,10 @@ export default {
   },
   methods: {
     ...mapActions("acom", ["getAcoms", "deliver", "filtrosAcoms"]),
+
+    formatDate(value) {
+      return moment(value).format('DD/MM/YYYY HH:mm:ss')
+  },
 
     async filtrar() {
       try {

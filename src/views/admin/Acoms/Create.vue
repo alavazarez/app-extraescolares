@@ -121,6 +121,8 @@ export default {
             icon: "error",
             title: "¡El alumno no existe!",
             text: "Numero de control incorrecto",
+            showConfirmButton: false,
+            timer: 2500
           });
           this.cleanInputs()
         } else {
@@ -157,6 +159,8 @@ export default {
             icon: "error",
             title: "Oops...",
             text: "El ACOM de este alumno ya se encuentra generado",
+            showConfirmButton: false,
+            timer: 2500
           });
         }
         }

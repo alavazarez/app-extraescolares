@@ -21,11 +21,16 @@
         single-select
         show-select
         :search="date"
-        />
+        >
+            <template v-slot:item.date="{ item }">
+                {{ formatDate(item.date) }}
+              </template>
+        </v-data-table>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 import { mapActions, mapGetters } from 'vuex'
 export default {
     name:'eventPicker',
@@ -67,6 +72,9 @@ export default {
     },
     methods:{
         ...mapActions('event',['getEvents']),
+        formatDate(value) {
+      return moment(value).format('DD/MM/YYYY HH:mm:ss')
+    },
     },
     watch:{
       selectedEvent: function (){

@@ -22,8 +22,11 @@
               :headers="headers"
               :items="events"
               sort-by="calories"
-              class="elevation-1"
-            ></v-data-table>
+              class="elevation-1">
+              <template v-slot:item.date="{ item }">
+                {{ formatDate(item.date) }}
+              </template>
+            </v-data-table>
           </v-card>
         </v-container>
       </v-tab-item>
@@ -128,6 +131,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
@@ -173,6 +177,9 @@ export default {
     ...mapActions("event", ["getEventsForStudents"]),
     ...mapActions("alumno", ["find", "generatePDFAlumno", "getProgreso"]),
 
+    formatDate(value) {
+      return moment(value).format('DD/MM/YYYY HH:mm:ss')
+    },
     async findAlumno() {
       try {
         await this.datosAcom()

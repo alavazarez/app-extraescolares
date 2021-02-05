@@ -23,13 +23,18 @@
               :items="events"
               sort-by="calories"
               class="elevation-1"
-            ></v-data-table>
+            >
+              <template v-slot:item.date="{ item }">
+                {{ formatDate(item.date) }}
+              </template>
+            </v-data-table>
           </v-card>
         </v-container>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
@@ -58,6 +63,9 @@ export default {
     ...mapActions("event", ["getEventsAlumno"]),
     ...mapActions("alumno", ["find"]),
 
+    formatDate(value) {
+      return moment(value).format('DD/MM/YYYY HH:mm:ss')
+    },
     async findAlumno(){
       try {
         let res = await this.find(this.matricula);
