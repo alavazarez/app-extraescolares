@@ -145,8 +145,14 @@ export default {
           else{
           try {
             await this.update(this.value)
+            Swal.fire({
+              icon: "success",
+              title: "Evento actualizado",
+              text: "Se han actualizado los datos del evento",
+              showConfirmButton: false,
+              timer: 2500
+              })
             this.getEvents()
-            //this.dialog = false
           }catch (error) {
           }
           }
@@ -156,6 +162,7 @@ export default {
   watch:{
     openDialog:function (){
       this.dialog = this.openDialog 
+      this.getEvents()
     }
   }
 }

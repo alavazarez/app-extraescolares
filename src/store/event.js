@@ -3,6 +3,8 @@ export default {
     namespaced: true,
     state: {
       events:[],
+      eventsAlumno:[],
+      eventsReports:[],
       event:{
         nameEvent:'',
         type_event_id:0,
@@ -19,7 +21,13 @@ export default {
         },
         event(state){
             return state.event;
-        }
+        },
+        eventsAlumno(state){
+            return state.eventsAlumno;
+        },
+        eventsReports(state){
+            return state.eventsReports;
+        },
     },
     mutations: {
         SET_EVENTS(state, payload){
@@ -30,6 +38,12 @@ export default {
         },
         SET_EVENT(state, payload){
             state.event = payload;
+        },
+        SET_EVENTSALUMNO(state, payload){
+            state.eventsAlumno = payload;
+        },
+        SET_EVENTSREPORTS(state, payload){
+            state.eventsReports = payload;
         },
     },
     actions: {
@@ -117,7 +131,7 @@ export default {
                 if(response.status != 200){
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                commit('SET_EVENTS', response.data);
+                commit('SET_EVENTSREPORTS', response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -189,7 +203,7 @@ export default {
                 if(response.status != 200){
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                commit('SET_EVENTS', response.data);
+                commit('SET_EVENTSALUMNO', response.data);
             } catch (error) {
                 console.log(error);
             }

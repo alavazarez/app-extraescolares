@@ -97,8 +97,7 @@
 </template>
 
 <script>
-import Event from "../../api/Event";
-import alert from '../../util/alert'
+import Swal from "sweetalert2";
 import { mapActions } from "vuex";
 export default {
   name: "RegisterForm",
@@ -141,13 +140,18 @@ export default {
       {
       try {
         await this.store(this.form);
-        alert.toast("Evento creado", 5000);
+        Swal.fire({
+              icon: "success",
+              title: "Evento creado",
+              text: "Se ha creado un nuevo evento",
+              showConfirmButton: false,
+              timer: 2500
+              })
         this.getEvents();
         this.$refs.form.reset()
         this.cleanInputs();
         this.dialog = false;
       } catch (error) {
-        //
       }
       }
     },

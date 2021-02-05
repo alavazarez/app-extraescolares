@@ -127,17 +127,21 @@ export default {
             icon: "error",
             title: "¡Imposible eliminar!",
             text: "Este evento extraescolar ya cuenta con asistencias",
+            showConfirmButton: false,
+              timer: 2500
           });
           }
           else
           {
               this.destroy(item)
             .then((res) => {
-              Swal.fire(
-                "Eliminado!",
-                "El campo seleccionado ha sido eliminado",
-                "success"
-              );
+              Swal.fire({
+                icon: "success",
+                title: "Eliminado!",
+                text:"El campo seleccionado ha sido eliminado",
+                showConfirmButton: false,
+                timer: 2500  
+                });
               this.getEvents();
             })
             .catch((err) => {

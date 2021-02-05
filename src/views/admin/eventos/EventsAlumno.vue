@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      events: "event/events",
+      events: "event/eventsAlumno",
     }),
   },
   methods: {
