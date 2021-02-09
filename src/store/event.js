@@ -2,17 +2,18 @@ import Event from '../api/Event'
 export default {
     namespaced: true,
     state: {
-      events:[],
-      eventsAlumno:[],
-      eventsReports:[],
-      event:{
-        nameEvent:'',
-        type_event_id:0,
-        description:'',
-        date:undefined, //DateTime
-        place:'',
-        organizer:''
-      },
+        overlay: false,
+        events:[],
+        eventsAlumno:[],
+        eventsReports:[],
+        event:{
+            nameEvent:'',
+            type_event_id:0,
+            description:'',
+            date:undefined, //DateTime
+            place:'',
+            organizer:''
+        },
       error:false
     },
     getters: {
@@ -28,6 +29,9 @@ export default {
         eventsReports(state){
             return state.eventsReports;
         },
+        overlay(state) {
+            return state.overlay;
+          }
     },
     mutations: {
         SET_EVENTS(state, payload){
@@ -45,19 +49,25 @@ export default {
         SET_EVENTSREPORTS(state, payload){
             state.eventsReports = payload;
         },
+        SET_OVERLAY(state, value) {
+            state.overlay = value;
+          }
     },
     actions: {
-        setEvent({commit},event){
+        setEvent({commit}, event){
             commit('SET_EVENT', event);
         },
-        store( {state} , datos){
+        store({ commit } , datos){
+            commit("SET_OVERLAY", true);
             return new Promise((resolve,reject) => {
                 Event.store(
                     datos,
                    (response) => {
+                        commit("SET_OVERLAY", false);
                        resolve(response);
                    },
                    (error) => {
+                    commit("SET_OVERLAY", false);
                        reject(error);
                    } 
                 )
@@ -76,19 +86,22 @@ export default {
                 )
             })
         },
-        update( {state} ,data){
+        update({ commit }, data) {
+            commit("SET_OVERLAY", true);
             return new Promise((resolve,reject) => {
                 Event.update(
                     data,
                    (response) => {
+                        commit("SET_OVERLAY", false);
                        resolve(response);
                    },
                    (error) => {
+                        commit("SET_OVERLAY", false);
                        reject(error);
                    } 
                 )
             })
-        },
+          },
         destroy( {state} , datos){
             return new Promise((resolve,reject) => {
                 Event.destroy(

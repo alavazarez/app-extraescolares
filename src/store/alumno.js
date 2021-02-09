@@ -2,6 +2,7 @@ import Alumno from "../api/Alumno";
 export default {
   namespaced: true,
   state: {
+    overlay: false,
     alumnos: [],
     alumno: {},
     progreso: {
@@ -19,6 +20,9 @@ export default {
     },
     progreso(state) {
       return state.progreso;
+    },
+    overlay(state) {
+      return state.overlay;
     }
   },
 
@@ -31,6 +35,9 @@ export default {
     },
     SET_PROGRESO(state, payload) {
       state.progreso = payload;
+    },
+    SET_OVERLAY(state, value) {
+      state.overlay = value;
     }
   },
 
@@ -48,13 +55,16 @@ export default {
     },
     async find({ commit }, matricula) {
       try {
+        commit("SET_OVERLAY", true);
         let response = await Alumno.find(matricula);
         if (response.status != 200) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         commit("SET_ALUMNO", response.data);
+        await commit("SET_OVERLAY", false);
         return response.data;
       } catch (error) {
+        await commit("SET_OVERLAY", false);
         return false;
       }
     },
@@ -85,11 +95,14 @@ export default {
       });
     },
     getProgreso({ commit }, matricula) {
+      commit("SET_OVERLAY", true);
       Alumno.getAvanceEventos(matricula)
         .then(response => {
           commit("SET_PROGRESO", response.data);
+          commit("SET_OVERLAY", false);
         })
         .catch(error => {
+          commit("SET_OVERLAY", false);
           console.log(error, "error en avance");
         });
     }

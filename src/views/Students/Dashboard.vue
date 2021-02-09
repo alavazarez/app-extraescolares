@@ -48,6 +48,13 @@
                       <v-btn class="block" color="primary" @click="findAlumno">
                         Buscar
                       </v-btn>
+                      <v-overlay v-model="overlay">
+                    <v-progress-circular
+                      color="primary"
+                      indeterminate
+                      size="64"
+                    ></v-progress-circular>
+                  </v-overlay>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -159,6 +166,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      overlay: "alumno/overlay",
       events: "event/events",
       alumno: "alumno/alumno",
       progreso: "alumno/progreso",
@@ -196,7 +204,6 @@ export default {
           await this.getProgreso(this.matricula);
           this.showforms = true;
           this.habilitar();
-          
         }
       } catch (error) {
         alert(error, "error de vue");
@@ -217,6 +224,8 @@ export default {
       this.progreso.alumno.apellidos = ""
     },
     async generatePDF() {
+      console.log(this.alumno)
+      console.log(this.progreso)
       try {
         let res = await this.generatePDFAlumno(this.alumno);
         if (res.data == false) {

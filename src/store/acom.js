@@ -26,6 +26,7 @@ export default{
         },
     },
     actions: {
+        //Trae los datos de los jefes que lleva el formato de ACOM
         async datosAcom({ commit }) {
             try {
               let response = await Acom.datosAcom();

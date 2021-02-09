@@ -78,7 +78,14 @@
         <v-btn color="blue darken-1" text @click="$emit('closedialog')">
           Cancelar
         </v-btn>
-        <v-btn color="blue darken-1" :disabled="!valid" text @click="submit" v-on:click="$emit('closedialog')">
+        <v-overlay v-model="overlay">
+          <v-progress-circular
+            color="primary"
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
+        <v-btn color="blue darken-1" :disabled="!valid" text @click="submit">
           Actualizar
         </v-btn>
       </v-card-actions>
@@ -87,9 +94,8 @@
 </template>
 
 <script>
-import Event from '../../api/Event'
 import Swal from "sweetalert2";
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "EditForm",
@@ -126,6 +132,11 @@ export default {
         {id:3, name:'Cívico'},
       ],
     }),
+    computed: {
+    ...mapGetters({
+      overlay: "event/overlay",
+    }),
+  },
     methods:{
       ...mapActions('event',['update', 'getEvents', 'validarEvent']),
 
@@ -140,21 +151,24 @@ export default {
             title: "¡Imposible actualizar!",
             text: "Este evento extraescolar ya cuenta con asistencias",
           });
+          this.$emit('closedialog')
           this.getEvents()
           }
           else{
-          try {
-            await this.update(this.value)
-            Swal.fire({
-              icon: "success",
-              title: "Evento actualizado",
-              text: "Se han actualizado los datos del evento",
-              showConfirmButton: false,
-              timer: 2500
-              })
-            this.getEvents()
-          }catch (error) {
-          }
+            try {
+              await this.update(this.value)
+              Swal.fire({
+                icon: "success",
+                title: "Evento actualizado",
+                text: "Se han actualizado los datos del evento",
+                showConfirmButton: false,
+                timer: 2500
+                })
+              this.$emit('closedialog')
+              this.getEvents()
+            }
+            catch (error) {
+            }
           }
         }
       }   

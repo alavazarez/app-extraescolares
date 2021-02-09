@@ -87,18 +87,24 @@
         <v-btn color="blue darken-1" text @click="clouse()">
           Cancelar
         </v-btn>
+        <v-overlay v-model="overlay">
+          <v-progress-circular
+            color="primary"
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
         <v-btn color="blue darken-1" 
           :disabled="!valid"
           text @click="submit"> Guardar </v-btn>
       </v-card-actions>
-      
     </v-card>
   </v-dialog>
 </template>
 
 <script>
 import Swal from "sweetalert2";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "RegisterForm",
   data: () => ({
@@ -133,6 +139,11 @@ export default {
       { id: 3, name: "Cívico" },
     ],
   }),
+  computed: {
+    ...mapGetters({
+      overlay: "event/overlay",
+    }),
+  },
   methods: {
     ...mapActions("event", ["store", "getEvents"]),
     async submit() {
