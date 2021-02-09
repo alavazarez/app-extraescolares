@@ -224,8 +224,6 @@ export default {
       this.progreso.alumno.apellidos = ""
     },
     async generatePDF() {
-      console.log(this.alumno)
-      console.log(this.progreso)
       try {
         let res = await this.generatePDFAlumno(this.alumno);
         if (res.data == false) {
@@ -334,7 +332,7 @@ export default {
             .setFontSize(10)
             .text(
               "El que suscribe profesor responsable de la Actividad Complementaria 4 (ACOM 4), por este medio hace de su conocimiento que el estudiante " +
-                this.progreso.alumno.nombre +
+                this.progreso.alumno.nombre + " " +this.progreso.alumno.apellidos+
                 " con número de control " +
                 this.matricula +
                 " de la carrera " +

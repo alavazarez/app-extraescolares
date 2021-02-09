@@ -55,8 +55,8 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col cols="6">
+          <v-row align="center" justify="center">
+            <v-col cols="2">
               <v-btn
                 depressed
                 color="primary"
@@ -65,11 +65,11 @@
                 >Editar
               </v-btn>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="2">
               <v-btn
                 depressed
                 :disabled="!valid"
-                color="primary"
+                color="success"
                 @click="submit"
                 >Actualizar
               </v-btn>
@@ -87,11 +87,11 @@ import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
   mounted() {
-    this.getAcomData();
+    this.getAcomData()
     this.valid=false
   },
   data: () => ({
-    valid: true,
+    valid:false,
     BotonDesabilitadoEditar: null,
     BotonDesabilitado: true,
     nameJefeRules: [

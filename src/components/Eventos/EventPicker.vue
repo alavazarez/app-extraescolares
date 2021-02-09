@@ -56,6 +56,7 @@ export default {
     },
     mounted (){
         this.getEvents();
+        console.log(this.selectedEvent.length)
     },
     computed:{
         ...mapGetters ({
@@ -72,9 +73,11 @@ export default {
     },
     methods:{
         ...mapActions('event',['getEvents']),
-        formatDate(value) {
-      return moment(value).format('DD/MM/YYYY HH:mm:ss')
-    },
+
+        formatDate(value) 
+        {
+            return moment(value).format('DD/MM/YYYY HH:mm:ss')
+        },
     },
     watch:{
       selectedEvent: function (){

@@ -2,6 +2,7 @@ import Acom from '../api/Acom'
 export default{
     namespaced: true,
     state: {
+        overlay: false,
         acoms:[],
         acom:{},
         error:false
@@ -13,6 +14,9 @@ export default{
         acom(state){
             return state.acom;
         },
+        overlay(state) {
+            return state.overlay;
+          }
     },
     mutations: {
         SET_ACOMS(state, payload){
@@ -24,6 +28,9 @@ export default{
         SET_ACOM(state, payload){
             state.acom = payload;
         },
+        SET_OVERLAY(state, value) {
+            state.overlay = value;
+          }
     },
     actions: {
         //Trae los datos de los jefes que lleva el formato de ACOM
@@ -74,14 +81,17 @@ export default{
                 )
             }) 
         },
-        crear({state} ,data){
+        crear({commit} ,data){
+            commit("SET_OVERLAY", true);
             return new Promise((resolve,reject) => {
                 Acom.crear(
                     data,
                    (response) => {
+                    commit("SET_OVERLAY", false);
                        resolve(response);
                    },
                    (error) => {
+                    commit("SET_OVERLAY", false);
                        reject(error);
                    } 
                 )

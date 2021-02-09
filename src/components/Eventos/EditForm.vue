@@ -150,6 +150,8 @@ export default {
             icon: "error",
             title: "¡Imposible actualizar!",
             text: "Este evento extraescolar ya cuenta con asistencias",
+            showConfirmButton: false,
+            timer: 2500
           });
           this.$emit('closedialog')
           this.getEvents()

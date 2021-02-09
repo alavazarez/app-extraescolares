@@ -105,7 +105,23 @@ export default {
           commit("SET_OVERLAY", false);
           console.log(error, "error en avance");
         });
-    }
+    },
+    StatusExtraescolar({ commit }, matricula) {
+      commit("SET_OVERLAY", true);
+      return new Promise((resolve, reject) => {
+        Alumno.StatusExtraescolar(
+          matricula,
+          (response) => {
+            commit("SET_OVERLAY", false);
+            resolve(response);
+          },
+          (error) => {
+            commit("SET_OVERLAY", false);
+            reject(error);
+          }
+        )
+      })
+    },
     /*async findAlumnoWithAcom({commit},matricula){
             try {
                 let response = await Alumno.findAlumnoWithAcom(matricula);

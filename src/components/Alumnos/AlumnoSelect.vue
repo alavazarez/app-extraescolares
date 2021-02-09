@@ -142,6 +142,8 @@ export default {
             icon: "error",
             title: "Oops...",
             text: "El alumno no existe",
+            showConfirmButton: false,
+            timer: 2500
           });
         }
       } catch (error) {
@@ -159,6 +161,8 @@ export default {
           icon: "error",
           title: "Oops...",
           text: "El alumno ya se encuentra registrado a este evento",
+          showConfirmButton: false,
+          timer: 2500
         });
         this.clear();
       }
@@ -188,7 +192,7 @@ export default {
           {
               Swal.fire({
               icon: 'error',
-              title: 'Ya busco a este alumno',
+              title: 'Ya añadio a este alumno',
               showConfirmButton: false,
               timer: 2500
               })
