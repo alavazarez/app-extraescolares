@@ -43,12 +43,12 @@
             </v-col>
             <v-col cols="3">
               <v-text-field
-                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                 :rules="[rules.required, rules.min]"
-                :type="show3 ? 'text' : 'password'"
+                :type="show1 ? 'text' : 'password'"
                 hint="Al menos 8 carácteres"
                 class="input-group--focused"
-                @click:append="show3 = !show3"
+                @click:append="show1 = !show1"
                 label="Contraseña"
                 outlined
                 required
@@ -57,12 +57,12 @@
             </v-col>
             <v-col cols="3">
               <v-text-field
-                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                 :rules="[rules.required, rules.min]"
-                :type="show3 ? 'text' : 'password'"
+                :type="show2 ? 'text' : 'password'"
                 hint="Al menos 8 carácteres"
                 class="input-group--focused"
-                @click:append="show3 = !show3"
+                @click:append="show2 = !show2"
                 label="Confirmar contraseña"
                 outlined
                 required
@@ -79,6 +79,13 @@
                 @click="registrarUsuario"
                 >Registrarme
               </v-btn>
+              <v-overlay v-model="overlay">
+          <v-progress-circular
+            color="primary"
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
           </v-row>
           </v-form>
         </v-container>
@@ -120,7 +127,8 @@ export default {
       password: "",
       isAdmin:false
     },
-        show3: false,
+        show1: false,
+        show2: false,
         rules: {
           required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Minimo 8 caracteres',
@@ -129,26 +137,31 @@ export default {
         
     }
   },
+  computed: {
+    ...mapGetters({
+      overlay: "auth/overlay",
+    }),
+  },
   methods: {
     ...mapActions("auth", ["registerUser"]),
 
     async registrarUsuario() {
       if(this.$refs.form.validate() == true)
       {
-      console.log(this.$refs.form.validate())
       this.data.name = this.value.nombre+" "+this.value.apellidos
       this.data.email = this.value.email
       this.data.password = this.value.password
       if(this.value.password == this.value.confirmPassword)
       {
         let res = await this.registerUser(this.data)
-        console.log(res.data)
         if(res.data == false)
       {
         Swal.fire({
             icon: "error",
             title: "¡Correo incorrecto!",
             text: "El correo que ha ingresado ya existe, intente con otro",
+            showConfirmButton: false,
+            timer: 2500
           });
       }
       else{
@@ -158,6 +171,8 @@ export default {
             icon: "success",
             title: "Registro exitoso",
             text: "El usuario se ha registrado",
+            showConfirmButton: false,
+            timer: 2500
           });
       }
       }
@@ -166,6 +181,8 @@ export default {
             icon: "error",
             title: "¡Contraseñas invalidas!",
             text: "Las contraseñas que ha ingresado no coinciden",
+            showConfirmButton: false,
+            timer: 2500
           });
       }
     }

@@ -33,6 +33,9 @@
         sort-by="calories"
         class="elevation-1"
       >
+      <template v-slot:item.date="{ item }">
+      {{ formatDate(item.date) }}
+    </template>
         <template v-slot:item.actions="{ item }">
           <v-btn
             x-small
@@ -54,6 +57,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import RegisterForm from "@/components/Eventos/RegisterForm";
 import EditForm from "@/components/Eventos/EditForm";
 import { mapActions, mapGetters } from "vuex";
@@ -90,7 +94,9 @@ export default {
   },
   methods: {
     ...mapActions("event", ["getEvents", "destroy", "filtrosEventos", "validarEvent"]),
-
+    formatDate(value) {
+      return moment(value).format('DD/MM/YYYY HH:mm:ss')
+  },
     closedialog: function () {
       this.openDialog = false;
     },
@@ -121,17 +127,21 @@ export default {
             icon: "error",
             title: "¡Imposible eliminar!",
             text: "Este evento extraescolar ya cuenta con asistencias",
+            showConfirmButton: false,
+              timer: 2500
           });
           }
           else
           {
               this.destroy(item)
             .then((res) => {
-              Swal.fire(
-                "Eliminado!",
-                "El campo seleccionado ha sido eliminado",
-                "success"
-              );
+              Swal.fire({
+                icon: "success",
+                title: "Eliminado!",
+                text:"El campo seleccionado ha sido eliminado",
+                showConfirmButton: false,
+                timer: 2500  
+                });
               this.getEvents();
             })
             .catch((err) => {

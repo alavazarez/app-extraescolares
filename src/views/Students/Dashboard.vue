@@ -22,8 +22,11 @@
               :headers="headers"
               :items="events"
               sort-by="calories"
-              class="elevation-1"
-            ></v-data-table>
+              class="elevation-1">
+              <template v-slot:item.date="{ item }">
+                {{ formatDate(item.date) }}
+              </template>
+            </v-data-table>
           </v-card>
         </v-container>
       </v-tab-item>
@@ -45,6 +48,13 @@
                       <v-btn class="block" color="primary" @click="findAlumno">
                         Buscar
                       </v-btn>
+                      <v-overlay v-model="overlay">
+                    <v-progress-circular
+                      color="primary"
+                      indeterminate
+                      size="64"
+                    ></v-progress-circular>
+                  </v-overlay>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -128,12 +138,10 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
-  mounted() {
-    this.cleanInputs();
-  },
   data() {
     return {
       tabs: null,
@@ -158,6 +166,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      overlay: "alumno/overlay",
       events: "event/events",
       alumno: "alumno/alumno",
       progreso: "alumno/progreso",
@@ -176,6 +185,9 @@ export default {
     ...mapActions("event", ["getEventsForStudents"]),
     ...mapActions("alumno", ["find", "generatePDFAlumno", "getProgreso"]),
 
+    formatDate(value) {
+      return moment(value).format('DD/MM/YYYY HH:mm:ss')
+    },
     async findAlumno() {
       try {
         await this.datosAcom()
@@ -192,7 +204,6 @@ export default {
           await this.getProgreso(this.matricula);
           this.showforms = true;
           this.habilitar();
-          
         }
       } catch (error) {
         alert(error, "error de vue");
@@ -321,7 +332,7 @@ export default {
             .setFontSize(10)
             .text(
               "El que suscribe profesor responsable de la Actividad Complementaria 4 (ACOM 4), por este medio hace de su conocimiento que el estudiante " +
-                this.progreso.alumno.nombre +
+                this.progreso.alumno.nombre + " " +this.progreso.alumno.apellidos+
                 " con número de control " +
                 this.matricula +
                 " de la carrera " +
