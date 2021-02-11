@@ -140,5 +140,21 @@ export default {
     } catch (error) {
       return error;
     }
-  }
+  },
+  getEventsAlumno(data) {
+    try {
+      return Api.get("api/event/getEventsAlumno/"+data);
+    } catch (error) {
+      return error;
+    }
+  },
+  /*getEventsAlumno(data, callback, callbackError) {
+    Api.get("api/event/getEventsAlumno/"+data)
+      .then(response => {
+        callback(response);
+      })
+      .catch(error => {
+        callbackError(error);
+      });
+  },*/
 };

@@ -38,24 +38,12 @@ export default {
     }
   },
 
-  sendEmail(data, callback, callbackError){
-    Api.get('api/user/sendEmail/'+data)
-        .then(response=>{
-            callback(response) 
-        })
-        .catch(error=>{
-            console.log(error)
-            callbackError(error);
-        })
-  },
-
   registerUser(data, callback, callbackError){
     Api.post('api/user/registerUser',data)
         .then(response=>{
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
@@ -65,7 +53,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
@@ -76,7 +63,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
@@ -86,7 +72,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
