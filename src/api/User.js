@@ -44,7 +44,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
@@ -55,7 +54,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
@@ -65,7 +63,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
@@ -76,7 +73,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },
@@ -86,7 +82,6 @@ export default {
             callback(response) 
         })
         .catch(error=>{
-            console.log(error)
             callbackError(error);
         })
   },

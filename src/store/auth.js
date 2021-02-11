@@ -106,15 +106,17 @@ export default {
           )
       }) 
     },
-    verifiPassOld({state}, data){
-      console.log(data)
+    verifiPassOld({commit}, data){
+      commit("SET_OVERLAY", true);
       return new Promise((resolve,reject) => {
         User.verifiPassOld(
               data,
              (response) => {
+              commit("SET_OVERLAY", false);
                  resolve(response);
              },
              (error) => {
+              commit("SET_OVERLAY", false);
                  reject(error);
              } 
           )
