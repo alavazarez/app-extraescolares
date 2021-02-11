@@ -20,19 +20,12 @@
               <v-btn @click="findAlumno" depressed color="primary"
                 >Buscar
               </v-btn>
-              <v-overlay v-model="overlay">
-          <v-progress-circular
-            color="primary"
-            indeterminate
-            size="64"
-          ></v-progress-circular>
-        </v-overlay>
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
       <v-container>
-        <v-row align="center" justify="center">
+        <v-row align="center" justify="space-around">
           <v-col cols="4">
             <v-text-field
               label="Alumno"
@@ -58,30 +51,11 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-row align="center" justify="center">
-          <v-col cols="3">
-            <v-text-field
-              label="Extraescolar"
-              outlined
-              readonly
-              v-model="data.extraescolar"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="2">
-            <v-text-field
-              label="Estatus"
-              outlined
-              readonly
-              v-model="data.estatus"
-            ></v-text-field>
-          </v-col>
-        </v-row>
         <v-row align="center" justify="space-around">
           <v-col cols="10">
             <v-textarea
               outlined
               label="Descripción"
-              :readonly="shouldDisable"
               counter
               maxlength="120"
               v-model="value.description"
@@ -99,13 +73,6 @@
             @click="crearAcom"
             >Crear
           </v-btn>
-          <v-overlay v-model="overlayAcom">
-          <v-progress-circular
-            color="primary"
-            indeterminate
-            size="64"
-          ></v-progress-circular>
-        </v-overlay>
         </v-col>
       </v-row>
     </v-card>
@@ -122,14 +89,9 @@ export default {
   },
   data() {
     return {
-      shouldDisable: true,
         idAlumno : null,
         matricula:null,
-        data: {
-          nameComplet:'',
-          extraescolar: '',
-          estatus:''
-          },
+        data: {nameComplet:''},
         value: {
           no_de_control:this.matricula,
           typeAcom_id:2,
@@ -141,9 +103,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      overlay: "alumno/overlay",
       alumno: "alumno/alumno",
-      overlayAcom: "acom/overlay",
     }),
 
     bloquear() {
@@ -151,7 +111,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("alumno", ["find", "StatusExtraescolar"]),
+    ...mapActions("alumno", ["find"]),
     ...mapActions("acom", ["crear"]),
     async findAlumno() {
       try {
@@ -161,30 +121,10 @@ export default {
             icon: "error",
             title: "¡El alumno no existe!",
             text: "Numero de control incorrecto",
-            showConfirmButton: false,
-            timer: 2500
           });
           this.cleanInputs()
         } else {
           this.data.nameComplet = this.alumno.nombre+" "+this.alumno.apellidos
-          let status = await this.StatusExtraescolar(this.matricula)
-          this.data.extraescolar = status.data.actividad
-          this.data.estatus = status.data.acreditado
-          if(this.data.estatus == false)
-          {
-            this.shouldDisable = true
-            Swal.fire({
-            icon: "error",
-            title: "Actividad no acreditada",
-            text: "La actividad extraescolar del alumno no ha sido acreditada",
-            showConfirmButton: false,
-            timer: 2500
-          });
-          }
-          else{
-            this.shouldDisable = false
-          }
-          
         }
       } catch (error) {
         alert(error, "error de vue");
@@ -193,34 +133,19 @@ export default {
     async crearAcom() {
       try {
         this.value.no_de_control=this.alumno.no_de_control
-        if(this.value.no_de_control == null)
-        {
-          Swal.fire({
-          icon: 'error',
-          title: 'No se ha buscado al alumno',
-          showConfirmButton: false,
-          timer: 2500
-          })
-        }
-        else{
         let res = await this.crear(this.value);
         if (res.data == true) {
           Swal.fire({
             icon: "success",
             title: "ACOM creado",
             text: "El ACOM de este alumno se ha creado",
-            showConfirmButton: false,
-            timer: 2500
           });
         } else {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "El ACOM de este alumno ya se encuentra generado",
-            showConfirmButton: false,
-            timer: 2500
           });
-        }
         }
       } catch (error) {}
       this.cleanInputs();
@@ -231,9 +156,6 @@ export default {
       this.data.nameComplet = "";
       this.alumno.carrera = "";
       this.alumno.semestre = "";
-      this.alumno.no_de_control = null
-      this.data.extraescolar ="";
-      this.data.estatus ="";
     },
   },
 };

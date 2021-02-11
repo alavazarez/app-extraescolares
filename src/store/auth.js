@@ -4,15 +4,11 @@ import router from '../router/index';
 export default {
   namespaced: true,
   state: {
-    overlay: false,
     authenticated: false,
     user: null,
     loading: false
   },
   getters: {
-    overlay(state) {
-      return state.overlay;
-    },
     authenticated(state) {
       return state.authenticated;
     },
@@ -25,9 +21,6 @@ export default {
   },
 
   mutations: {
-    SET_OVERLAY(state, value) {
-      state.overlay = value;
-    },
     SET_AUTHENTICATED(state, value) {
       state.authenticated = value;
     },
@@ -53,7 +46,6 @@ export default {
         return true;
       } catch (error) {
         commit("SET_LOADING", false);
-        return false;
       }
     },
 
@@ -81,64 +73,66 @@ export default {
           console.log(error);
       }
     },
-    registerUser({commit}, data){
-      commit("SET_OVERLAY", true);
+    sendEmail({state}, data){
       return new Promise((resolve,reject) => {
-        User.registerUser(
-              data,
-             (response) => {
-              commit("SET_OVERLAY", false);
-                 resolve(response);
-             },
-             (error) => {
-              commit("SET_OVERLAY", false);
-                 reject(error);
-             } 
-          )
-      }) 
-    },
-    verifiPassOld({commit}, data){
-      commit("SET_OVERLAY", true);
-      return new Promise((resolve,reject) => {
-        User.verifiPassOld(
-              data,
-             (response) => {
-              commit("SET_OVERLAY", false);
-                 resolve(response);
-             },
-             (error) => {
-              commit("SET_OVERLAY", false);
-                 reject(error);
-             } 
-          )
-      }) 
-    },
-    sendEmailReset({commit}, data){
-      commit("SET_OVERLAY", true);
-      return new Promise((resolve,reject) => {
-        User.sendEmailReset(
+        User.sendEmail(
               data,
             (response) => {
-              commit("SET_OVERLAY", false);
                 resolve(response);
             },
             (error) => {
-              commit("SET_OVERLAY", false);
                 reject(error);
             })
       }) 
     },
-    passwordReset({commit}, data){
-      commit("SET_OVERLAY", true);
+    registerUser({state}, data){
+      return new Promise((resolve,reject) => {
+        User.registerUser(
+              data,
+             (response) => {
+                 resolve(response);
+             },
+             (error) => {
+                 reject(error);
+             } 
+          )
+      }) 
+    },
+    verifiPassOld({state}, data){
+      console.log(data)
+      return new Promise((resolve,reject) => {
+        User.verifiPassOld(
+              data,
+             (response) => {
+                 resolve(response);
+             },
+             (error) => {
+                 reject(error);
+             } 
+          )
+      }) 
+    },
+    sendEmailReset({state}, data){
+      return new Promise((resolve,reject) => {
+        console.log(data, "data")
+        User.sendEmailReset(
+              data,
+            (response) => {
+                resolve(response);
+            },
+            (error) => {
+                reject(error);
+            })
+      }) 
+    },
+    passwordReset({state}, data){
       return new Promise((resolve,reject) => {
         User.passwordReset(
               data,
             (response) => {
-              commit("SET_OVERLAY", false);
                 resolve(response);
             },
             (error) => {
-              commit("SET_OVERLAY", false);
                 reject(error);
             })
       }) 

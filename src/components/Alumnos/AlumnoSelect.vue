@@ -142,8 +142,6 @@ export default {
             icon: "error",
             title: "Oops...",
             text: "El alumno no existe",
-            showConfirmButton: false,
-            timer: 2500
           });
         }
       } catch (error) {
@@ -151,7 +149,6 @@ export default {
       }
     },
     async addAlumnoToList() {
-      
       this.data.event_id = this.event_id
       this.data.no_de_control = this.alumno.no_de_control
       let res = await this.validate(this.data);
@@ -161,51 +158,15 @@ export default {
           icon: "error",
           title: "Oops...",
           text: "El alumno ya se encuentra registrado a este evento",
-          showConfirmButton: false,
-          timer: 2500
         });
         this.clear();
       }
       else
       {
-        let encuentralo = false
-        console.log(this.alumno)
-        console.log(this.inputValue.length)
-        if(this.inputValue.length == 0)
-          {
-            this.inputValue.push(this.alumno);
-            this.data.idEvento = this.event_id;
-            this.data.idAlumno = this.alumno.id;
-            this.clear();
-          }
-        else
-        {
-          for (let i = 0; i < this.inputValue.length; i++) 
-          { 
-            if(this.inputValue[i].no_de_control == this.alumno.no_de_control)
-            {
-              encuentralo = true
-              break
-            }
-          }
-          if(encuentralo == true)
-          {
-              Swal.fire({
-              icon: 'error',
-              title: 'Ya añadio a este alumno',
-              showConfirmButton: false,
-              timer: 2500
-              })
-              this.clear();
-          }
-          else
-          {
-              this.inputValue.push(this.alumno);
-              this.data.idEvento = this.event_id;
-              this.data.idAlumno = this.alumno.id;
-              this.clear();
-          }
-        }
+        this.inputValue.push(this.alumno);
+        this.data.idEvento = this.event_id;
+        this.data.idAlumno = this.alumno.id;
+        this.clear();
       }
     },
     clear(){
@@ -214,7 +175,6 @@ export default {
       delete this.alumno.apellidos;
       delete this.alumno.semestre;
       delete this.alumno.carrera;
-      //delete this.alumno.no_de_control;
       this.hidden = true;
     }
   },

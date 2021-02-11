@@ -45,22 +45,15 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="dialog = false">
-          Cerrar
+          Close
         </v-btn>
-        <v-overlay v-model="overlay">
-          <v-progress-circular
-            color="primary"
-            indeterminate
-            size="64"
-          ></v-progress-circular>
-        </v-overlay>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import Swal from "sweetalert2";
 export default {
   name: "OlvidatePasswordForm",
@@ -75,11 +68,7 @@ export default {
             email:"",
         }
     }),
-  computed: {
-    ...mapGetters({
-      overlay: "auth/overlay",
-    }),
-  },
+
     methods:{
       ...mapActions("auth", ["sendEmailReset"]),
         async sendEmail(){
@@ -92,11 +81,9 @@ export default {
               icon: "success",
               title: "Email enviado",
               text: "Envio exitoso del email",
-              showConfirmButton: false,
-              timer: 2500
               });   
               this.$refs.form.reset()
-              this.value.email = ""; 
+              this.value.email = "";
               this.$router.push('/User/ResetPassword')
             }
             else if(res.status)
@@ -105,14 +92,13 @@ export default {
               icon: "error",
               title: "Email no existe",
               text: "El correo electronico no es un usuario registrado",
-              showConfirmButton: false,
-              timer: 2500
               }); 
               this.$refs.form.reset()
               this.value.email = "";
             }
           }
-        },
+        }
+        
     }
 };
 </script>

@@ -53,15 +53,5 @@ export default {
     } catch (error) {
       return error;
     }
-  },
-  StatusExtraescolar(matricula, callback, callbackError) {
-    Api.get("api/alumno/StatusExtraescolar/" + matricula)
-      .then(response => {
-        callback(response);
-      })
-      .catch(error => {
-        console.log(error);
-        callbackError(error);
-      });
-  },
+  }
 };

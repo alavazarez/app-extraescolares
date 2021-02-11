@@ -87,24 +87,19 @@
         <v-btn color="blue darken-1" text @click="clouse()">
           Cancelar
         </v-btn>
-        <v-overlay v-model="overlay">
-          <v-progress-circular
-            color="primary"
-            indeterminate
-            size="64"
-          ></v-progress-circular>
-        </v-overlay>
         <v-btn color="blue darken-1" 
           :disabled="!valid"
           text @click="submit"> Guardar </v-btn>
       </v-card-actions>
+      
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import Swal from "sweetalert2";
-import { mapActions, mapGetters } from "vuex";
+import Event from "../../api/Event";
+import alert from '../../util/alert'
+import { mapActions } from "vuex";
 export default {
   name: "RegisterForm",
   data: () => ({
@@ -139,11 +134,6 @@ export default {
       { id: 3, name: "Cívico" },
     ],
   }),
-  computed: {
-    ...mapGetters({
-      overlay: "event/overlay",
-    }),
-  },
   methods: {
     ...mapActions("event", ["store", "getEvents"]),
     async submit() {
@@ -151,18 +141,13 @@ export default {
       {
       try {
         await this.store(this.form);
-        Swal.fire({
-              icon: "success",
-              title: "Evento creado",
-              text: "Se ha creado un nuevo evento",
-              showConfirmButton: false,
-              timer: 2500
-              })
+        alert.toast("Evento creado", 5000);
         this.getEvents();
         this.$refs.form.reset()
         this.cleanInputs();
         this.dialog = false;
       } catch (error) {
+        //
       }
       }
     },

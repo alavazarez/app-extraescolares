@@ -59,7 +59,7 @@
 <script>
 import OlvidatePasswordForm from "@/components/User/OlvidatePasswordForm";
 import { mapActions, mapGetters } from "vuex";
-import Swal from "sweetalert2";
+
 export default {
   components: { OlvidatePasswordForm },
   name: "login",
@@ -81,16 +81,15 @@ export default {
   methods: {
     ...mapActions("auth", ["singIn"]),
     async login() {
-        let response = await this.singIn(this.form)
-        if(response == false)
-        {
+      let res = await this.singIn(this.form);
+      console.log(res)
+      if(res == false)
+      {
         Swal.fire({
-          icon: "error",
-          title: "¡Error!",
-          text: "Usuario y/o contraseña incorrecta",
-          showConfirmButton: false,
-          timer: 2500
-        })
+        icon: "error",
+        title: "Datos incorrectos",
+        text: "Ingresa de nuevo tus credenciales",
+        });
       }
     },
   },

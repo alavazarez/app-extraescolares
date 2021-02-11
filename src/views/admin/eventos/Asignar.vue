@@ -44,7 +44,6 @@
 import eventPicker from "../../../components/Eventos/EventPicker";
 import AlumnoSelect from "../../../components/Alumnos/AlumnoSelect";
 import alert from "../../../util/alert";
-import Swal from "sweetalert2";
 import { mapActions } from "vuex";
 export default {
   name: "Asignar",
@@ -79,13 +78,7 @@ export default {
       if (responseSwal) {
         let response = await this.storeAttendance(this.form);
         if (response) {
-          Swal.fire({
-                icon: "success",
-                title: "Asistencias generadas",
-                text: "Se han guardado las asistencias correctamente",
-                showConfirmButton: false,
-                timer: 3000
-                })
+          alert.toast("Datos guardados correctamente", 5000);
           this.form.alumnos = [];
           this.e1 = 1;
         } else {
