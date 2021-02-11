@@ -45,7 +45,6 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          
           <v-row>
             <v-col cols="3">
               <v-text-field
@@ -81,11 +80,11 @@
             <v-col cols="2">
               <v-btn
                 @click="cancelar()"
-                depressed
+                
                 color="error"
                 v-bind:disabled="BotonActualizar">
                 <v-icon left>
-                  mdi-pencil
+                  mdi-undo-variant
                 </v-icon>
                 Cancelar
               </v-btn>
@@ -99,7 +98,7 @@
                 <v-icon left>
                   mdi-pencil
                 </v-icon>
-                Editar perfil
+                Editar
               </v-btn>
             </v-col>
             <v-col cols="2">
@@ -107,8 +106,11 @@
                 depressed
                 color="primary"
                 v-bind:disabled="BotonActualizar"
-                @click="updatePassword"
-                >Actualizar perfil
+                @click="updatePassword">
+                <v-icon left>
+                   mdi-check
+                </v-icon>
+                Actualizar
               </v-btn>
               <v-overlay v-model="overlay">
           <v-progress-circular

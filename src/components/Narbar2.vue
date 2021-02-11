@@ -13,7 +13,12 @@
         <v-list>
           <v-list-item>
             <v-list-item-title>
-              <v-btn @click="logout" text color="primary">Cerrar Sesion </v-btn>
+              <v-btn @click="editPerfil()" text color="primary">Editar Perfil</v-btn>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <v-btn @click="logout" text color="primary">Cerrar Sesion</v-btn>
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -46,18 +51,6 @@
       <v-divider></v-divider>
 
       <v-list nav dense>
-        <v-list-item-group>
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title @click="home()">Home</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-
         <v-list-group
           v-model="item.active"
           :prepend-icon="item.action"
@@ -97,7 +90,17 @@ export default {
     letra: "",
     item: 0,
     drawer: null,
-    items: [
+    items:[]
+  }),
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
+  mounted() {
+    this.letra = this.user.name.charAt(0);
+    if (this.user.isAdmin == 1) {
+      this.items= [
       {
         text: "Usuarios",
         icon: "mdi-account",
@@ -158,20 +161,61 @@ export default {
           },
         ],
       },
-    ],
-  }),
-  computed: {
-    ...mapGetters({
-      user: "auth/user",
-    }),
-  },
-  mounted() {
-    this.letra = this.user.name.charAt(0);
+    ]
+    } else {
+      this.items= [
+      {
+        text: "Eventos",
+        icon: "mdi-soccer",
+        children: [
+          {
+            text: "Ver",
+            icon: "mdi-format-list-bulleted",
+            route: "/event/index",
+          },
+          {
+            text: "Asignar",
+            icon: "mdi-account-check-outline",
+            route: "/event/asignar",
+          },
+          {
+            text: "Consultar",
+            icon: "mdi-arrow-right-bold-circle-outline",
+            route: "/event/consultar",
+          },
+          {
+            text: "Reportes",
+            icon: "mdi-file-document",
+            route: "/event/reports",
+          },
+        ],
+      },
+      {
+        text: "Actividad complementaria",
+        icon: "mdi-soccer",
+        children: [
+          { text: "Ver", icon: "mdi-eye", route: "/acom/list" },
+          { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
+          {
+            text: "Configuracion ",
+            icon: "mdi-message-processing",
+            route: "/acom/configuration",
+          },
+          {
+            text: "Reportes",
+            icon: "mdi-file-document",
+            route: "/acom/Reports",
+          },
+        ],
+      },
+    ]
+    }
   },
   methods: {
     ...mapActions("auth", ["cerrarSesion"]),
-    home() {
-      this.$router.push({ path: "/event/index" });
+    editPerfil()
+    {
+      this.$router.push({ path: '/User/showUsers' })
     },
     async logout() {
       let responseSwal = await alert.confirm(
