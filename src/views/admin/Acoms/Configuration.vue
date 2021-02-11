@@ -18,7 +18,7 @@
                 label="Nombre del jefe del Departamento de Actividades Extraescolares"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.nameBossDAE"
+                v-model="acom.nameBossDAE"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -29,7 +29,7 @@
                 label="Nombre del Profesor Responsable y/o Coordinador"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.nameCoordinator"
+                v-model="acom.nameCoordinator"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -40,7 +40,7 @@
                 label="Nombre del jefe del Departamento de Servicios Escolares"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.nameBossDSE"
+                v-model="acom.nameBossDSE"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -51,12 +51,12 @@
                 label="Frase o muletilla"
                 outlined
                 v-bind:disabled="BotonDesabilitado"
-                v-model="acoms.slogan"
+                v-model="acom.slogan"
               ></v-text-field>
             </v-col>
           </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col cols="6">
+          <v-row align="center" justify="center">
+            <v-col cols="2">
               <v-btn
                 depressed
                 color="primary"
@@ -65,13 +65,11 @@
                 >Editar
               </v-btn>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="2">
               <v-btn
                 depressed
-                 
-                v-bind:disabled="BotonDesabilitadoActualizar"
-                color="primary"
-                text
+                :disabled="!valid"
+                color="success"
                 @click="submit"
                 >Actualizar
               </v-btn>
@@ -89,11 +87,11 @@ import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
   mounted() {
-    this.getAcomData();
+    this.getAcomData()
+    this.valid=false
   },
   data: () => ({
-    valid: true,
-    BotonDesabilitadoActualizar: true,
+    valid:false,
     BotonDesabilitadoEditar: null,
     BotonDesabilitado: true,
     nameJefeRules: [
@@ -111,28 +109,31 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      acoms: "acom/acoms",
+      acom: "acom/acom",
     }),
   },
   methods: {
     ...mapActions("acom", ["getAcomData", "updateacom"]),
 
     async submit() {
-      this.BotonDesabilitadoActualizar = true;
-      this.BotonDesabilitadoEditar = false;
+      
       this.BotonDesabilitado = true;
       try {
-        await this.updateacom(this.acoms);
+        await this.updateacom(this.acom);
         Swal.fire({
             icon: "success",
             title: "Datos actualizados",
-            text: "La informacion se ha guardado satisfactoriamente",
+            text: "La informacion se ha guardado correctamente",
+            showConfirmButton: false,
+            timer: 2500
           });
+        this.BotonDesabilitadoEditar = false;
+        this.valid=false
       } catch (error) {}
     },
 
     Editar() {
-      this.BotonDesabilitadoActualizar = false;
+      this.valid=true
       this.BotonDesabilitadoEditar = true;
       this.BotonDesabilitado = false;
     },
