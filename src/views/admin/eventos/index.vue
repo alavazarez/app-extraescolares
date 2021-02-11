@@ -34,6 +34,9 @@
         class="elevation-1"
       >
         <template v-slot:item.actions="{ item }">
+          <v-btn @click="verAlumnos(item)" x-small fab color="success" dark>
+            <v-icon dark>mdi-eye</v-icon>
+          </v-btn>
           <v-btn
             x-small
             class="mx-3"
@@ -45,8 +48,8 @@
             <v-icon dark>mdi-pencil</v-icon>
           </v-btn>
           <v-btn @click="borrar(item)" x-small fab color="error" dark>
-            <v-icon dark>mdi-trash-can</v-icon></v-btn
-          >
+            <v-icon dark>mdi-trash-can</v-icon>
+          </v-btn>
         </template>
       </v-data-table>
     </v-card>
@@ -56,11 +59,12 @@
 <script>
 import RegisterForm from "@/components/Eventos/RegisterForm";
 import EditForm from "@/components/Eventos/EditForm";
+import ShowAlumnosEvent from "@/views/admin/eventos/ShowAlumnosEvent";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 
 export default {
-  components: { RegisterForm, EditForm },
+  components: { RegisterForm, EditForm, ShowAlumnosEvent },
   data: () => ({
     headers: [
       { text: "Nombre", value: "nameEvent" },
@@ -69,7 +73,7 @@ export default {
       { text: "Fecha", value: "date" },
       { text: "Lugar", value: "place" },
       { text: "Descripción", value: "description" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Acciones", value: "actions", sortable: false },
     ],
     items: [
       { id: 0, name: "Todos los eventos" },
@@ -78,6 +82,7 @@ export default {
     ],
     idFiltro: 0,
     itemSelected: {},
+    idItem: 0,
     openDialog: false,
   }),
   mounted() {
@@ -98,6 +103,13 @@ export default {
       try {
         await this.filtrosEventos(this.idFiltro);
       } catch (error) {}
+    },
+    verAlumnos(item)
+    {
+      console.log(item.id)
+      //this.idItem = item.id
+      const idItem = item.id
+      this.$router.push({ path: "/event/asistencias", params: { idItem } });
     },
     selectingItem(item) {
       this.openDialog = true;

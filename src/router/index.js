@@ -9,6 +9,8 @@ import ResetPassword from "../views/admin/user/ResetUsers.vue";
 
 import ListEvent from "../views/admin/eventos/index.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
+import Asistencias from "../views/admin/eventos/ShowAlumnosEvent.vue";
+import Consultar from "../views/admin/eventos/EventsAlumno.vue";
 import Reports from "../views/admin/eventos/Reports.vue";
 
 import ListAcom from "../views/admin/Acoms/List.vue";
@@ -54,6 +56,19 @@ const routes = [
     path: "/event/asignar",
     name: "Asignar",
     component: Asignar,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/event/consultar",
+    name: "Consultar",
+    component: Consultar,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/event/asistencias",
+    name: "Asistencias",
+    component: Asistencias,
+    props: true,
     meta: { requiresAuth: true }
   },
   {
