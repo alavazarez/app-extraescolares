@@ -81,26 +81,17 @@ export default {
           console.log(error);
       }
     },
-    sendEmail({state}, data){
-      return new Promise((resolve,reject) => {
-        User.sendEmail(
-              data,
-            (response) => {
-                resolve(response);
-            },
-            (error) => {
-                reject(error);
-            })
-      }) 
-    },
-    registerUser({state}, data){
+    registerUser({commit}, data){
+      commit("SET_OVERLAY", true);
       return new Promise((resolve,reject) => {
         User.registerUser(
               data,
              (response) => {
+              commit("SET_OVERLAY", false);
                  resolve(response);
              },
              (error) => {
+              commit("SET_OVERLAY", false);
                  reject(error);
              } 
           )
