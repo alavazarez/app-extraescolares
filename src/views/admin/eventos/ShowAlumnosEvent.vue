@@ -2,38 +2,12 @@
   <div>
     <v-container fluid style="margin: 0px; padding: 50px; width: 100%">
       <v-card>
-          <v-card-title class="heading-2">Ver alumnos que asistieron al evento</v-card-title>
-            <v-card-text>
-              <v-row align="center">
-                <v-col cols="12" sm="12" md="7">
-                  <v-text-field
-                    label="No de control"
-                    v-model="matricula"
-                  ></v-text-field>
-                </v-col>
-                <v-col>
-                  <v-btn class="block" color="primary" @click="findAlumno">
-                    Buscar
-                  </v-btn>
-                  <v-overlay v-model="overlay">
-                    <v-progress-circular
-                      color="primary"
-                      indeterminate
-                      size="64"
-                    ></v-progress-circular>
-                  </v-overlay>
-                </v-col>
-              </v-row>
-            </v-card-text>
+        <v-card-title class="heading-2">Ver alumnos que asistieron al evento</v-card-title>
         <v-data-table
           :headers="headers"
-          :items="events"
+          :items="alumnos"
           sort-by="calories"
-          class="elevation-1"
-        >
-          <template v-slot:item.date="{ item }">
-            {{ formatDate(item.date) }}
-          </template>
+          class="elevation-1">
         </v-data-table>
       </v-card>
     </v-container>
@@ -41,49 +15,41 @@
 </template>
 
 <script>
-import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
-  props:{
-    idItem:{
-      type:Number,
-      required:true,
-    },
-  },
   data() {
     return {
+      idItem:this.$route.params.idItem,
       headers: [
-        { text: "Nombre", value: "nameEvent" },
-        { text: "Tipo de evento", value: "type" },
-        { text: "Organizador", value: "organizer" },
-        { text: "Fecha", value: "date" },
-        { text: "Lugar", value: "place" },
-        { text: "Descripcion", value: "description" },
+        { text: "Nombre", value: "" },
+        { text: "Numero de control", value: "" },
+        { text: "Carrera", value: "" },
+        { text: "Acciones", value: "actions", sortable: false },
       ],
-      idItem:0,
-      matricula: "",
     };
   },
   mounted() {
-    this.getEventsAlumno()
-    console.log(this.idItem)
+    this.findEvent()
   },
   computed: {
     ...mapGetters({
-      events: "event/eventsAlumno",
+      alumnos: "event/AlumnosEvent",
       overlay: "alumno/overlay",
     }),
   },
   methods: {
     ...mapActions("event", ["getEventsAlumno"]),
-    ...mapActions("alumno", ["find"]),
 
-    formatDate(value) {
-      return moment(value).format('DD/MM/YYYY HH:mm:ss')
-    },
-    async findAlumno(){
-      try {
+    async findEvent(){
+
+      console.log(this.idItem)
+
+
+
+
+
+      /*try {
         
         let res = await this.find(this.matricula);
         if (res == false) {
@@ -97,7 +63,7 @@ export default {
         } 
       }catch (error) {
         alert(error, "error de vue");
-      }
+      }*/
       
     },
   },

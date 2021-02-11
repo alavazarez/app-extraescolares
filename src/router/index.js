@@ -65,10 +65,9 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: "/event/asistencias",
+    path: "/event/asistencias/:idItem",
     name: "Asistencias",
     component: Asistencias,
-    props: true,
     meta: { requiresAuth: true }
   },
   {

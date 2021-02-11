@@ -86,7 +86,6 @@ export default {
     ],
     idFiltro: 0,
     itemSelected: {},
-    idItem: 0,
     openDialog: false,
   }),
   mounted() {
@@ -112,10 +111,8 @@ export default {
     },
     verAlumnos(item)
     {
-      console.log(item.id)
-      //this.idItem = item.id
       const idItem = item.id
-      this.$router.push({ path: "/event/asistencias", params: { idItem } });
+      this.$router.push({ name: "Asistencias", params: { idItem } });
     },
     selectingItem(item) {
       this.openDialog = true;
