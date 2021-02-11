@@ -85,7 +85,7 @@ export default {
             text: "Numero de control incorrecto",
           });
         } else {
-        let res = await this.getEventsAlumno(this.matricula)
+        let response = await this.getEventsAlumno(this.matricula)
         } 
       }catch (error) {
         alert(error, "error de vue");
