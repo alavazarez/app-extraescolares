@@ -90,9 +90,12 @@ export default {
     value:{
       id:''}
     }),
+    mounted() {
+    this.getEventsforDate()
+  },
   computed:{
     ...mapGetters({
-      events: 'event/events',
+      events: 'event/eventsReports',
     })
   },
     methods:{
@@ -112,7 +115,6 @@ export default {
         if(this.date == '')
         {
           Swal.fire({
-          position: 'top-end',
           icon: 'error',
           title: 'Selecciona una fecha',
           showConfirmButton: false,
