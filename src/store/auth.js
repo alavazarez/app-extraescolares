@@ -81,6 +81,9 @@ export default {
           console.log(error);
       }
     },
+    desautenticar({commit}){
+      commit("SET_AUTHENTICATED", false);
+    },
     registerUser({commit}, data){
       commit("SET_OVERLAY", true);
       return new Promise((resolve,reject) => {
