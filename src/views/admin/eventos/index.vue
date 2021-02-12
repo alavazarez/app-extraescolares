@@ -63,12 +63,11 @@
 import moment from "moment";
 import RegisterForm from "@/components/Eventos/RegisterForm";
 import EditForm from "@/components/Eventos/EditForm";
-import ShowAlumnosEvent from "@/views/admin/eventos/ShowAlumnosEvent";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 
 export default {
-  components: { RegisterForm, EditForm, ShowAlumnosEvent },
+  components: { RegisterForm, EditForm },
   data: () => ({
     headers: [
       { text: "Nombre", value: "nameEvent" },

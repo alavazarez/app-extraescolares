@@ -179,7 +179,14 @@ export default {
   mounted() {
     this.getEventsForStudents();
     this.cleanInputs();
-  },
+      setTimeout(function()
+      { Swal.fire({
+          icon: "info",
+          title: "Departamento de Actividades Extraescolares (Formación Academica)",
+          html: "Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credendsdsdsdsciales Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credenciales Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credenciales",
+          width: 1100,
+        }); }, 1000);
+    },
   methods: {
     ...mapActions("acom", ["datosAcom"]),
     ...mapActions("event", ["getEventsForStudents"]),

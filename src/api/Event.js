@@ -148,13 +148,21 @@ export default {
       return error;
     }
   },
-  /*getEventsAlumno(data, callback, callbackError) {
-    Api.get("api/event/getEventsAlumno/"+data)
+  getAlumnosEvent(data) {
+    try {
+      return Api.get("api/event/getAlumnosEvent/"+data);
+    } catch (error) {
+      return error;
+    }
+  },
+  removeAsistenciaAlumno(data, callback, callbackError) {
+    Api.post("api/event/removeAsistenciaAlumno/" + data.no_de_control + "/" + data.idEvento)
       .then(response => {
         callback(response);
       })
       .catch(error => {
+        console.log(error);
         callbackError(error);
       });
-  },*/
+  },
 };
