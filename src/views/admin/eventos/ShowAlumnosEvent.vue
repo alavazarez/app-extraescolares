@@ -2,7 +2,7 @@
   <div>
     <v-container fluid style="margin: 0px; padding: 50px; width: 100%">
       <v-card>
-        <v-card-title class="heading-2">Ver alumnos que asistieron al evento</v-card-title>
+        <v-card-title class="heading-2">Alumnos que asistieron al evento</v-card-title>
         <v-data-table
           :headers="headers"
           :items="alumnos"

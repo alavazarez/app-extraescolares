@@ -146,7 +146,7 @@ export default {
               Swal.fire({
                 icon: "success",
                 title: "Eliminado!",
-                text:"El campo seleccionado ha sido eliminado",
+                text:"El evento seleccionado ha sido eliminado",
                 showConfirmButton: false,
                 timer: 2500  
                 });

@@ -48,12 +48,15 @@ export default{
           },
         async getAcomData({commit}){
             try {
+                commit("SET_OVERLAY", true);
                 let response = await Acom.getAcomData();
                 if(response.status != 200){
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 commit('SET_ACOM', response.data);
+                commit("SET_OVERLAY", false);
             } catch (error) {
+                commit("SET_OVERLAY", false);
                 console.log(error);
             }      
         },
@@ -68,14 +71,17 @@ export default{
                 console.log(error);
             }
         },
-        updateacom({state} ,data){
+        updateacom({commit} ,data){
+            commit("SET_OVERLAY", true);
             return new Promise((resolve,reject) => {
                 Acom.updateacom(
                     data,
                    (response) => {
+                    commit("SET_OVERLAY", false);
                        resolve(response);
                    },
                    (error) => {
+                    commit("SET_OVERLAY", false);
                        reject(error);
                    } 
                 )
@@ -145,6 +151,35 @@ export default{
             } catch (error) {
                 console.log(error);
             }
+        },
+        validarLiberacion( {commit} , datos){
+            return new Promise((resolve,reject) => {
+                Acom.validarLiberacion(
+                    datos,
+                   (response) => {
+                       resolve(response);
+                   },
+                   (error) => {
+                       reject(error);
+                   } 
+                )
+            })
+        },
+        destroy( {commit} , datos){
+            commit("SET_OVERLAY", true);
+            return new Promise((resolve,reject) => {
+                Acom.destroy(
+                    datos,
+                   (response) => {
+                    commit("SET_OVERLAY", false);
+                       resolve(response);
+                   },
+                   (error) => {
+                    commit("SET_OVERLAY", false);
+                       reject(error);
+                   } 
+                )
+            })
         },
     }
 }

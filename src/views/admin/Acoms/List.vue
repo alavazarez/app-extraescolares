@@ -42,11 +42,21 @@
       >
       <template v-slot:item.dateDelivery="{ item }">
       {{ formatDate(item.dateDelivery) }}
-    </template>
+    </template v-slot:item.actions="{ item }">
         <template v-slot:item.actions="{ item }">
           <v-btn @click="entregar(item)" x-small fab color="success" dark>
-            <v-icon dark>mdi-checkbox-marked-circle</v-icon></v-btn
-          >
+            <v-icon dark>mdi-checkbox-marked-circle</v-icon>
+            </v-btn>
+          <v-btn @click="borrar(item)" x-small fab color="error" dark>
+            <v-icon dark>mdi-trash-can</v-icon>
+          </v-btn>
+          <v-overlay v-model="overlay">
+          <v-progress-circular
+            color="primary"
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
         </template>
       </v-data-table>
     </v-card>
@@ -68,7 +78,6 @@ export default {
         { text: "Nombre", value: "nombre" },
         { text: "Apellidos", value: "apellidos" },
         { text: "Carrera", value: "carrera" },
-        { text: "Semestre", value: "semestre" },
         { text: "Tipo de Liberación", value: "type" },
         { text: "Fecha de Liberación", value: "dateDelivery" },
         { text: "Descripción", value: "description" },
@@ -87,11 +96,12 @@ export default {
   },
   computed: {
     ...mapGetters({
+      overlay: "acom/overlay",
       acoms: "acom/acoms",
     }),
   },
   methods: {
-    ...mapActions("acom", ["getAcoms", "deliver", "filtrosAcoms"]),
+    ...mapActions("acom", ["getAcoms", "deliver", "filtrosAcoms", "validarLiberacion", "destroy"]),
 
     formatDate(value) {
       return moment(value).format('DD/MM/YYYY HH:mm:ss')
@@ -131,6 +141,48 @@ export default {
         {}
         else {
           Swal.fire("Error!", "Este ACOM ya fue entregado", "error");
+        }
+      });
+    },
+    async borrar(item) {
+      let response = await this.validarLiberacion(item.id)
+      Swal.fire({
+        title: "¿Estas seguro de borrar este ACOM?",
+        text: "Ya no podras revertir esta acción",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar ACOM del alumno!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if(response.data == false)
+          {
+            Swal.fire({
+            icon: "error",
+            title: "¡Imposible eliminar!",
+            text: "Este ACOM ya se encuentra liberado",
+            showConfirmButton: false,
+              timer: 2500
+          });
+          }
+          else
+          {
+            this.destroy(item)
+            .then((res) => {
+              Swal.fire({
+                icon: "success",
+                title: "Eliminado!",
+                text:"El ACOM del alumno seleccionado ha sido eliminado",
+                showConfirmButton: false,
+                timer: 2500  
+                });
+              this.getAcoms();
+            })
+            .catch((err) => {
+              Swal.fire("Error!", "No pudo ser eliminado", "error");
+            });
+          }
         }
       });
     },

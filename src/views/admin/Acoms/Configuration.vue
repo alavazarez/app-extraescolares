@@ -73,6 +73,13 @@
                 @click="submit"
                 >Actualizar
               </v-btn>
+              <v-overlay v-model="overlay">
+          <v-progress-circular
+            color="primary"
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
             </v-col>
           </v-row>
           </v-form>
@@ -109,6 +116,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
+      overlay: "acom/overlay",
       acom: "acom/acom",
     }),
   },
