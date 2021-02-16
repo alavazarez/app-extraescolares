@@ -5,6 +5,7 @@ export default {
         overlay: false,
         events:[],
         eventsAlumno:[],
+        alumnosEvent:[],
         eventsReports:[],
         event:{
             nameEvent:'',
@@ -25,6 +26,9 @@ export default {
         },
         eventsAlumno(state){
             return state.eventsAlumno;
+        },
+        alumnosEvent(state){
+            return state.alumnosEvent;
         },
         eventsReports(state){
             return state.eventsReports;
@@ -51,7 +55,10 @@ export default {
         },
         SET_OVERLAY(state, value) {
             state.overlay = value;
-          }
+        },
+        SET_ALUMNOSEVENT(state, value) {
+            state.alumnosEvent = value;
+        },
     },
     actions: {
         setEvent({commit}, event){
@@ -220,21 +227,36 @@ export default {
             } catch (error) {
                 console.log(error);
             }
-        },/*
-        getEventsAlumno({state}, data){
+        },
+        async getAlumnosEvent({commit}, data){
+            try {
+                commit("SET_OVERLAY", true);
+                let response = await Event.getAlumnosEvent(data);
+                if(response.status != 200){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                commit('SET_ALUMNOSEVENT', response.data);
+                commit("SET_OVERLAY", false);
+            } catch (error) {
+                commit("SET_OVERLAY", false);
+                console.log(error);
+            }
+        },
+        async removeAsistenciaAlumno({ commit }, data) {
+            commit("SET_OVERLAY", true);
             return new Promise((resolve,reject) => {
-                Event.getEventsAlumno(
+                 Event.removeAsistenciaAlumno(
                     data,
                    (response) => {
+                        commit("SET_OVERLAY", false);
                        resolve(response);
                    },
                    (error) => {
+                        commit("SET_OVERLAY", false);
                        reject(error);
                    } 
                 )
-            }) 
-        },*/
-        
-        
+            })
+          },
     }
 }

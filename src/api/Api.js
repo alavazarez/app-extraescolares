@@ -4,7 +4,7 @@ import store from "../store"
 
 
 const Api = axios.create({
-  baseURL: process.env.VUE_APP_RUTA_API
+  baseURL: "http://localhost:8001/"
 });
 
 Api.defaults.withCredentials = true;

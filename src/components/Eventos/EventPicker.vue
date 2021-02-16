@@ -56,7 +56,6 @@ export default {
     },
     mounted (){
         this.getEvents();
-        console.log(this.selectedEvent.length)
     },
     computed:{
         ...mapGetters ({

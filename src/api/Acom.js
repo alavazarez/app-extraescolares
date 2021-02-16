@@ -91,5 +91,22 @@ export default{
             return error;
         }
     },
-
+    validarLiberacion(data, callback, callbackError) {
+        Api.get("api/acom/validarLiberacion/" + data)
+          .then(response => {
+            callback(response);
+          })
+          .catch(error => {
+            callbackError(error);
+          });
+    },
+    destroy(data, callback, callbackError) {
+        Api.post("api/acom/destroy", data)
+          .then(res => {
+            callback(res);
+          })
+          .catch(error => {
+            callbackError(error);
+          });
+      },
 }

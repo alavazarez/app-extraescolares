@@ -58,9 +58,6 @@ export default {
       matricula: "",
     };
   },
-  mounted() {
-    this.getEventsAlumno()
-  },
   computed: {
     ...mapGetters({
       events: "event/eventsAlumno",

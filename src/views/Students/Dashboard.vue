@@ -17,12 +17,25 @@
       <v-tab-item>
         <v-container fluid style="margin: 0px; padding: 50px; width: 100%">
           <v-card>
-            <v-card-title class="heading-2"> Proximos Eventos</v-card-title>
+            <v-card-title class="heading-2"> Proximos Eventos Extraescolares</v-card-title>
             <v-data-table
               :headers="headers"
               :items="events"
               sort-by="calories"
               class="elevation-1">
+              <template v-slot:item.status="{ item }">
+                <v-chip
+                :color="getColor(item.status)"
+                dark
+                pill>
+                <v-avatar v-if="item.status == 0">
+                  <v-icon>mdi-check</v-icon>
+                </v-avatar>
+                <v-avatar v-if="item.status == 1">
+                  <v-icon>mdi-close</v-icon>
+                </v-avatar>
+                </v-chip>
+              </template>
               <template v-slot:item.date="{ item }">
                 {{ formatDate(item.date) }}
               </template>
@@ -150,6 +163,7 @@ export default {
         { tab: "Avance extraescolar del alumno", content: "Tab 2 Content" },
       ],
       headers: [
+        { text: "Estatus", value: "status" },
         { text: "Nombre", value: "nameEvent" },
         { text: "Tipo de evento", value: "type" },
         { text: "Organizador", value: "organizer" },
@@ -179,12 +193,23 @@ export default {
   mounted() {
     this.getEventsForStudents();
     this.cleanInputs();
-  },
+      setTimeout(function()
+      { Swal.fire({
+          icon: "info",
+          title: "Departamento de Actividades Extraescolares (Formación Academica)",
+          html: "Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credendsdsdsdsciales Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credenciales Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credenciales",
+          width: 1100,
+        }); }, 1000);
+    },
   methods: {
     ...mapActions("acom", ["datosAcom"]),
     ...mapActions("event", ["getEventsForStudents"]),
     ...mapActions("alumno", ["find", "generatePDFAlumno", "getProgreso"]),
-
+    getColor(status) {
+        if(status === 1) return "red"
+      
+        return "green";
+      },
     formatDate(value) {
       return moment(value).format('DD/MM/YYYY HH:mm:ss')
     },

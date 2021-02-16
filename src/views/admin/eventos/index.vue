@@ -31,8 +31,21 @@
         :headers="headers"
         :items="events"
         sort-by="calories"
-        class="elevation-1"
-      >
+        class="elevation-1">
+      <template v-slot:item.status="{ item }">
+            <v-chip
+              :color="getColor(item.status)"
+              dark
+              pill>
+            <v-avatar v-if="item.status == 0">
+        <v-icon>mdi-check</v-icon>
+      </v-avatar>
+      <v-avatar v-if="item.status == 1">
+        <v-icon>mdi-close</v-icon>
+      </v-avatar>
+            <!--{{ item.status }}-->
+            </v-chip>
+        </template>
       <template v-slot:item.date="{ item }">
       {{ formatDate(item.date) }}
     </template>
@@ -63,14 +76,14 @@
 import moment from "moment";
 import RegisterForm from "@/components/Eventos/RegisterForm";
 import EditForm from "@/components/Eventos/EditForm";
-import ShowAlumnosEvent from "@/views/admin/eventos/ShowAlumnosEvent";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 
 export default {
-  components: { RegisterForm, EditForm, ShowAlumnosEvent },
+  components: { RegisterForm, EditForm },
   data: () => ({
     headers: [
+      { text: "Estatus", value: "status" },
       { text: "Nombre", value: "nameEvent" },
       { text: "Tipo de evento", value: "type" },
       { text: "Organizador", value: "organizer" },
@@ -98,6 +111,11 @@ export default {
   },
   methods: {
     ...mapActions("event", ["getEvents", "destroy", "filtrosEventos", "validarEvent"]),
+     getColor(status) {
+        if(status === 1) return "red"
+      
+        return "green";
+      },
     formatDate(value) {
       return moment(value).format('DD/MM/YYYY HH:mm:ss')
   },
@@ -147,7 +165,7 @@ export default {
               Swal.fire({
                 icon: "success",
                 title: "Eliminado!",
-                text:"El campo seleccionado ha sido eliminado",
+                text:"El evento seleccionado ha sido eliminado",
                 showConfirmButton: false,
                 timer: 2500  
                 });
