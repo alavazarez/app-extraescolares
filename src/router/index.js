@@ -105,6 +105,7 @@ const routes = [
     name: "DashboardEstudiantes",
     component: DashboardEstudiantes,
   },
+  { path: '*', redirect: '/event/index' }
 ];
 
 const router = new VueRouter({
@@ -114,8 +115,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('user')
+
   if (to.meta.requiresAuth) {
-    if (store.state.auth.authenticated) {
+    if (loggedIn != null) {
       next();
     } else {
       next("/login");

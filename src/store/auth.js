@@ -1,3 +1,4 @@
+import { Promise } from "core-js";
 import User from "../api/User";
 import router from '../router/index';
 
@@ -47,27 +48,21 @@ export default {
         if (response.status != 200) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        await dispatch("me");
+        await dispatch("getUser");
         await commit("SET_LOADING", false);
         router.push({path: "/event/index"})
         return true;
       } catch (error) {
-        commit("SET_LOADING", false);
-        return false;
+          commit("SET_LOADING", false);
+          return false;
       }
     },
-
-    async me({ commit }) {
-      try {
-        let response = await User.getUser();
-        if (response.status != 200) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+    me({ commit }) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      console.log(user);
+      if(user != null){
         commit("SET_AUTHENTICATED", true);
-        commit("SET_USER", response.data);
-      } catch (error) {
-        commit("SET_AUTHENTICATED", false);
-        commit("SET_USER", null);
+        commit("SET_USER", user);
       }
     },
     async cerrarSesion({commit}, data){
@@ -77,8 +72,22 @@ export default {
               throw new Error(`HTTP error! status: ${response.status}`);
           }
           commit("SET_AUTHENTICATED", false);
+          localStorage.removeItem('user');
       } catch (error) {
           console.log(error);
+      }
+    },
+    async getUser({dispatch}){
+      try {
+        let response = await User.getUser();
+        if (response.status != 200) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        localStorage.setItem('user', JSON.stringify(response.data));
+        dispatch("me");
+      } catch (error) {
+        commit("SET_AUTHENTICATED", false);
+        commit("SET_USER", null);
       }
     },
     desautenticar({commit}){

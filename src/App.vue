@@ -9,7 +9,7 @@
 
 <script>
 import Navbar from "./components/Narbar2";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: {
@@ -20,6 +20,6 @@ export default {
     ...mapGetters({
       authenticated: "auth/authenticated"
     })
-  }
+  },
 };
 </script>

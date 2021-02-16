@@ -68,20 +68,35 @@
       </v-card>
     </v-col>
     <v-col md="4">
-      <v-card class="mb-2" min-height="314px">
-        <v-list class="overflow-y-auto" max-height="300">
+      <v-card class="mb-2 p-10" min-height="314px">
           <v-subheader>SELECCIONADOS</v-subheader>
-          <v-list-item-group>
-            <v-list-item v-for="(item, i) in inputValue" :key="i">
-              <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>{{ item.no_de_control }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
+            <v-container>
+              <v-row
+                align="center"
+                justify="start"
+              >
+                <v-col
+                v-for="(item, i) in inputValue" 
+                :key="item.no_de_control"
+                class="shrink"
+                >
+                  <v-chip
+                  close
+                  @click:close="inputValue.splice(i, 1)"
+                  >
+                    <v-icon
+                      left
+                    >
+                    mdi-account
+                    </v-icon>
+                    {{ item.no_de_control }}
+                  </v-chip>
+                </v-col>
+              </v-row>
+            </v-container>
+            <div class="m-3">
+              
+            </div>
       </v-card>
     </v-col>
   </v-row>
@@ -109,6 +124,7 @@ export default {
   data() {
     return {
       selectedAlumnos: [],
+      selected:[],
       matricula: undefined,
       hidden: true,
       data: {

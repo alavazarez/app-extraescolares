@@ -4,6 +4,9 @@
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" step="1">
           Seleccionar evento
+          <transition name="slide-fade">
+            <span v-if="showNombreEvento" class="blue--text">{{nombreDelEventoSeleccionado}}</span>
+           </transition>
         </v-stepper-step>
 
         <v-divider></v-divider>
@@ -18,17 +21,17 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <v-card class="mb-2">
-            <eventPicker v-model="form.event_id" />
+            <eventPicker v-model="form.event" />
           </v-card>
 
-          <v-btn color="primary" @click="e1 = 2"> Continuar </v-btn>
+          <v-btn color="primary" @click="continuar"> Continuar </v-btn>
 
           <v-btn text> Cancelar </v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="2">
           <v-card class="mb-2">
-            <AlumnoSelect v-model="form.alumnos" :event_id="form.event_id" />
+            <AlumnoSelect v-model="form.alumnos" :event_id="form.event.id" />
           </v-card>
           <v-btn v-if="isAlumnosFilled" color="primary" @click="guardar">
             Guardar
@@ -56,9 +59,13 @@ export default {
     return {
       e1: 1,
       form: {
-        event_id: 0,
+        event: {
+          id:0,
+          nameEvent:""
+        },
         alumnos: [],
       },
+      show: true
     };
   },
   computed: {
@@ -66,9 +73,23 @@ export default {
       let res = this.form.alumnos.length > 0;
       return res;
     },
+    nombreDelEventoSeleccionado(){
+      return this.form.event.nameEvent;
+    },
+    showNombreEvento(){
+      return this.form.event.id != 0;
+    }
   },
   methods: {
     ...mapActions("event", ["storeAttendance"]),
+    continuar(){
+      if(this.form.event.id != 0 ){
+        this.e1 = 2
+      }
+      else{
+        alert.toast("Por favor, seleccione un evento", 1500, "error");
+      }
+    },
     async guardar() {
       let responseSwal = await alert.confirm(
         "Guardar datos",
@@ -77,15 +98,19 @@ export default {
         "No, cancelar!"
       );
       if (responseSwal) {
-        let response = await this.storeAttendance(this.form);
+        let values = {
+          event_id : this.form.event.id,
+          alumnos : this.form.alumnos
+        };
+        let response = await this.storeAttendance(values);
         if (response) {
           Swal.fire({
-                icon: "success",
-                title: "Asistencias generadas",
-                text: "Se han guardado las asistencias correctamente",
-                showConfirmButton: false,
-                timer: 3000
-                })
+            icon: "success",
+            title: "Asistencias generadas",
+            text: "Se han guardado las asistencias correctamente",
+            showConfirmButton: false,
+            timer: 3000
+          })
           this.form.alumnos = [];
           this.e1 = 1;
         } else {
@@ -98,4 +123,17 @@ export default {
 </script>
 
 <style>
+  /* Enter and leave animations can use different */
+  /* durations and timing functions.              */
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

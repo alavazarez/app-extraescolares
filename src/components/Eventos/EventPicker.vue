@@ -24,7 +24,7 @@
         >
             <template v-slot:item.date="{ item }">
                 {{ formatDate(item.date) }}
-              </template>
+            </template>
         </v-data-table>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
     name:'eventPicker',
     props: {
         value:{
-            type:Number,
+            type:Object,
             required:true,
         },
         
@@ -73,16 +73,22 @@ export default {
     },
     methods:{
         ...mapActions('event',['getEvents']),
-
         formatDate(value) 
         {
-            return moment(value).format('DD/MM/YYYY HH:mm:ss')
+            return moment(value).format('DD/MM/YYYY HH:mm')
         },
     },
     watch:{
-      selectedEvent: function (){
-        this.inputValue = this.selectedEvent[0].id;
-      }
+        selectedEvent: function (){
+            if(this.selectedEvent.length > 0){
+                this.inputValue = {id:0};
+                setTimeout(() => { 
+                    this.inputValue = this.selectedEvent[0]; 
+                }, .0001);
+            }else{
+                this.inputValue = {id:0 , nameEvent: ""};
+            }
+        }
     }
 }
 </script>
