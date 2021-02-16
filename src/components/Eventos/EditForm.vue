@@ -56,6 +56,15 @@
                 required>
                 </v-text-field>
             </v-col>
+            <v-col cols="12" sm="6">
+              <v-select 
+                v-model="value.status"
+                :items="itemsStatus"
+                label="Estatus*"
+                item-text="name"
+                item-value="id"
+              ></v-select>
+            </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
@@ -130,6 +139,10 @@ export default {
         {id:1, name:'Deportivo'},
         {id:2, name:'Cultural'},
         {id:3, name:'Cívico'},
+      ],
+    itemsStatus: [
+        {id:0, name:'Activo'},
+        {id:1, name:'Cancelado'},
       ],
     }),
     computed: {

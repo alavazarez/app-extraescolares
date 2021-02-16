@@ -132,6 +132,7 @@ export default {
       date: null,
       place: "",
       organizer: "",
+      status:0
     },
     items: [
       { id: 1, name: "Deportivo" },
