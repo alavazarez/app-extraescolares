@@ -126,12 +126,14 @@ export default {
         if (result.isConfirmed && item.status == 0) {
           this.deliver(item)
             .then((res) => {
-              Swal.fire(
-                "¡ACOM Entregado!",
-                "Se ha entregado El ACOM al alumno seleccionado",
-                "success"
-              );
-              this.getAcoms();
+              Swal.fire({
+                icon: "success",
+                title: "¡ACOM Entregado!",
+                text: "Se ha entregado El ACOM al alumno seleccionado",
+                showConfirmButton: false,
+                timer: 2500
+              });
+            this.getAcoms();
             })
             .catch((err) => {
               Swal.fire("Error!", "No pudo ser entregado el ACOM", "error");
@@ -140,7 +142,13 @@ export default {
         else if(result.isConfirmed == false)
         {}
         else {
-          Swal.fire("Error!", "Este ACOM ya fue entregado", "error");
+          Swal.fire({
+            icon: "error",
+            title: "¡Error!",
+            text: "Este ACOM ya fue entregado",
+            showConfirmButton: false,
+            timer: 2500
+          });
         }
       });
     },
@@ -153,7 +161,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar ACOM del alumno!",
+        confirmButtonText: "SI, eliminar ACOM del alumno!",
+        cancelButtonText: "NO, cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
           if(response.data == false)
@@ -163,11 +172,10 @@ export default {
             title: "¡Imposible eliminar!",
             text: "Este ACOM ya se encuentra liberado",
             showConfirmButton: false,
-              timer: 2500
+            timer: 2500
           });
           }
-          else
-          {
+          else{
             this.destroy(item)
             .then((res) => {
               Swal.fire({

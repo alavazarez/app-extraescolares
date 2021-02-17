@@ -59,7 +59,6 @@ export default {
     },
     me({ commit }) {
       let user = JSON.parse(localStorage.getItem('user'));
-      console.log(user);
       if(user != null){
         commit("SET_AUTHENTICATED", true);
         commit("SET_USER", user);

@@ -5,9 +5,10 @@
           <v-card-title class="heading-2">Eventos del alumno</v-card-title>
             <v-card-text>
               <v-row align="center">
-                <v-col cols="12" sm="12" md="7">
+                <v-col cols="3">
                   <v-text-field
                     label="No de control"
+                    type="Number"
                     v-model="matricula"
                   ></v-text-field>
                 </v-col>
@@ -64,6 +65,9 @@ export default {
       overlay: "alumno/overlay",
     }),
   },
+  mounted() {
+    this.getEventsAlumno();
+  },
   methods: {
     ...mapActions("event", ["getEventsAlumno"]),
     ...mapActions("alumno", ["find"]),
@@ -80,6 +84,8 @@ export default {
             icon: "error",
             title: "¡El alumno no existe!",
             text: "Numero de control incorrecto",
+            showConfirmButton: false,
+            timer: 2500
           });
         } else {
         let response = await this.getEventsAlumno(this.matricula)

@@ -71,7 +71,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar asistencia!",
+        confirmButtonText: "SI, eliminar asistencia!",
+        cancelButtonText: "NO, cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
           this.data.idEvento = this.idItem
@@ -81,7 +82,7 @@ export default {
               Swal.fire({
                 icon: "success",
                 title: "Eliminado!",
-                text:"El campo seleccionado ha sido eliminado",
+                text:"La asistencia del alumno ha sido eliminada",
                 showConfirmButton: false,
                 timer: 2500  
                 });

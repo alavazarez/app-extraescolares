@@ -34,7 +34,7 @@
         class="elevation-1">
       <template v-slot:item.status="{ item }">
             <v-chip
-              :color="getColor(item.status)"
+              :color="getColor(item.status, item.date)"
               dark
               pill>
             <v-avatar v-if="item.status == 0">
@@ -43,7 +43,11 @@
       <v-avatar v-if="item.status == 1">
         <v-icon>mdi-close</v-icon>
       </v-avatar>
-            <!--{{ item.status }}-->
+      <!--
+      <v-avatar v-if="item.status == 0">
+                  <v-icon>mdi-eye</v-icon>
+                </v-avatar>
+            {{ item.status }}-->
             </v-chip>
         </template>
       <template v-slot:item.date="{ item }">
@@ -69,6 +73,41 @@
         </template>
       </v-data-table>
     </v-card>
+    <v-row justify="end">
+      <v-col cols="12" sm="12" md="5">
+        <v-card elevation="5">
+          <v-card-title> Significado de los colores </v-card-title>
+          <v-card-text >
+            <div justify="center" align="center">
+              <v-chip
+                class="ma-2"
+                color="green"
+                text-color="white"
+                pill>
+                  <v-icon>mdi-check</v-icon>
+                    ACTIVO
+              </v-chip>
+              <v-chip
+                class="ma-2"
+                color="red"
+                text-color="white"
+                pill>
+                  <v-icon>mdi-close</v-icon>
+                    CANCELADO
+              </v-chip>
+              <v-chip
+                class="ma-2"
+                color="blue"
+                text-color="white"
+                pill>
+                  <v-icon>mdi-check</v-icon>
+                    REALIZADO
+              </v-chip>
+              </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -100,6 +139,7 @@ export default {
     idFiltro: 0,
     itemSelected: {},
     openDialog: false,
+    dateSystem:0
   }),
   mounted() {
     this.getEvents();
@@ -111,10 +151,15 @@ export default {
   },
   methods: {
     ...mapActions("event", ["getEvents", "destroy", "filtrosEventos", "validarEvent"]),
-     getColor(status) {
-        if(status === 1) return "red"
-      
-        return "green";
+     getColor(status, date) {
+       var dateActual = new Date();
+       var dateItems = new Date(date);
+       if(status == 1) return "red"
+
+       if(status == 0 && dateItems < dateActual) return "blue"
+
+       if(status == 0 && dateItems >= dateActual) return "green"
+       
       },
     formatDate(value) {
       return moment(value).format('DD/MM/YYYY HH:mm:ss')
@@ -145,7 +190,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar evento!",
+        confirmButtonText: "SI, eliminar evento",
+        cancelButtonText: "NO, cancelar"
       }).then((result) => {
         if (result.isConfirmed) {
           if(response.data == true)
@@ -155,7 +201,7 @@ export default {
             title: "¡Imposible eliminar!",
             text: "Este evento extraescolar ya cuenta con asistencias",
             showConfirmButton: false,
-              timer: 2500
+            timer: 2500
           });
           }
           else

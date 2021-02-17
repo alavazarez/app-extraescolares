@@ -72,7 +72,7 @@ const routes = [
   },
   {
     path: "/event/reports",
-    name: "Reportes",
+    name: "Reportes Eventos",
     component: Reports,
     meta: { requiresAuth: true }
   },
@@ -96,7 +96,7 @@ const routes = [
   },
   {
     path: "/acom/reports",
-    name: "Reportes",
+    name: "Reportes Acoms",
     component: ReportsAcom,
     meta: { requiresAuth: true }
   },

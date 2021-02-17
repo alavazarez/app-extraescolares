@@ -185,8 +185,6 @@ export default {
       else
       {
         let encuentralo = false
-        console.log(this.alumno)
-        console.log(this.inputValue.length)
         if(this.inputValue.length == 0)
           {
             this.inputValue.push(this.alumno);

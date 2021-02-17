@@ -41,8 +41,63 @@
               </template>
             </v-data-table>
           </v-card>
+          <v-row>
+            <v-col>
+              <v-row justify="start">
+            <v-col cols="12" sm="12" md="8">
+              <v-card elevation="5">
+                <v-card-title> Significado de los colores </v-card-title>
+                <v-card-text >
+                  <div justify="center" align="center">
+                    <v-chip
+                      class="ma-2"
+                      color="green"
+                      text-color="white"
+                      pill>
+                        <v-icon>mdi-check</v-icon>
+                          ACTIVO
+                    </v-chip>
+                    <v-chip
+                      class="ma-2"
+                      color="red"
+                      text-color="white"
+                      pill>
+                        <v-icon>mdi-close</v-icon>
+                          CANCELADO
+                    </v-chip>
+                    <v-chip
+                      class="ma-2"
+                      color="blue"
+                      text-color="white"
+                      pill>
+                        <v-icon>mdi-check</v-icon>
+                          REALIZADO
+                    </v-chip>
+                    </div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+            </v-col>
+            <v-col>
+              <v-row justify="end">
+            <v-col cols="12" sm="12" md="12">
+              <v-card elevation="5">
+                <v-card-title> AVISO PARA LA COMUNIDAD ESTUDIANTIL </v-card-title>
+                <v-card-text>
+                    <div class="text--primary">
+                      SE HACE DEL CONOCIMIENTO A TODO EL ALUMNADO DE ESTE INSTITUTO TECNOLÓGICO DE TUXTLA GUTIÉRREZ, PERTENECIENTE AL TECNOLÓGICO NACIONAL DE MÉXICO DE LA SECRETARÍA DE...
+                    </div>
+                    <LearnMore/>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+            </v-col>
+          </v-row>
         </v-container>
       </v-tab-item>
+
       <v-tab-item>
         <v-container>
           <v-row>
@@ -151,10 +206,12 @@
 </template>
 
 <script>
+import LearnMore from "@/components/Alumnos/LearnMore";
 import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 export default {
+  components: { LearnMore },
   data() {
     return {
       tabs: null,
@@ -193,13 +250,6 @@ export default {
   mounted() {
     this.getEventsForStudents();
     this.cleanInputs();
-      setTimeout(function()
-      { Swal.fire({
-          icon: "info",
-          title: "Departamento de Actividades Extraescolares (Formación Academica)",
-          html: "Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credendsdsdsdsciales Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credenciales Revise la bandeja de su correo para conocer su codigo de verificación y pueda restablecer sus credenciales",
-          width: 1100,
-        }); }, 1000);
     },
   methods: {
     ...mapActions("acom", ["datosAcom"]),
