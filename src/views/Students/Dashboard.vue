@@ -22,7 +22,8 @@
               :headers="headers"
               :items="events"
               sort-by="calories"
-              class="elevation-1">
+              class="elevation-1"
+              >
               <template v-slot:item.status="{ item }">
                 <v-chip
                 :color="getColor(item.status)"
@@ -64,14 +65,6 @@
                       pill>
                         <v-icon>mdi-close</v-icon>
                           CANCELADO
-                    </v-chip>
-                    <v-chip
-                      class="ma-2"
-                      color="blue"
-                      text-color="white"
-                      pill>
-                        <v-icon>mdi-check</v-icon>
-                          REALIZADO
                     </v-chip>
                     </div>
                 </v-card-text>

@@ -128,7 +128,6 @@ export default {
       { text: "Organizador", value: "organizer" },
       { text: "Fecha", value: "date" },
       { text: "Lugar", value: "place" },
-      { text: "Descripción", value: "description" },
       { text: "Acciones", value: "actions", sortable: false },
     ],
     items: [
