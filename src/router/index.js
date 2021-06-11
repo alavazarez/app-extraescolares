@@ -1,41 +1,51 @@
 import Vue from "vue";
-import store  from "../store"
+import store from "../store"
 import VueRouter from "vue-router";
-import Dashboard from "../views/admin/user/Dashboard.vue";
-import showUsers from "../views/admin/user/ShowUsers.vue";
-import ListEvent from "../views/admin/eventos/index.vue";
+
 import Login from "../views/admin/user/Login.vue";
+import showUsers from "../views/admin/user/ShowUsers.vue";
+import AddUser from "../views/admin/user/AddUser.vue";
+import ResetPassword from "../views/admin/user/ResetUsers.vue";
+
+import ListEvent from "../views/admin/eventos/index.vue";
 import Asignar from "../views/admin/eventos/Asignar.vue";
+import Asistencias from "../views/admin/eventos/ShowAlumnosEvent.vue";
+import Consultar from "../views/admin/eventos/EventsAlumno.vue";
 import Reports from "../views/admin/eventos/Reports.vue";
+
 import ListAcom from "../views/admin/Acoms/List.vue";
-import DeliversAcom from "../views/admin/Acoms/Delivers.vue";
 import CreateAcom from "../views/admin/Acoms/Create.vue";
 import ConfigurationAcom from "../views/admin/Acoms/Configuration.vue";
 import ReportsAcom from "../views/admin/Acoms/Reports.vue";
-import UpcomingEvents from "../views/Students/UpcomingEvents.vue";
-import EventProgress from "../views/Students/EventProgress.vue";
+
+import DashboardEstudiantes from "../views/Students/Dashboard.vue";
 
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Dashboard",
-    component: Dashboard,
-    meta: {requiresAuth:true}
-  },
-  {
     path: "/User/showUsers",
     name: "showUsers",
-    component: showUsers
+    component: showUsers,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/User/ResetPassword",
+    name: "ResetPassword",
+    component: ResetPassword,
+  },
+  {
+    path: "/User/AddUser",
+    name: "AddUser",
+    component: AddUser,
+    meta: { requiresAuth: true }
   },
   {
     path: "/event/index",
     name: "ListEvent",
     component: ListEvent,
-    meta: {requiresAuth:true}
-
+    meta: { requiresAuth: true }
   },
   {
     path: "/login",
@@ -46,54 +56,56 @@ const routes = [
     path: "/event/asignar",
     name: "Asignar",
     component: Asignar,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/event/consultar",
+    name: "Consultar",
+    component: Consultar,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/event/asistencias/:idItem",
+    name: "Asistencias",
+    component: Asistencias,
+    meta: { requiresAuth: true }
   },
   {
     path: "/event/reports",
-    name: "Reportes",
+    name: "Reportes Eventos",
     component: Reports,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/list",
     name: "listAcom",
     component: ListAcom,
-    meta: {requiresAuth:true}
-  },
-  {
-    path: "/acom/delivers",
-    name: "Entregar",
-    component: DeliversAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/create",
     name: "Crear",
     component: CreateAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/configuration",
     name: "Configurar",
     component: ConfigurationAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
     path: "/acom/reports",
-    name: "Reportes",
+    name: "Reportes Acoms",
     component: ReportsAcom,
-    meta: {requiresAuth:true}
+    meta: { requiresAuth: true }
   },
   {
-  path: "/students/upcoming",
-    name: "Proximos",
-    component: UpcomingEvents
+    path: "/",
+    name: "DashboardEstudiantes",
+    component: DashboardEstudiantes,
   },
-  {
-    path: "/students/progress",
-      name: "Progreso",
-      component: EventProgress
-    }
+  { path: '*', redirect: '/event/index' }
 ];
 
 const router = new VueRouter({
@@ -102,12 +114,14 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach( (to, from, next) => {
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('user')
+
   if (to.meta.requiresAuth) {
-    if(store.state.auth.authenticated){
+    if (loggedIn != null) {
       next();
-    }else{
-      next('/login');
+    } else {
+      next("/login");
     }
   } else {
     next();

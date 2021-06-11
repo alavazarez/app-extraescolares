@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">ACOM´s liberados a los estudiantes
+        <span class="headline">Eventos extraescolares realizados en un periodo
         </span>
       </v-card-title>
       <v-card-text>
@@ -39,7 +39,7 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
-                :disabled="!valid"
+                  :disabled="!valid"
                   text @click="exportar"
                   color="success"
                   fab
@@ -68,7 +68,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: "ReportDeliverForm",
+  name: "ReportEventPeriodForm",
   data: () => ({
     valid: true,
     dialog:false,
@@ -81,16 +81,16 @@ export default {
     date:{
       initialDate:null,
       finalDate:null
-    },
+    }
     }),
 
     methods:{
-      ...mapActions('acom',['exportarAcomLiberados']),
+      ...mapActions('event',['exportarPeriodEvents']),
       async exportar(){
         if(this.$refs.form.validate() == true)
         {
         try {
-          await this.exportarAcomLiberados(this.date)
+          await this.exportarPeriodEvents(this.date)
         } catch (error) {
         }
         }

@@ -7,43 +7,35 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Estudiantes que asistieron a un evento extraescolar
+        <span class="headline">Alumnos que asistieron a un evento extraescolar
         </span>
       </v-card-title>
       <v-card-text>
         <v-container>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Evento"
-                solo
-              ></v-select>
+              <v-text-field
+              :rules="dateRules"
+              v-model="date"
+              type="date"
+              label="Fecha del evento"
+             ></v-text-field>
             </v-col>
           </v-row>
           <v-row align="center" justify="space-around">
             <v-col class="d-flex" cols="12" sm="8">
               <v-select
-                :items="items"
-                label="Sexo"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Carrera"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row align="center" justify="space-around">
-            <v-col class="d-flex" cols="12" sm="8">
-              <v-select
-                :items="items"
-                label="Semestre"
+                @click="obtenerEvents"
+                :rules="eventRules"
+                v-model="value.id"
+                :items="events"
+                label="Evento*"
+                item-text="nameEvent"
+                item-value="id"
                 solo
               ></v-select>
             </v-col>
@@ -51,6 +43,8 @@
           <v-row align="center" justify="space-around">
               <div class="my-2">
                 <v-btn
+                  text @click="exportar"
+                  :disabled="!valid"
                   color="success"
                   fab
                   x-large
@@ -62,12 +56,13 @@
           <v-row align="center" justify="space-around">
           <v-card-title>Generar Excel</v-card-title>
           </v-row>
+          </v-form>
         </v-container>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="dialog = false">
-          Close
+          Cerrar
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -75,8 +70,65 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import Swal from "sweetalert2";
 export default {
   name: "ReportStudentsForm",
-  data: () => ({dialog:false})
+  data: () => ({
+    valid: true,
+    items: [
+        {id:"id", name:"nameEvent"},
+      ],
+      dateRules: [
+        v => !!v || 'La fecha del evento es requerido',
+      ],
+      eventRules: [
+        v => !!v || 'El evento es requerido',
+      ],
+    date: '',
+    dialog:false,
+    value:{
+      id:''}
+    }),
+    mounted() {
+    this.getEventsforDate()
+  },
+  computed:{
+    ...mapGetters({
+      events: 'event/eventsReports',
+    })
+  },
+    methods:{
+    ...mapActions('event',['exportarAlumnos', 'getEventsforDate']),
+
+      async exportar(){
+        if(this.$refs.form.validate() == true)
+        {
+        try {
+          await this.exportarAlumnos(this.value.id)
+        } catch (error) {
+        }
+        }
+      },
+      async obtenerEvents(){
+        //Para obtener eventos de un dia
+        if(this.date == '')
+        {
+          Swal.fire({
+          icon: 'error',
+          title: 'Selecciona una fecha',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        }
+        else
+        {
+        try {
+          await this.getEventsforDate(this.date)
+          } catch (error) {
+        }
+        }
+      },
+    }
 };
 </script>

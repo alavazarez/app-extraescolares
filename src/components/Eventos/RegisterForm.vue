@@ -11,130 +11,175 @@
       </v-card-title>
       <v-card-text>
         <v-container>
+           <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
           <v-row>
             <v-col cols="8">
               <v-text-field 
-              v-model="form.name"
-              label="Nombre*" 
               required
-              >
+              :rules="nameRules"
+              v-model="form.nameEvent" 
+              label="Nombre*">
               </v-text-field>
             </v-col>
             <v-col cols="4">
               <v-select
-              v-model="form.type_event_id"
-              :items="items"
-              label="Tipo de evento"
-              item-text="name"
-              item-value="id"
+                v-model="form.type_event_id"
+                :items="items"
+                label="Tipo de evento*"
+                item-text="name"
+                item-value="id"
               ></v-select>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6">
               <v-text-field 
-              v-model="form.place"
+              :rules="placeRules"
+              v-model="form.place" 
               label="Lugar*" 
               required>
               </v-text-field>
             </v-col>
-            <v-col cols="12" sm="4">
-              <v-menu>
-                <v-text-field 
-                v-model="form.date"
-                type="date"
-                slot="activator"
-                label="Fecha">
-                </v-text-field>
-              </v-menu>
-            </v-col>
-            <v-col cols="12" sm="4"> 
-              <v-text-field 
-              v-model="form.date"
-              label="hora*" 
-              required>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                :rules="OrganizatorRules"
+                v-model="form.organizer"
+                label="Organizador*"
+                required
+              >
               </v-text-field>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12">
-              <v-text-field
-              v-model="form.organizer"
-              label="Organizador*" 
-              required>
-              >
-              </v-text-field>
+            <v-col cols="12" sm="6">
+              <v-menu>
+                <v-text-field
+                  :rules="dateRules"
+                  v-model="form.date"
+                  type="datetime-local"
+                  slot="activator"
+                  label="Fecha y hora*">
+                </v-text-field>
+              </v-menu>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
               <v-textarea
+                :rules="descriptionRules"
                 v-model="form.description"
                 outlined
-                label="Descripción"
+                label="Descripción*"
                 counter
-                maxlength="120"
+                maxlength="100"
               ></v-textarea>
             </v-col>
           </v-row>
+          </v-form>
         </v-container>
         <small>*indicates required field</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog = false">
-          Close
+        <v-btn color="blue darken-1" text @click="clouse()">
+          Cancelar
         </v-btn>
-        <v-btn color="blue darken-1" text @click="submit">
-          Save
-        </v-btn>
+        <v-overlay v-model="overlay">
+          <v-progress-circular
+            color="primary"
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
+        <v-btn color="blue darken-1" 
+          :disabled="!valid"
+          text @click="submit"> Guardar </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import Event from '../../api/Event'
-import { mapActions } from 'vuex'
+import Swal from "sweetalert2";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "RegisterForm",
   data: () => ({
-    dialog:false,
-    form:{
-      name:'Manuel',
-      type_event_id:1,
-      description:'dfsf',
-      date:null,
-      place:'Tec',
-      organizer:'Fito'
+    valid: true,
+    nameRules: [
+        v => !!v || 'Nombre del evento es requerido',
+      ],
+    placeRules: [
+        v => !!v || 'El lugar del evento es requerido',
+      ],
+    OrganizatorRules: [
+        v => !!v || 'El organizador del evento es requerido',
+      ],
+    dateRules: [
+        v => !!v || 'La fecha del evento es requerido',
+      ],
+    descriptionRules: [
+        v => !!v || 'La descripción del evento es requerido',
+      ],
+    dialog: false,
+    form: {
+      nameEvent: "",
+      type_event_id: 1,
+      description: "",
+      date: null,
+      place: "",
+      organizer: "",
+      status:0
     },
     items: [
-        {id:1, name:'Deportivo'},
-        {id:2, name:'Cultural'},
-        {id:3, name:'Cívico'},
-      ],
+      { id: 1, name: "Deportivo" },
+      { id: 2, name: "Cultural" },
+      { id: 3, name: "Cívico" },
+    ],
+  }),
+  computed: {
+    ...mapGetters({
+      overlay: "event/overlay",
     }),
-    methods:{
-      ...mapActions('event',['store','getEvents']),
-      async submit(){
-        try {
-          await this.store(this.form)
-          this.getEvents();
-          this.cleanInputs();
-          this.dialog = false
-          
-        } catch (error) {
-          //
-        }
-      },
-      cleanInputs(){
-        this.form.name=''
-        this.form.type_event_id=null
-        this.form.description=''
-        this.form.date=null
-        this.form.place=''
-        this.form.organizer=''
+  },
+  methods: {
+    ...mapActions("event", ["store", "getEvents"]),
+    async submit() {
+      if(this.$refs.form.validate() == true)
+      {
+      try {
+        await this.store(this.form);
+        Swal.fire({
+              icon: "success",
+              title: "Evento creado",
+              text: "Se ha creado un nuevo evento",
+              showConfirmButton: false,
+              timer: 2500
+              })
+        this.getEvents();
+        this.$refs.form.reset()
+        this.cleanInputs();
+        this.dialog = false;
+      } catch (error) {
+      }
       }
     },
+    clouse(){
+      this.$refs.form.reset()
+      this.cleanInputs();
+      this.dialog=false
+    },
+    cleanInputs() {
+      this.form.nameEvent = "";
+      this.form.type_event_id = null;
+      this.form.description = "";
+      this.form.date = null;
+      this.form.place = "";
+      this.form.organizer = "";
+    },
+  },
 };
 </script>

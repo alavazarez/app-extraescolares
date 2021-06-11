@@ -12,54 +12,49 @@
 
         <v-list>
           <v-list-item>
-            <v-list-item-title>Cerrar sesión</v-list-item-title>
+            <v-list-item-title>
+              <v-btn @click="editPerfil()" text color="primary">Editar Perfil</v-btn>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title>
+              <v-btn @click="logout" text color="primary">Cerrar Sesion</v-btn>
+            </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer app>
-      <v-list>
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-          </v-list-item-avatar>
-        </v-list-item>
-      </v-list>
+    <v-navigation-drawer  width="330" app v-model="drawer">
+      <div class="text-center mt-3">
+        <v-avatar color="primary" size="60">
+          <span class="white--text headline"> {{ letra }} </span>
+        </v-avatar>
+      </div>
 
       <v-list>
         <v-list-item link>
           <v-list-item-content>
             <v-list-item-title class="title">
-              {{user.name}}
+              {{ user.name }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              {{user.email}}
+              {{ user.email }}
             </v-list-item-subtitle>
           </v-list-item-content>
-
-          <v-list-item-action>
-            <v-icon>mdi-menu-down</v-icon>
-          </v-list-item-action>
         </v-list-item>
       </v-list>
+      
       <v-divider></v-divider>
 
       <v-list nav dense>
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item>
-
-        <v-list-group 
-        v-model="item.active"
-        :prepend-icon="item.action"
-        no-action 
-        v-for="(item, i) in items" 
-        :key="i">
+        <v-list-group
+          v-model="item.active"
+          :prepend-icon="item.action"
+          no-action
+          v-for="(item, i) in items"
+          :key="i"
+        >
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
@@ -73,7 +68,6 @@
             :to="child.route"
           >
             <v-list-item-title v-text="child.text"></v-list-item-title>
-
             <v-list-item-icon>
               <v-icon v-text="child.icon"></v-icon>
             </v-list-item-icon>
@@ -85,54 +79,148 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import alert from "../util/alert";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Navbar",
   data: () => ({
+    letra: "",
     item: 0,
     drawer: null,
-    items: [
+    items:[]
+  }),
+  computed: {
+    ...mapGetters({
+      user: "auth/user",
+    }),
+  },
+  mounted() {
+    this.letra = this.user.name.charAt(0);
+    if (this.user.isAdmin == 1) {
+      this.items= [
       {
-        text: "User",
+        text: "Usuarios",
         icon: "mdi-account",
         children: [
-          { text: "Ver usuarios", icon: "mdi-account-plus", route: "/User/showUsers" }
-        ]
+          {
+            text: "Nuevo usuario",
+            icon: "mdi-account-plus",
+            route: "/User/AddUser",
+          },
+        ],
       },
       {
         text: "Eventos",
         icon: "mdi-soccer",
         children: [
-          { text: "Ver", icon: "mdi-format-list-bulleted", route: "/event/index" },
-          { text: "Asignar", icon: "mdi-account-check-outline", route: "/event/asignar" },
-          { text: "Reportes", icon: "mdi-file-document", route: "/event/reports" }
-        ]
+          {
+            text: "Ver",
+            icon: "mdi-format-list-bulleted",
+            route: "/event/index",
+          },
+          {
+            text: "Asignar",
+            icon: "mdi-account-check-outline",
+            route: "/event/asignar",
+          },
+          {
+            text: "Consultar",
+            icon: "mdi-arrow-right-bold-circle-outline",
+            route: "/event/consultar",
+          },
+          {
+            text: "Reportes",
+            icon: "mdi-file-document",
+            route: "/event/reports",
+          },
+        ],
       },
       {
-        text: "ACOM",
+        text: "Actividad complementaria",
         icon: "mdi-soccer",
         children: [
           { text: "Ver", icon: "mdi-eye", route: "/acom/list" },
-          { text: "Entregar", icon: "mdi-check", route: "/acom/delivers" },
           { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
-          { text: "Configuracion ", icon: "mdi-message-processing", route: "/acom/configuration" },
-          { text: "Reportes", icon: "mdi-file-document", route: "/acom/Reports" }
-        ]
+          {
+            text: "Configuracion ",
+            icon: "mdi-message-processing",
+            route: "/acom/configuration",
+          },
+          {
+            text: "Reportes",
+            icon: "mdi-file-document",
+            route: "/acom/Reports",
+          },
+        ],
       },
+    ]
+    } else {
+      this.items= [
       {
-        text: "Estudiantes",
+        text: "Eventos",
         icon: "mdi-soccer",
         children: [
-          { text: "Eventos proximos", icon: "mdi-eye", route: "/students/upcoming" },
-          { text: "Avance extraescolar", icon: "mdi-check", route: "/students/progress" }
-        ]
-      }
+          {
+            text: "Ver",
+            icon: "mdi-format-list-bulleted",
+            route: "/event/index",
+          },
+          {
+            text: "Asignar",
+            icon: "mdi-account-check-outline",
+            route: "/event/asignar",
+          },
+          {
+            text: "Consultar",
+            icon: "mdi-arrow-right-bold-circle-outline",
+            route: "/event/consultar",
+          },
+          {
+            text: "Reportes",
+            icon: "mdi-file-document",
+            route: "/event/reports",
+          },
+        ],
+      },
+      {
+        text: "Actividad complementaria",
+        icon: "mdi-soccer",
+        children: [
+          { text: "Ver", icon: "mdi-eye", route: "/acom/list" },
+          { text: "Crear ", icon: "mdi-pencil", route: "/acom/create" },
+          {
+            text: "Configuracion ",
+            icon: "mdi-message-processing",
+            route: "/acom/configuration",
+          },
+          {
+            text: "Reportes",
+            icon: "mdi-file-document",
+            route: "/acom/Reports",
+          },
+        ],
+      },
     ]
-  }),
-  computed:{
-    ...mapGetters({
-      user: 'auth/user',
-    })
-  }
+    }
+  },
+  methods: {
+    ...mapActions("auth", ["cerrarSesion"]),
+    editPerfil()
+    {
+      this.$router.push({ path: '/User/showUsers' })
+    },
+    async logout() {
+      let responseSwal = await alert.confirm(
+        "Cerrar Sesión",
+        "¿Está seguro de cerrar sesión?",
+        "Si, salir!",
+        "No, cancelar!"
+      );
+      if (responseSwal) {
+        let response = await this.cerrarSesion(this.user);
+        this.$router.push({ path: "/login" });
+      }
+    },
+  },
 };
 </script>

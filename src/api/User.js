@@ -30,12 +30,50 @@ export default {
     }
   },
 
-  logout() {
+  async logout(data) {
     try {
-      return Api.post("/logout");
+      return Api.post("api/logout",data);
     } catch (error) {
       return error;
     }
-  }
+  },
+
+  registerUser(data, callback, callbackError){
+    Api.post('api/user/registerUser',data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            callbackError(error);
+        })
+  },
+  verifiPassOld(data, callback, callbackError){
+    Api.post('api/user/verifiPassOld/'+data.user,data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            callbackError(error);
+        })
+  },
+
+  sendEmailReset(data, callback, callbackError){
+    Api.post('api/user/sendEmailReset',data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            callbackError(error);
+        })
+  },
+  passwordReset(data, callback, callbackError){
+    Api.post('api/user/passwordReset',data)
+        .then(response=>{
+            callback(response) 
+        })
+        .catch(error=>{
+            callbackError(error);
+        })
+  },
 
 }
